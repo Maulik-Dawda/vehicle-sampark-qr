@@ -1,4 +1,9 @@
 <?php
+if (isset($_SERVER['REQUEST_URI']) && preg_match('/batch_pdf\.php/i', $_SERVER['REQUEST_URI'])) {
+    http_response_code(404);
+    require __DIR__ . '/404.php';
+    exit;
+}
 // batch_pdf.php - Medium-Width Centered 4-Tags-Per-Page Batch PDF Streamer
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -12,13 +17,6 @@ require_once __DIR__ . '/includes/tag_template.php';
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
-
-$reqPath = parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH);
-if (substr($reqPath, -4) === '.php') {
-    http_response_code(404);
-    require __DIR__ . '/404.php';
-    exit;
-}
 
 requireAdminLogin();
 

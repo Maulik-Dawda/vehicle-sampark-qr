@@ -1,4 +1,9 @@
 <?php
+if (isset($_SERVER['REQUEST_URI']) && preg_match('/single_pdf\.php/i', $_SERVER['REQUEST_URI'])) {
+    http_response_code(404);
+    require __DIR__ . '/404.php';
+    exit;
+}
 // single_pdf.php - Single Vehicle Tag PDF Streamer & Downloader
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -9,13 +14,6 @@ if (file_exists(__DIR__ . '/config/database.php')) {
 }
 require_once __DIR__ . '/includes/functions.php';
 require_once __DIR__ . '/includes/tag_template.php';
-
-$reqPath = parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH);
-if (substr($reqPath, -4) === '.php') {
-    http_response_code(404);
-    require __DIR__ . '/404.php';
-    exit;
-}
 
 use Dompdf\Dompdf;
 use Dompdf\Options;

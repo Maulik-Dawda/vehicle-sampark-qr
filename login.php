@@ -1,15 +1,13 @@
 <?php
-// login.php - Vehicle Sampark Professional Admin Login Interface with Loader & 2FA
-
-require_once __DIR__ . '/config/database.php';
-require_once __DIR__ . '/includes/functions.php';
-
-$reqPath = parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH);
-if (substr($reqPath, -4) === '.php') {
+if (isset($_SERVER['REQUEST_URI']) && preg_match('/login\.php/i', $_SERVER['REQUEST_URI'])) {
     http_response_code(404);
     require __DIR__ . '/404.php';
     exit;
 }
+// login.php - Vehicle Sampark Professional Admin Login Interface with Loader & 2FA
+
+require_once __DIR__ . '/config/database.php';
+require_once __DIR__ . '/includes/functions.php';
 
 // Logout action handler
 if (isset($_GET['action']) && $_GET['action'] === 'logout') {

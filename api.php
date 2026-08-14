@@ -1,4 +1,9 @@
 <?php
+if (isset($_SERVER['REQUEST_URI']) && preg_match('/api\.php/i', $_SERVER['REQUEST_URI'])) {
+    http_response_code(404);
+    require __DIR__ . '/404.php';
+    exit;
+}
 // api.php - Vehicle Sampark API Router & Tag Card Data Provider (Admin Protected)
 
 if (file_exists(__DIR__ . '/config/database.php')) {
@@ -8,13 +13,6 @@ if (file_exists(__DIR__ . '/config/database.php')) {
 }
 require_once __DIR__ . '/includes/functions.php';
 require_once __DIR__ . '/includes/tag_template.php';
-
-$reqPath = parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH);
-if (substr($reqPath, -4) === '.php') {
-    http_response_code(404);
-    require __DIR__ . '/404.php';
-    exit;
-}
 
 $action = sanitize($_GET['action'] ?? '');
 
