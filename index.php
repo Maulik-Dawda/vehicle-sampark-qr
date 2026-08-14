@@ -751,16 +751,6 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                 <a href="#why-us" class="nav-link"><i class="fa-solid fa-shield-halved"></i> Why Us</a>
                 <a href="#faq" class="nav-link"><i class="fa-solid fa-circle-question"></i> FAQ</a>
                 <a href="#contact" class="nav-link"><i class="fa-solid fa-envelope"></i> Contact Us</a>
-
-                <?php if (isAdminLoggedIn()): ?>
-                    <a href="dashboard.php" class="btn btn-primary btn-sm">
-                        <i class="fa-solid fa-gauge-high"></i> Dashboard
-                    </a>
-                <?php else: ?>
-                    <a href="login.php" class="btn btn-outline btn-sm">
-                        <i class="fa-solid fa-lock"></i> Admin Portal
-                    </a>
-                <?php endif; ?>
             </div>
         </div>
     </nav>
