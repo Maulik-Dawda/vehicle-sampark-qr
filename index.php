@@ -1,5 +1,5 @@
 <?php
-// index.php - Vehicle Sampark World-Class Landing Page with Perfectly Aligned Hero Scan Animation
+// index.php - Vehicle Sampark Landing Page with Live Ticker, Real-Time Activity Toast, and Counter Animations
 
 require_once __DIR__ . '/config/database.php';
 require_once __DIR__ . '/includes/functions.php';
@@ -128,7 +128,6 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
             border-radius: 10px !important;
         }
 
-        /* LASER SCANNING BEAM ANIMATION */
         .scanner-laser {
             position: absolute;
             top: 0;
@@ -149,7 +148,6 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
             100% { top: 0%; opacity: 0; }
         }
 
-        /* SCANNER TARGET BRACKETS - PERFECTLY SNAPPED TO CORNERS */
         .scanner-bracket {
             position: absolute;
             width: 20px;
@@ -164,7 +162,6 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
         .bracket-bl { bottom: 6px; left: 6px; border-right: none; border-top: none; border-bottom-left-radius: 6px; }
         .bracket-br { bottom: 6px; right: 6px; border-left: none; border-top: none; border-bottom-right-radius: 6px; }
 
-        /* LIVE CONNECTED OWNER STATUS TOAST - PERFECTLY ALIGNED */
         .scan-status-toast {
             margin: 1.25rem auto 0 auto;
             max-width: 580px;
@@ -228,6 +225,106 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
         .action-pills-live.show {
             opacity: 1;
             transform: scale(1);
+        }
+
+        /* INFINITE SCROLLING TICKER MARQUEE */
+        .ticker-wrap {
+            width: 100%;
+            overflow: hidden;
+            background: #0f172a;
+            color: #ffffff;
+            padding: 0.9rem 0;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(15, 23, 42, 0.2);
+        }
+
+        .ticker-move {
+            display: flex;
+            gap: 2.5rem;
+            width: max-content;
+            animation: tickerSlide 28s linear infinite;
+        }
+
+        .ticker-move:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes tickerSlide {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .ticker-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.92rem;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            color: #f8fafc;
+            white-space: nowrap;
+        }
+
+        .ticker-item i {
+            color: var(--primary);
+            font-size: 1.05rem;
+        }
+
+        /* LIVE FLOATING ACTIVITY TOAST (BOTTOM LEFT) */
+        .live-activity-toast {
+            position: fixed;
+            bottom: 25px;
+            left: 25px;
+            z-index: 9999;
+            background: #ffffff;
+            border: 1px solid #a7f3d0;
+            border-left: 5px solid #10b981;
+            border-radius: 12px;
+            padding: 0.85rem 1.15rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            max-width: 340px;
+            transform: translateY(120px);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+        }
+
+        .live-activity-toast.show {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .toast-icon-circle {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #ecfdf5;
+            color: #059669;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        /* STATS COUNTER STRIP */
+        .stats-counter-strip {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #ffffff;
+            padding: 3.5rem 1.5rem;
+        }
+
+        .counter-num {
+            font-family: var(--font-heading);
+            font-size: 2.75rem;
+            font-weight: 900;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: 0.35rem;
         }
 
         /* HAZARD CARDS */
@@ -533,6 +630,24 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
         </div>
     </section>
 
+    <!-- LIVE INFINITE SCROLLING TICKER MARQUEE -->
+    <div class="ticker-wrap">
+        <div class="ticker-move">
+            <div class="ticker-item"><i class="fa-solid fa-shield-halved"></i> 100% Privacy Guarded - No Mobile Numbers Revealed</div>
+            <div class="ticker-item"><i class="fa-solid fa-bolt"></i> Instant Call & 4-Option Emergency WhatsApp Bot Relay</div>
+            <div class="ticker-item"><i class="fa-solid fa-car-burst"></i> Avoid Scratching, Vandalism & Unexpected Towing Fines</div>
+            <div class="ticker-item"><i class="fa-solid fa-soap"></i> Integrated Doorstep Car Cleaning & Nearby Garage Support</div>
+            <div class="ticker-item"><i class="fa-solid fa-qrcode"></i> Zero App Download - Scans with Any Phone Camera or Google Lens</div>
+
+            <!-- Duplicate for Seamless Infinite Loop -->
+            <div class="ticker-item"><i class="fa-solid fa-shield-halved"></i> 100% Privacy Guarded - No Mobile Numbers Revealed</div>
+            <div class="ticker-item"><i class="fa-solid fa-bolt"></i> Instant Call & 4-Option Emergency WhatsApp Bot Relay</div>
+            <div class="ticker-item"><i class="fa-solid fa-car-burst"></i> Avoid Scratching, Vandalism & Unexpected Towing Fines</div>
+            <div class="ticker-item"><i class="fa-solid fa-soap"></i> Integrated Doorstep Car Cleaning & Nearby Garage Support</div>
+            <div class="ticker-item"><i class="fa-solid fa-qrcode"></i> Zero App Download - Scans with Any Phone Camera or Google Lens</div>
+        </div>
+    </div>
+
     <!-- HOW IT WORKS - 3 STEP QUICK FLOW -->
     <section id="how-it-works" style="padding: 5rem 1.5rem; background: #ffffff;">
         <div style="max-width: 1200px; margin: 0 auto;">
@@ -571,6 +686,28 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                         Coordinate moving the car, wrong parking, towing, or emergency situations quickly, safely, and peacefully.
                     </p>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LIVE STATS COUNTER STRIP -->
+    <section class="stats-counter-strip">
+        <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2.5rem; text-align: center;">
+            <div>
+                <div class="counter-num" data-target="12480">0</div>
+                <div style="font-size: 0.9rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">Active QR Tags</div>
+            </div>
+            <div>
+                <div class="counter-num" style="color: #f97316;" data-target="45200">0</div>
+                <div style="font-size: 0.9rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">Anonymous Alerts Relayed</div>
+            </div>
+            <div>
+                <div class="counter-num" data-target="99">0</div>
+                <div style="font-size: 0.9rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">% Emergency Response Rate</div>
+            </div>
+            <div>
+                <div class="counter-num" style="color: #f97316;" data-target="3">0</div>
+                <div style="font-size: 0.9rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">Sec Avg WhatsApp Alert Time</div>
             </div>
         </div>
     </section>
@@ -666,7 +803,12 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                             <tr>
                                 <th>Feature</th>
                                 <th style="color: var(--accent-rose);">Traditional Paper Number Card</th>
-                                <th style="color: var(--primary); font-size: 1.05rem;">Vehicle Sampark Smart Tag <span class="badge badge-submitted" style="margin-left: 0.4rem;">BEST CHOICE</span></th>
+                                <th style="color: var(--primary); font-size: 1.05rem;">
+                                    Vehicle Sampark Smart Tag 
+                                    <span class="badge badge-submitted" style="margin-left: 0.4rem; background: #10b981; color: #ffffff;">
+                                        <span class="status-dot active-green" style="width:7px; height:7px; margin-right:3px;"></span> LIVE PROTECTED
+                                    </span>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -851,6 +993,24 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
         </div>
     </section>
 
+    <!-- LIVE REAL-TIME RECENT ACTIVITY TOAST (FLOATING BOTTOM-LEFT) -->
+    <div class="live-activity-toast" id="liveActivityToast">
+        <div class="toast-icon-circle" id="toastIconCircle">
+            <i class="fa-solid fa-bolt"></i>
+        </div>
+        <div>
+            <div style="font-size: 0.78rem; font-weight: 800; color: #10b981; text-transform: uppercase; letter-spacing: 0.5px;" id="toastCategory">
+                Live Scanner Relay
+            </div>
+            <div style="font-size: 0.88rem; font-weight: 700; color: #0f172a;" id="toastText">
+                Someone in Ahmedabad scanned QR #QRC-849201
+            </div>
+            <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 1px;" id="toastTime">
+                Just now
+            </div>
+        </div>
+    </div>
+
     <!-- FOOTER -->
     <footer style="background: #0f172a; color: #ffffff; padding: 3rem 1.5rem; text-align: center;">
         <div style="max-width: 1200px; margin: 0 auto;">
@@ -873,7 +1033,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
     </footer>
 
     <script>
-    // LIVE INTERACTIVE SCAN ANIMATION SEQUENCE
+    // 1. LIVE HERO SCAN ANIMATION SEQUENCE
     document.addEventListener('DOMContentLoaded', function() {
         const toast = document.getElementById('liveHeroScanToast');
         const dot = document.getElementById('liveHeroDot');
@@ -917,6 +1077,107 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                 pills.classList.remove('show');
             }
         }, 1800);
+    });
+
+    // 2. LIVE REAL-TIME FLOATING ACTIVITY TOAST SEQUENCE (BOTTOM-LEFT)
+    document.addEventListener('DOMContentLoaded', function() {
+        const liveToast = document.getElementById('liveActivityToast');
+        const toastCategory = document.getElementById('toastCategory');
+        const toastText = document.getElementById('toastText');
+        const toastIconCircle = document.getElementById('toastIconCircle');
+        const toastTime = document.getElementById('toastTime');
+
+        const activityList = [
+            {
+                category: 'Live Scanner Relay',
+                text: 'Someone in Ahmedabad scanned QR #QRC-849201',
+                icon: '<i class="fa-solid fa-qrcode"></i>',
+                time: '2 seconds ago'
+            },
+            {
+                category: 'New Registration',
+                text: 'Creta (GJ-05-AB-9812) activated in Surat',
+                icon: '<i class="fa-solid fa-car"></i>',
+                time: '12 seconds ago'
+            },
+            {
+                category: 'WhatsApp Emergency Bot',
+                text: 'Wrong parking alert sent to owner in Vadodara',
+                icon: '<i class="fa-brands fa-whatsapp"></i>',
+                time: '34 seconds ago'
+            },
+            {
+                category: 'Doorstep Car Washing',
+                text: 'Eco waterless cleaning requested in Rajkot',
+                icon: '<i class="fa-solid fa-soap"></i>',
+                time: '1 minute ago'
+            },
+            {
+                category: 'Garage Assistance',
+                text: 'Flat tyre mechanic connected in Gandhinagar',
+                icon: '<i class="fa-solid fa-wrench"></i>',
+                time: '2 minutes ago'
+            }
+        ];
+
+        let toastIndex = 0;
+
+        function triggerToast() {
+            const item = activityList[toastIndex];
+            toastCategory.textContent = item.category;
+            toastText.textContent = item.text;
+            toastIconCircle.innerHTML = item.icon;
+            toastTime.textContent = item.time;
+
+            liveToast.classList.add('show');
+
+            setTimeout(function() {
+                liveToast.classList.remove('show');
+            }, 4500);
+
+            toastIndex = (toastIndex + 1) % activityList.length;
+        }
+
+        // Trigger first toast after 2.5s, then repeat every 9s
+        setTimeout(function() {
+            triggerToast();
+            setInterval(triggerToast, 9000);
+        }, 2500);
+    });
+
+    // 3. ANIMATED SCROLL COUNTER NUMBERS
+    document.addEventListener('DOMContentLoaded', function() {
+        const counters = document.querySelectorAll('.counter-num');
+        let animated = false;
+
+        function runCounters() {
+            const strip = document.querySelector('.stats-counter-strip');
+            if (!strip) return;
+            const rect = strip.getBoundingClientRect();
+
+            if (rect.top <= window.innerHeight && rect.bottom >= 0 && !animated) {
+                animated = true;
+                counters.forEach(counter => {
+                    const target = +counter.getAttribute('data-target');
+                    let count = 0;
+                    const speed = target > 1000 ? Math.ceil(target / 40) : 1;
+
+                    const updateCount = () => {
+                        count += speed;
+                        if (count < target) {
+                            counter.innerText = count.toLocaleString() + (target === 99 ? '%' : '+');
+                            setTimeout(updateCount, 30);
+                        } else {
+                            counter.innerText = target.toLocaleString() + (target === 99 ? '%' : target === 3 ? ' Sec' : '+');
+                        }
+                    };
+                    updateCount();
+                });
+            }
+        }
+
+        window.addEventListener('scroll', runCounters);
+        runCounters();
     });
 
     function toggleFaq(element) {
