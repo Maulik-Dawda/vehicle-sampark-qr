@@ -155,7 +155,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Alerts System';
                     <i class="fa-solid fa-shield-cat"></i> Protect Your Vehicle & Private Identity
                 </div>
                 <h1 style="font-family: var(--font-heading); font-size: 2.7rem; font-weight: 800; color: #0f172a; line-height: 1.15; margin-bottom: 1.1rem; letter-spacing: -0.5px;">
-                    Let Anyone Reach You With a <span style="color: var(--primary);">Quick QR & NFC Scan</span>
+                    Let Anyone Reach You With a <span style="color: var(--primary);">Quick QR Scan</span>
                 </h1>
                 <p style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1.85rem;">
                     A simple scan lets anyone contact you instantly. Get real-time WhatsApp alerts, 4-option emergency bot reports, and direct calls if your car needs attention — without exposing your private phone number or home address.
@@ -180,8 +180,8 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Alerts System';
                         <div style="font-size: 0.78rem; color: var(--text-muted); font-weight: 600;">Call & WhatsApp Bot</div>
                     </div>
                     <div>
-                        <div style="font-family: var(--font-heading); font-size: 1.4rem; font-weight: 800; color: #0f172a;">Dual Badge</div>
-                        <div style="font-size: 0.78rem; color: var(--text-muted); font-weight: 600;">NFC + Center Logo QR</div>
+                        <div style="font-family: var(--font-heading); font-size: 1.4rem; font-weight: 800; color: #0f172a;">Smart Badge</div>
+                        <div style="font-size: 0.78rem; color: var(--text-muted); font-weight: 600;">Center Logo QR Tag</div>
                     </div>
                 </div>
             </div>
@@ -206,7 +206,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Alerts System';
                     <div style="width: 54px; height: 54px; background: #ecfdf5; color: var(--primary); border: 1px solid #a7f3d0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-heading); font-weight: 800; font-size: 1.3rem; margin: 0 auto 1.25rem auto;">
                         <i class="fa-solid fa-qrcode"></i>
                     </div>
-                    <h3 style="font-size: 1.2rem; font-weight: 700; color: #0f172a; margin-bottom: 0.5rem;">1. Scan the QR / NFC</h3>
+                    <h3 style="font-size: 1.2rem; font-weight: 700; color: #0f172a; margin-bottom: 0.5rem;">1. Scan the QR Code</h3>
                     <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6;">
                         Anyone can scan the Vehicle Sampark sticker on your windshield using any smartphone camera — no app required.
                     </p>
@@ -354,11 +354,6 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Alerts System';
                             <td style="color: var(--accent-rose);"><i class="fa-solid fa-circle-xmark"></i> Easily torn or scratched off</td>
                             <td style="color: var(--primary); font-weight: 700;"><i class="fa-solid fa-circle-check"></i> Pasted Inside Glass / Durable</td>
                         </tr>
-                        <tr>
-                            <td style="font-weight: 600;">NFC Smart Tap Technology</td>
-                            <td style="color: var(--accent-rose);"><i class="fa-solid fa-circle-xmark"></i> Static Paper Only</td>
-                            <td style="color: var(--primary); font-weight: 700;"><i class="fa-solid fa-circle-check"></i> Integrated NFC Smart Badge</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -425,7 +420,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Alerts System';
         </div>
     </section>
 
-    <!-- DIRECT CONTACT & INQUIRY FORM SECTION (NO PAYMENT REQUIRED) -->
+    <!-- DIRECT CONTACT & INQUIRY FORM SECTION -->
     <section id="contact" style="padding: 4rem 1.5rem; background: #ffffff;">
         <div style="max-width: 1000px; margin: 0 auto;">
             <div style="text-align: center; margin-bottom: 2.5rem;">
@@ -465,7 +460,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Alerts System';
                     </div>
                 </div>
 
-                <!-- Landing Page Inquiry Form (Configured with SMTP Email Mailer) -->
+                <!-- Landing Page Inquiry Form -->
                 <div class="content-card" style="padding: 1.75rem;">
                     <h3 style="font-size: 1.25rem; font-weight: 800; color: #0f172a; margin-bottom: 1rem;">
                         <i class="fa-solid fa-paper-plane" style="color: var(--accent-orange);"></i> Send Us an Inquiry

@@ -1,5 +1,5 @@
 <?php
-// scan.php - Vehicle Sampark Mobile-Responsive Scanner & Interactive WhatsApp Bot Simulator
+// scan.php - Vehicle Sampark Mobile-Responsive Scanner & Owner Registration Page
 
 require_once __DIR__ . '/config/database.php';
 require_once __DIR__ . '/includes/functions.php';
@@ -30,64 +30,30 @@ if (empty($codeNumber)) {
 
 // Handle First-Time Owner Registration Submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$error && $qrData['status'] === 'pending') {
-    $formFields = json_decode($qrData['form_schema'], true) ?: [];
-    $responses = [];
-    $filePaths = [];
-    $validationFailed = false;
+    $fullName = sanitize($_POST['full_name'] ?? '');
+    $mobileNumber = sanitize($_POST['mobile_number'] ?? '');
+    $whatsappNumber = sanitize($_POST['whatsapp_number'] ?? '');
+    $emergencyMobileNumber = sanitize($_POST['emergency_mobile_number'] ?? '');
+    $carNumber = strtoupper(trim(sanitize($_POST['car_number'] ?? '')));
+    $carName = sanitize($_POST['car_name'] ?? '');
+    $carModel = sanitize($_POST['car_model'] ?? '');
 
-    $uploadDir = __DIR__ . '/uploads';
-    if (!is_dir($uploadDir)) {
-        mkdir($uploadDir, 0777, true);
-    }
+    // Input Validations
+    if (empty($fullName) || empty($mobileNumber) || empty($whatsappNumber) || empty($emergencyMobileNumber) || empty($carNumber) || empty($carName) || empty($carModel)) {
+        $error = 'Please fill out all required vehicle owner registration fields.';
+    } elseif (!preg_match('/^[A-Za-z0-9\s\-]{4,15}$/', $carNumber)) {
+        $error = 'Invalid Car Number format. Example of valid format: GJ-03-NL-0104 or MH-01-AB-1234.';
+    } else {
+        $responses = [
+            'Full Name' => $fullName,
+            'Mobile Number' => $mobileNumber,
+            'WhatsApp Number' => $whatsappNumber,
+            'Emergency Mobile Number' => $emergencyMobileNumber,
+            'Car Number' => $carNumber,
+            'Car Name' => $carName,
+            'Car Model' => $carModel
+        ];
 
-    foreach ($formFields as $field) {
-        $fieldId = $field['id'];
-        $label = $field['label'];
-        $type = $field['type'];
-
-        if ($type === 'image' || $type === 'file') {
-            if (isset($_FILES[$fieldId]) && $_FILES[$fieldId]['error'] === UPLOAD_ERR_OK) {
-                $file = $_FILES[$fieldId];
-                $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
-                $allowed = ($type === 'image') 
-                    ? ['jpg', 'jpeg', 'png', 'gif', 'webp'] 
-                    : ['pdf', 'doc', 'docx', 'txt', 'zip', 'jpg', 'jpeg', 'png'];
-
-                if (!in_array($ext, $allowed)) {
-                    $error = "Invalid file format for field '$label'. Allowed: " . implode(', ', $allowed);
-                    $validationFailed = true;
-                    break;
-                }
-
-                $newFilename = $type . '_' . uniqid() . '.' . $ext;
-                $targetPath = $uploadDir . '/' . $newFilename;
-
-                if (move_uploaded_file($file['tmp_name'], $targetPath)) {
-                    $relPath = 'uploads/' . $newFilename;
-                    $responses[$label] = $relPath;
-                    $filePaths[$fieldId] = $relPath;
-                } else {
-                    $error = "Failed to upload file for field '$label'.";
-                    $validationFailed = true;
-                    break;
-                }
-            } else {
-                $error = "Field '$label' is required. Please upload a file.";
-                $validationFailed = true;
-                break;
-            }
-        } else {
-            $val = sanitize($_POST[$fieldId] ?? '');
-            if (empty($val) && $val !== '0') {
-                $error = "Field '$label' is required.";
-                $validationFailed = true;
-                break;
-            }
-            $responses[$label] = $val;
-        }
-    }
-
-    if (!$validationFailed) {
         try {
             $pdo->beginTransaction();
             $submitterIp = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
@@ -100,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$error && $qrData['status'] === 'p
                 ':qr_code_id' => $qrData['id'],
                 ':code_number' => $codeNumber,
                 ':response_data' => json_encode($responses, JSON_UNESCAPED_UNICODE),
-                ':file_paths' => json_encode($filePaths, JSON_UNESCAPED_UNICODE),
+                ':file_paths' => json_encode([], JSON_UNESCAPED_UNICODE),
                 ':submitter_ip' => $submitterIp
             ]);
 
@@ -169,7 +135,6 @@ $cleanPhoneTel = preg_replace('/[^\d+]/', '', $mobileNumber);
 
 // Vehicle Sampark Company Official WhatsApp Bot Number
 $companyBotWhatsapp = '919876543210'; 
-$vehicleInfoText = trim(($carName ? "$carName " : "") . ($carModel ? "$carModel " : "") . ($carNumber ? "($carNumber)" : ""));
 $waBotMessage = "Hi Vehicle Sampark! I am scanning QR code " . $codeNumber . ($carNumber ? " for vehicle plate " . $carNumber : "") . ". I would like to report an emergency issue or contact the vehicle owner.";
 
 include __DIR__ . '/includes/header.php';
@@ -204,9 +169,7 @@ include __DIR__ . '/includes/header.php';
         </div>
 
     <?php elseif ($qrData['status'] === 'submitted'): ?>
-        <!-- ==========================================================================
-             MOBILE-OPTIMIZED PUBLIC / BYSTANDER CONTACT PORTAL & WHATSAPP BOT
-             ========================================================================== -->
+        <!-- MOBILE PUBLIC BYSTANDER CONTACT PORTAL -->
         <div class="content-card" style="padding: 1.75rem 1.25rem; text-align: center; border-color: #cbd5e1;">
             <div style="margin-bottom: 0.85rem;">
                 <span class="badge badge-submitted" style="font-size: 0.82rem; padding: 0.35rem 0.85rem;">
@@ -242,7 +205,7 @@ include __DIR__ . '/includes/header.php';
                 </a>
             </div>
 
-            <!-- DIRECT WHATSAPP BOT BUTTON (Company Official Number Endpoint) -->
+            <!-- DIRECT WHATSAPP BOT BUTTON -->
             <div style="margin-bottom: 1rem;">
                 <a href="https://wa.me/<?= htmlspecialchars($companyBotWhatsapp) ?>?text=<?= urlencode($waBotMessage) ?>" target="_blank" class="btn btn-primary" style="width: 100%; padding: 1rem; font-size: 1.05rem; background: linear-gradient(135deg, #f97316, #ea580c); border-radius: var(--radius-lg); font-weight: 700;">
                     <i class="fa-brands fa-whatsapp" style="font-size: 1.35rem;"></i> Chat on WhatsApp (Vehicle Sampark Bot)
@@ -265,42 +228,59 @@ include __DIR__ . '/includes/header.php';
 
     <?php else: ?>
         <!-- ==========================================================================
-             FIRST-TIME VEHICLE OWNER REGISTRATION FORM
+             FIXED 7 VEHICLE OWNER REGISTRATION FORM
              ========================================================================== -->
         <div class="content-card" style="padding: 1.75rem 1.25rem;">
             <div style="text-align: center; margin-bottom: 1.5rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-color);">
                 <div style="margin-bottom: 0.4rem;">
                     <span class="code-badge"><?= htmlspecialchars($codeNumber) ?></span>
                 </div>
-                <h1 style="font-size: 1.6rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.3rem;"><?= htmlspecialchars($qrData['form_title']) ?></h1>
+                <h1 style="font-size: 1.6rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.3rem;">Vehicle Owner Registration</h1>
                 <p style="color: var(--text-muted); font-size: 0.88rem;">
                     Fill out your vehicle details to register this QR Tag. Once registered, public scanners can call or WhatsApp you directly.
                 </p>
             </div>
 
-            <form action="scan.php?code=<?= urlencode($codeNumber) ?>" method="POST" enctype="multipart/form-data">
-                <?php 
-                $fields = json_decode($qrData['form_schema'], true) ?: [];
-                foreach ($fields as $field): 
-                    $fid = htmlspecialchars($field['id']);
-                    $flabel = htmlspecialchars($field['label']);
-                    $ftype = $field['type'];
-                ?>
-                    <div class="form-group">
-                        <label class="form-label"><?= $flabel ?> <span class="required">*</span></label>
-                        <?php if ($ftype === 'text'): ?>
-                            <input type="text" name="<?= $fid ?>" class="form-control" placeholder="Enter <?= strtolower($flabel) ?>" required>
-                        <?php elseif ($ftype === 'mobile'): ?>
-                            <input type="tel" name="<?= $fid ?>" class="form-control" placeholder="+91 98765 43210" required>
-                        <?php else: ?>
-                            <input type="text" name="<?= $fid ?>" class="form-control" placeholder="Enter <?= strtolower($flabel) ?>" required>
-                        <?php endif; ?>
-                    </div>
-                <?php endforeach; ?>
+            <form action="scan.php?code=<?= urlencode($codeNumber) ?>" method="POST">
+                <div class="form-group">
+                    <label class="form-label">Full Name <span class="required">*</span></label>
+                    <input type="text" name="full_name" class="form-control" placeholder="Enter your full name" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Mobile Number <span class="required">*</span></label>
+                    <input type="tel" name="mobile_number" class="form-control" placeholder="+91 98765 43210" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">WhatsApp Number <span class="required">*</span></label>
+                    <input type="tel" name="whatsapp_number" class="form-control" placeholder="+91 98765 43210" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Emergency Mobile Number <span class="required">*</span></label>
+                    <input type="tel" name="emergency_mobile_number" class="form-control" placeholder="+91 98765 43210" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Car Number / License Plate <span class="required">*</span></label>
+                    <input type="text" name="car_number" class="form-control" placeholder="e.g. GJ-03-NL-0104" style="text-transform: uppercase;" required>
+                    <span class="form-help">Format example: GJ-03-NL-0104 or MH-01-AB-1234</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Car Name / Brand <span class="required">*</span></label>
+                    <input type="text" name="car_name" class="form-control" placeholder="e.g. Hyundai, Toyota, Honda" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Car Model <span class="required">*</span></label>
+                    <input type="text" name="car_model" class="form-control" placeholder="e.g. Creta, Fortuner, City" required>
+                </div>
 
                 <div style="margin-top: 1.75rem;">
                     <button type="submit" class="btn btn-primary btn-glow" style="width: 100%; padding: 0.85rem; font-size: 1rem;">
-                        <i class="fa-solid fa-id-card"></i> Register Vehicle Owner & Activate QR
+                        <i class="fa-solid fa-id-card"></i> Register Vehicle Owner & Activate QR Tag
                     </button>
                 </div>
             </form>
@@ -330,7 +310,7 @@ function openWhatsAppBotSimulator(code, carNum) {
     chatBox.innerHTML = `
         <div style="align-self: flex-start; background: #ffffff; padding: 0.75rem; border-radius: 8px; max-width: 85%; font-size: 0.88rem; box-shadow: 0 1px 2px rgba(0,0,0,0.15);">
             👋 <strong>Vehicle Sampark Bot:</strong> Welcome! You scanned vehicle tag <strong>${code}</strong>.<br><br>
-            Please confirm the vehicle plate number: <strong>${carNum || 'MH-01-AB-1234'}</strong>
+            Please confirm the vehicle plate number: <strong>${carNum || 'GJ-03-NL-0104'}</strong>
             <div style="margin-top: 0.75rem; display: flex; gap: 0.5rem;">
                 <button type="button" class="btn btn-primary btn-sm" onclick="botConfirmPlate(true, '${code}', '${carNum}')">✅ Yes, Correct</button>
                 <button type="button" class="btn btn-secondary btn-sm" onclick="botConfirmPlate(false, '${code}', '${carNum}')">❌ No / Enter Other</button>
@@ -355,9 +335,9 @@ function botConfirmPlate(confirmed, code, carNum) {
                 ❌ No, let me type plate number
             </div>
             <div style="align-self: flex-start; background: #ffffff; padding: 0.75rem; border-radius: 8px; max-width: 85%; font-size: 0.88rem;">
-                🤖 Please enter the vehicle plate number below to check database:
+                🤖 Please enter the vehicle plate number below (e.g. GJ-03-NL-0104) to check database:
                 <div style="display: flex; gap: 0.4rem; margin-top: 0.5rem;">
-                    <input type="text" id="botCustomPlateInput" class="form-control form-control-sm" placeholder="e.g. MH01AB1234">
+                    <input type="text" id="botCustomPlateInput" class="form-control form-control-sm" placeholder="e.g. GJ-03-NL-0104" style="text-transform: uppercase;">
                     <button type="button" class="btn btn-primary btn-sm" onclick="botLookupCustomPlate()">Search</button>
                 </div>
             </div>

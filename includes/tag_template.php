@@ -47,10 +47,10 @@ function renderVehicleSamparkTagHTML($codeNumber, $formTitle = 'Vehicle Contact 
                         <img src="' . $qrBase64 . '" class="tag-qr-img" alt="QR Code">
                     </div>
                     
-                    <table style="width: 100%; margin-top: 4px;">
+                    <table style="width: 100%; margin-top: 6px;">
                         <tr>
                             <td style="font-size: 8px; font-weight: bold; color: #ffffff; text-align: left;">
-                                <span class="nfc-badge">NFC Smart Tag</span>
+                                <span class="nfc-badge">SMART TAG</span>
                             </td>
                             <td style="font-family: monospace; font-size: 10px; font-weight: bold; color: #ffffff; text-align: right;">
                                 ' . htmlspecialchars($codeNumber) . '
@@ -58,14 +58,7 @@ function renderVehicleSamparkTagHTML($codeNumber, $formTitle = 'Vehicle Contact 
                         </tr>
                     </table>
 
-                    <div class="tag-icons-bar">
-                        <span class="icon-sym">🚨</span>
-                        <span class="icon-sym">🚫</span>
-                        <span class="icon-sym">⚠️</span>
-                        <span class="icon-sym">📞</span>
-                    </div>
-
-                    <div class="tag-panel-footer">
+                    <div class="tag-panel-footer" style="margin-top: 8px;">
                         Wrong Parking, Emergency Contact,<br>
                         any issue with the vehicle, Scan the QR.
                     </div>
@@ -88,6 +81,7 @@ function getVehicleSamparkTagCSS() {
         background: #ffffff;
         box-shadow: 0 4px 15px rgba(0,0,0,0.12);
         font-family: Helvetica, Arial, sans-serif;
+        text-align: left;
     }
     .sampark-tag-table {
         width: 100%;
@@ -110,7 +104,7 @@ function getVehicleSamparkTagCSS() {
         color: #ffffff;
     }
     .tag-brand-title {
-        font-size: 20px;
+        font-size: 19px;
         font-weight: 900;
         letter-spacing: -0.5px;
         color: #000000;
@@ -118,7 +112,7 @@ function getVehicleSamparkTagCSS() {
         display: block;
     }
     .tag-logo-thumb {
-        height: 32px;
+        height: 30px;
         width: auto;
         border-radius: 4px;
     }
@@ -132,15 +126,15 @@ function getVehicleSamparkTagCSS() {
     .tag-sub-caption {
         font-size: 8.5px;
         color: #475569;
-        margin-top: 5px;
-        margin-bottom: 12px;
+        margin-top: 4px;
+        margin-bottom: 10px;
     }
     .tag-main-headline {
-        font-size: 23px;
+        font-size: 21px;
         font-weight: 900;
         line-height: 1.15;
         color: #000000;
-        margin-bottom: 14px;
+        margin-bottom: 12px;
         letter-spacing: -0.5px;
     }
     .tag-highlight {
@@ -152,20 +146,19 @@ function getVehicleSamparkTagCSS() {
         font-size: 7.5px;
         font-weight: bold;
         color: #64748b;
-        letter-spacing: 0.3px;
+        letter-spacing: 0.2px;
         line-height: 1.3;
     }
     .qr-white-card {
         background: #ffffff;
-        border-radius: 10px;
-        padding: 6px;
+        border-radius: 8px;
+        padding: 5px;
         border: 2px solid #000000;
         display: inline-block;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
     .tag-qr-img {
-        width: 135px;
-        height: 135px;
+        width: 125px;
+        height: 125px;
         display: block;
         border-radius: 4px;
     }
@@ -174,20 +167,14 @@ function getVehicleSamparkTagCSS() {
         color: #ffffff;
         padding: 1px 5px;
         border-radius: 3px;
-    }
-    .tag-icons-bar {
-        margin-top: 4px;
-        font-size: 14px;
-        letter-spacing: 3px;
-    }
-    .icon-sym {
-        display: inline-block;
+        font-size: 8px;
+        letter-spacing: 0.5px;
     }
     .tag-panel-footer {
-        font-size: 8px;
+        font-size: 8.5px;
         font-weight: bold;
         color: #ffffff;
-        margin-top: 4px;
+        margin-top: 6px;
         line-height: 1.25;
     }
     ';

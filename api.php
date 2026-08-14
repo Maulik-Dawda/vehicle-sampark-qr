@@ -41,35 +41,30 @@ function handleCreateBatch($pdo) {
     }
 
     $quantity = isset($data['quantity']) ? (int)$data['quantity'] : 0;
-    $formTitle = sanitize($data['form_title'] ?? '');
-    $formDescription = sanitize($data['form_description'] ?? '');
-    $fields = $data['fields'] ?? [];
+    $formTitle = sanitize($data['form_title'] ?? 'Vehicle QR Tag Registration');
+    $formDescription = sanitize($data['form_description'] ?? 'Scan QR code to register vehicle owner details for direct call and WhatsApp contact.');
 
     if ($quantity < 1 || $quantity > 500) {
         jsonResponse(false, 'Quantity must be between 1 and 500');
     }
 
     if (empty($formTitle)) {
-        jsonResponse(false, 'Form Title is required');
+        $formTitle = 'Vehicle QR Tag Registration';
     }
 
-    if (empty($fields) || !is_array($fields)) {
-        jsonResponse(false, 'At least one form field is required');
-    }
-
-    $sanitizedFields = [];
-    foreach ($fields as $field) {
-        $sanitizedFields[] = [
-            'id' => sanitize($field['id'] ?? ('field_' . uniqid())),
-            'type' => sanitize($field['type'] ?? 'text'),
-            'label' => sanitize($field['label'] ?? 'Field'),
-            'required' => true,
-            'options' => isset($field['options']) && is_array($field['options']) ? array_map('sanitize', $field['options']) : []
-        ];
-    }
+    // Fixed 7 Vehicle Owner Fields (Always pre-configured)
+    $fixedFields = [
+        ['id' => 'full_name', 'type' => 'text', 'label' => 'Full Name', 'required' => true],
+        ['id' => 'mobile_number', 'type' => 'mobile', 'label' => 'Mobile Number', 'required' => true],
+        ['id' => 'whatsapp_number', 'type' => 'mobile', 'label' => 'WhatsApp Number', 'required' => true],
+        ['id' => 'emergency_mobile_number', 'type' => 'mobile', 'label' => 'Emergency Mobile Number', 'required' => true],
+        ['id' => 'car_number', 'type' => 'text', 'label' => 'Car Number', 'required' => true],
+        ['id' => 'car_name', 'type' => 'text', 'label' => 'Car Name', 'required' => true],
+        ['id' => 'car_model', 'type' => 'text', 'label' => 'Car Model', 'required' => true]
+    ];
 
     $batchName = 'Batch ' . date('Y-m-d H:i') . ' (' . $quantity . ' Tags)';
-    $formSchemaJson = json_encode($sanitizedFields, JSON_UNESCAPED_UNICODE);
+    $formSchemaJson = json_encode($fixedFields, JSON_UNESCAPED_UNICODE);
 
     try {
         $pdo->beginTransaction();
