@@ -861,3 +861,221 @@ a:hover {
     border-color: #10b981 !important;
     box-shadow: 0 8px 20px rgba(16, 185, 129, 0.08) !important;
 }
+
+/* ==========================================================================
+   COMPREHENSIVE MULTI-DEVICE RESPONSIVE SYSTEM (Mobile, Tablet, Laptop, Desktop)
+   ========================================================================== */
+
+/* 1. LARGE LAPTOPS & DESKTOPS (1024px to 1280px) */
+@media (max-width: 1200px) {
+    .hero-title {
+        font-size: 2.75rem;
+    }
+    .nav-container {
+        padding: 0.75rem 1.5rem;
+    }
+    .section-title {
+        font-size: 2.1rem;
+    }
+}
+
+/* 2. TABLETS & PORTRAIT IPADS (768px to 1023px) */
+@media (max-width: 1023px) {
+    .hero-section {
+        padding: 3.5rem 1.25rem 3rem 1.25rem;
+    }
+    .hero-title {
+        font-size: 2.35rem;
+        letter-spacing: -0.5px;
+    }
+    .hero-subtitle {
+        font-size: 1.05rem;
+        margin-bottom: 1.75rem;
+    }
+    .section-title {
+        font-size: 1.95rem;
+    }
+    .story-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    .hazard-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.25rem;
+    }
+    .compare-showcase-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    .content-card {
+        padding: 1.5rem;
+    }
+}
+
+/* 3. MOBILE PHABLETS & LARGE PHONES (481px to 767px) */
+@media (max-width: 767px) {
+    body {
+        font-size: 0.95rem;
+    }
+    .announcement-bar {
+        font-size: 0.78rem;
+        padding: 0.45rem 0.75rem;
+    }
+    .nav-container {
+        padding: 0.6rem 0.85rem;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    .brand-name {
+        font-size: 1.15rem;
+    }
+    .brand-tag {
+        font-size: 0.65rem;
+    }
+    .nav-actions {
+        gap: 0.35rem;
+        overflow-x: auto;
+        width: 100%;
+        padding-bottom: 0.2rem;
+        -webkit-overflow-scrolling: touch;
+    }
+    .nav-link {
+        padding: 0.35rem 0.6rem;
+        font-size: 0.8rem;
+        white-space: nowrap;
+    }
+    .hero-section {
+        padding: 2.5rem 1rem 2.5rem 1rem;
+        text-align: center;
+    }
+    .hero-badge {
+        font-size: 0.78rem;
+        padding: 0.4rem 0.95rem;
+        margin-bottom: 1.15rem;
+    }
+    .hero-title {
+        font-size: clamp(1.85rem, 7.5vw, 2.35rem);
+        line-height: 1.2;
+    }
+    .hero-subtitle {
+        font-size: 0.98rem;
+        margin: 0 auto 1.75rem auto;
+    }
+    .hero-section div[style*="display: flex; gap: 1rem"] {
+        justify-content: center;
+    }
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+    .hero-scanner-container {
+        max-width: 100%;
+        transform: scale(0.96);
+    }
+    .scan-status-toast {
+        font-size: 0.82rem;
+        padding: 0.65rem 0.85rem;
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+    }
+    .story-section {
+        padding: 3.5rem 1rem;
+    }
+    .story-grid {
+        grid-template-columns: 1fr;
+        gap: 2.25rem;
+    }
+    .story-card {
+        padding: 1.75rem 1.15rem 1.5rem 1.15rem;
+    }
+    .hazard-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    .section-header {
+        margin-bottom: 2.25rem;
+    }
+    .section-title {
+        font-size: 1.65rem;
+    }
+    .section-tag {
+        font-size: 0.78rem;
+    }
+    .compare-showcase-grid {
+        grid-template-columns: 1fr;
+    }
+    .compare-box-item {
+        padding: 1.5rem 1.15rem;
+    }
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    .compare-table th, .compare-table td {
+        padding: 0.85rem 0.85rem;
+        font-size: 0.82rem;
+    }
+    .faq-question {
+        padding: 1rem 1.15rem;
+        font-size: 0.92rem;
+    }
+    .faq-answer {
+        padding: 0 1.15rem 1.15rem 1.15rem;
+        font-size: 0.88rem;
+    }
+    .modal-card {
+        max-width: 92vw !important;
+        padding: 1.5rem 1.15rem !important;
+        margin: 1rem auto;
+        max-height: 88vh;
+        overflow-y: auto;
+    }
+    .floating-wa-wrapper {
+        bottom: 16px;
+        right: 16px;
+    }
+    .wa-chat-bubble {
+        max-width: 230px;
+        font-size: 0.82rem;
+        padding: 0.75rem 0.95rem;
+    }
+    .wa-btn-circle {
+        width: 52px;
+        height: 52px;
+        font-size: 1.65rem;
+    }
+}
+
+/* 4. COMPACT MOBILE & SMALL SMARTPHONES (<= 480px) */
+@media (max-width: 480px) {
+    .nav-brand {
+        gap: 0.4rem;
+    }
+    .brand-logo-img {
+        height: 28px;
+    }
+    .hero-title {
+        font-size: 1.75rem;
+    }
+    .hero-subtitle {
+        font-size: 0.92rem;
+    }
+    .ticker-wrap {
+        padding: 0.75rem 0;
+    }
+    .ticker-item {
+        font-size: 0.82rem;
+    }
+    .sampark-tag-box {
+        transform: scale(0.86);
+        transform-origin: center top;
+    }
+    .kpi-strip {
+        grid-template-columns: 1fr;
+    }
+    .user-chip {
+        padding: 3px 8px;
+        font-size: 0.8rem;
+    }
+}
