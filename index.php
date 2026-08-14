@@ -1,5 +1,5 @@
 <?php
-// index.php - Vehicle Sampark Landing Page with Live Ticker, Real-Time Activity Toast, and Counter Animations
+// index.php - Vehicle Sampark Landing Page with Floating WhatsApp Connect Widget & Live Ticker
 
 require_once __DIR__ . '/config/database.php';
 require_once __DIR__ . '/includes/functions.php';
@@ -270,45 +270,85 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
             font-size: 1.05rem;
         }
 
-        /* LIVE FLOATING ACTIVITY TOAST (BOTTOM LEFT) */
-        .live-activity-toast {
+        /* FLOATING WHATSAPP QUICK CONNECT WIDGET (BOTTOM RIGHT) */
+        .floating-wa-wrapper {
             position: fixed;
             bottom: 25px;
-            left: 25px;
+            right: 25px;
             z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0.65rem;
+        }
+
+        .wa-chat-bubble {
             background: #ffffff;
             border: 1px solid #a7f3d0;
-            border-left: 5px solid #10b981;
-            border-radius: 12px;
+            border-left: 5px solid #25d366;
             padding: 0.85rem 1.15rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            display: flex;
-            align-items: center;
-            gap: 0.85rem;
-            max-width: 340px;
-            transform: translateY(120px);
-            opacity: 0;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            pointer-events: none;
+            border-radius: 16px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+            max-width: 270px;
+            font-size: 0.88rem;
+            color: #0f172a;
+            position: relative;
+            animation: waBubbleFloat 3s infinite ease-in-out;
         }
 
-        .live-activity-toast.show {
-            transform: translateY(0);
-            opacity: 1;
-            pointer-events: auto;
+        @keyframes waBubbleFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
         }
 
-        .toast-icon-circle {
-            width: 38px;
-            height: 38px;
+        .wa-bubble-close {
+            position: absolute;
+            top: 4px;
+            right: 8px;
+            background: none;
+            border: none;
+            color: #94a3b8;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        .wa-btn-circle {
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            background: #ecfdf5;
-            color: #059669;
+            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+            color: #ffffff;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1rem;
-            flex-shrink: 0;
+            font-size: 1.95rem;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .wa-btn-circle:hover {
+            transform: scale(1.08);
+            box-shadow: 0 12px 30px rgba(37, 211, 102, 0.55);
+            color: #ffffff;
+        }
+
+        .wa-btn-circle::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: -6px;
+            right: -6px;
+            bottom: -6px;
+            border: 2px solid #25d366;
+            border-radius: 50%;
+            animation: waPulseRing 2s infinite ease-out;
+        }
+
+        @keyframes waPulseRing {
+            0% { transform: scale(0.95); opacity: 0.9; }
+            100% { transform: scale(1.35); opacity: 0; }
         }
 
         /* STATS COUNTER STRIP */
@@ -993,22 +1033,18 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
         </div>
     </section>
 
-    <!-- LIVE REAL-TIME RECENT ACTIVITY TOAST (FLOATING BOTTOM-LEFT) -->
-    <div class="live-activity-toast" id="liveActivityToast">
-        <div class="toast-icon-circle" id="toastIconCircle">
-            <i class="fa-solid fa-bolt"></i>
+    <!-- FLOATING WHATSAPP QUICK CONNECT WIDGET (BOTTOM RIGHT) -->
+    <div class="floating-wa-wrapper">
+        <div class="wa-chat-bubble" id="waChatBubble">
+            <button class="wa-bubble-close" onclick="document.getElementById('waChatBubble').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
+            <div style="font-weight: 800; color: #047857; margin-bottom: 3px;">
+                <i class="fa-brands fa-whatsapp"></i> Instant Connect
+            </div>
+            Hi! Have a question or want to order smart vehicle tags? Chat with us directly on WhatsApp!
         </div>
-        <div>
-            <div style="font-size: 0.78rem; font-weight: 800; color: #10b981; text-transform: uppercase; letter-spacing: 0.5px;" id="toastCategory">
-                Live Scanner Relay
-            </div>
-            <div style="font-size: 0.88rem; font-weight: 700; color: #0f172a;" id="toastText">
-                Someone in Ahmedabad scanned QR #QRC-849201
-            </div>
-            <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 1px;" id="toastTime">
-                Just now
-            </div>
-        </div>
+        <a href="https://wa.me/919876543210?text=Hi%20Vehicle%20Sampark!%20I%20want%20to%20get%20smart%20vehicle%20QR%20tags" target="_blank" class="wa-btn-circle" title="Chat on WhatsApp">
+            <i class="fa-brands fa-whatsapp"></i>
+        </a>
     </div>
 
     <!-- FOOTER -->
@@ -1079,73 +1115,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
         }, 1800);
     });
 
-    // 2. LIVE REAL-TIME FLOATING ACTIVITY TOAST SEQUENCE (BOTTOM-LEFT)
-    document.addEventListener('DOMContentLoaded', function() {
-        const liveToast = document.getElementById('liveActivityToast');
-        const toastCategory = document.getElementById('toastCategory');
-        const toastText = document.getElementById('toastText');
-        const toastIconCircle = document.getElementById('toastIconCircle');
-        const toastTime = document.getElementById('toastTime');
-
-        const activityList = [
-            {
-                category: 'Live Scanner Relay',
-                text: 'Someone in Ahmedabad scanned QR #QRC-849201',
-                icon: '<i class="fa-solid fa-qrcode"></i>',
-                time: '2 seconds ago'
-            },
-            {
-                category: 'New Registration',
-                text: 'Creta (GJ-05-AB-9812) activated in Surat',
-                icon: '<i class="fa-solid fa-car"></i>',
-                time: '12 seconds ago'
-            },
-            {
-                category: 'WhatsApp Emergency Bot',
-                text: 'Wrong parking alert sent to owner in Vadodara',
-                icon: '<i class="fa-brands fa-whatsapp"></i>',
-                time: '34 seconds ago'
-            },
-            {
-                category: 'Doorstep Car Washing',
-                text: 'Eco waterless cleaning requested in Rajkot',
-                icon: '<i class="fa-solid fa-soap"></i>',
-                time: '1 minute ago'
-            },
-            {
-                category: 'Garage Assistance',
-                text: 'Flat tyre mechanic connected in Gandhinagar',
-                icon: '<i class="fa-solid fa-wrench"></i>',
-                time: '2 minutes ago'
-            }
-        ];
-
-        let toastIndex = 0;
-
-        function triggerToast() {
-            const item = activityList[toastIndex];
-            toastCategory.textContent = item.category;
-            toastText.textContent = item.text;
-            toastIconCircle.innerHTML = item.icon;
-            toastTime.textContent = item.time;
-
-            liveToast.classList.add('show');
-
-            setTimeout(function() {
-                liveToast.classList.remove('show');
-            }, 4500);
-
-            toastIndex = (toastIndex + 1) % activityList.length;
-        }
-
-        // Trigger first toast after 2.5s, then repeat every 9s
-        setTimeout(function() {
-            triggerToast();
-            setInterval(triggerToast, 9000);
-        }, 2500);
-    });
-
-    // 3. ANIMATED SCROLL COUNTER NUMBERS
+    // 2. ANIMATED SCROLL COUNTER NUMBERS
     document.addEventListener('DOMContentLoaded', function() {
         const counters = document.querySelectorAll('.counter-num');
         let animated = false;
