@@ -1171,30 +1171,90 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.25rem;">
                 <!-- Contact Direct Info -->
                 <div>
-                    <div class="content-card" style="padding: 2rem; height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
-                        <div>
-                            <h3 style="font-size: 1.3rem; font-weight: 900; color: #0f172a; margin-bottom: 1.5rem;">
-                                <i class="fa-solid fa-headset" style="color: var(--primary);"></i> Direct Contact Channels
-                            </h3>
+                    <div class="content-card" style="padding: 2.25rem 2rem; height: 100%; display: flex; flex-direction: column; justify-content: space-between; border-radius: 20px; border: 1px solid rgba(16, 185, 129, 0.25); background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%); box-shadow: 0 12px 35px rgba(0,0,0,0.05); position: relative; overflow: hidden;">
+                        
+                        <!-- Subtle Emerald Glow Backdrop Accent -->
+                        <div style="position: absolute; right: -40px; top: -40px; width: 180px; height: 180px; background: radial-gradient(circle, rgba(16, 185, 129, 0.18) 0%, rgba(0,0,0,0) 70%); pointer-events: none;"></div>
 
-                            <div style="margin-bottom: 1.25rem;">
-                                <a href="tel:+919876543210" class="btn btn-primary btn-glow" style="width: 100%; padding: 1.05rem; font-size: 1.05rem; background: linear-gradient(135deg, #10b981, #059669); border-radius: var(--radius-lg);">
-                                    <i class="fa-solid fa-phone-volume"></i> Call Us: +91 98765 43210
+                        <div>
+                            <!-- Header with Live 24/7 Support Dot -->
+                            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.75rem; border-bottom: 1px solid #f1f5f9; padding-bottom: 1rem;">
+                                <h3 style="font-family: var(--font-heading); font-size: 1.35rem; font-weight: 800; color: #0f172a; margin: 0; display: flex; align-items: center; gap: 0.6rem;">
+                                    <span style="width: 42px; height: 42px; border-radius: 12px; background: rgba(16, 185, 129, 0.12); color: #10b981; display: inline-flex; align-items: center; justify-content: center; font-size: 1.25rem;">
+                                        <i class="fa-solid fa-headset"></i>
+                                    </span>
+                                    Direct Contact Channels
+                                </h3>
+
+                                <span style="background: #ecfdf5; color: #047857; font-size: 0.78rem; font-weight: 700; padding: 5px 12px; border-radius: 20px; border: 1px solid #a7f3d0; display: inline-flex; align-items: center; gap: 6px;">
+                                    <span style="width: 8px; height: 8px; border-radius: 50%; background: #10b981; display: inline-block; animation: pulseDot 1.5s infinite;"></span>
+                                    Live 24/7 Support
+                                </span>
+                            </div>
+
+                            <!-- VISUAL CHANNEL 1: DIRECT VOICE CALL -->
+                            <div style="margin-bottom: 1.35rem;">
+                                <a href="tel:+919876543210" class="contact-channel-box" style="display: block; text-decoration: none; background: linear-gradient(135deg, #059669 0%, #10b981 100%); color: #ffffff; padding: 1.25rem 1.4rem; border-radius: 16px; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3); transition: all 0.3s ease; border: 1px solid rgba(255, 255, 255, 0.2); position: relative; overflow: hidden;">
+                                    <div style="display: flex; align-items: center; justify-content: space-between; gap: 1rem;">
+                                        <div style="display: flex; align-items: center; gap: 1rem;">
+                                            <div style="width: 52px; height: 52px; border-radius: 14px; background: rgba(255, 255, 255, 0.2); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; backdrop-filter: blur(4px); flex-shrink: 0; border: 1px solid rgba(255,255,255,0.3);">
+                                                <i class="fa-solid fa-phone-volume" style="color: #ffffff;"></i>
+                                            </div>
+                                            <div>
+                                                <div style="font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; opacity: 0.9; margin-bottom: 2px;">
+                                                    <i class="fa-solid fa-bolt" style="color: #fef08a;"></i> Instant Call Line
+                                                </div>
+                                                <div style="font-family: var(--font-heading); font-size: 1.25rem; font-weight: 800; letter-spacing: 0.2px;">
+                                                    +91 98765 43210
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div style="width: 38px; height: 38px; border-radius: 50%; background: rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; font-size: 0.95rem;">
+                                            <i class="fa-solid fa-arrow-right"></i>
+                                        </div>
+                                    </div>
                                 </a>
                             </div>
 
+                            <!-- VISUAL CHANNEL 2: OFFICIAL WHATSAPP BOT -->
                             <div style="margin-bottom: 1.75rem;">
-                                <a href="https://wa.me/919876543210?text=Hi%20Vehicle%20Sampark!%20I%20want%20to%20order%20smart%20vehicle%20tags" target="_blank" class="btn btn-primary" style="width: 100%; padding: 1.05rem; font-size: 1.05rem; background: linear-gradient(135deg, #f97316, #ea580c); border-radius: var(--radius-lg);">
-                                    <i class="fa-brands fa-whatsapp" style="font-size: 1.3rem;"></i> Chat on WhatsApp
+                                <a href="https://wa.me/919876543210?text=Hi%20Vehicle%20Sampark!%20I%20want%20to%20order%20smart%20vehicle%20tags" target="_blank" class="contact-channel-box" style="display: block; text-decoration: none; background: linear-gradient(135deg, #ea580c 0%, #f97316 100%); color: #ffffff; padding: 1.25rem 1.4rem; border-radius: 16px; box-shadow: 0 10px 25px rgba(249, 115, 22, 0.3); transition: all 0.3s ease; border: 1px solid rgba(255, 255, 255, 0.2); position: relative; overflow: hidden;">
+                                    <div style="display: flex; align-items: center; justify-content: space-between; gap: 1rem;">
+                                        <div style="display: flex; align-items: center; gap: 1rem;">
+                                            <div style="width: 52px; height: 52px; border-radius: 14px; background: rgba(255, 255, 255, 0.2); display: flex; align-items: center; justify-content: center; font-size: 1.55rem; backdrop-filter: blur(4px); flex-shrink: 0; border: 1px solid rgba(255,255,255,0.3);">
+                                                <i class="fa-brands fa-whatsapp" style="color: #ffffff;"></i>
+                                            </div>
+                                            <div>
+                                                <div style="font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; opacity: 0.9; margin-bottom: 2px;">
+                                                    <i class="fa-solid fa-comments" style="color: #ffedd5;"></i> 1-Click WhatsApp Bot
+                                                </div>
+                                                <div style="font-family: var(--font-heading); font-size: 1.18rem; font-weight: 800;">
+                                                    Chat on WhatsApp
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div style="width: 38px; height: 38px; border-radius: 50%; background: rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; font-size: 0.95rem;">
+                                            <i class="fa-solid fa-arrow-right"></i>
+                                        </div>
+                                    </div>
                                 </a>
                             </div>
                         </div>
 
-                        <div style="background: #f8fafc; padding: 1.15rem; border-radius: var(--radius-lg); border: 1px solid #e2e8f0;">
-                            <div style="font-size: 0.85rem; font-weight: 700; color: #0f172a; margin-bottom: 0.2rem;">
-                                <i class="fa-solid fa-envelope" style="color: var(--primary);"></i> Email Us Directly
+                        <!-- VISUAL CHANNEL 3: EMAIL SUPPORT CARD -->
+                        <div style="background: #0f172a; padding: 1.25rem 1.35rem; border-radius: 16px; color: #ffffff; display: flex; align-items: center; justify-content: space-between; border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 4px 15px rgba(15, 23, 42, 0.12);">
+                            <div style="display: flex; align-items: center; gap: 0.85rem;">
+                                <div style="width: 42px; height: 42px; border-radius: 10px; background: rgba(16, 185, 129, 0.2); color: #34d399; display: flex; align-items: center; justify-content: center; font-size: 1.15rem;">
+                                    <i class="fa-solid fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <div style="font-size: 0.75rem; color: #94a3b8; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Email Support Line</div>
+                                    <div style="font-size: 0.9rem; font-weight: 700; color: #ffffff;">contact@vehiclesampark.com</div>
+                                </div>
                             </div>
-                            <div style="font-size: 0.9rem; color: var(--text-muted); font-weight: 700;">contact@vehiclesampark.com</div>
+                            <a href="mailto:contact@vehiclesampark.com" style="color: #34d399; font-size: 0.85rem; padding: 6px 12px; background: rgba(52, 211, 153, 0.12); border-radius: 8px; text-decoration: none; font-weight: 700; border: 1px solid rgba(52, 211, 153, 0.2);">
+                                Send Email
+                            </a>
                         </div>
                     </div>
                 </div>
