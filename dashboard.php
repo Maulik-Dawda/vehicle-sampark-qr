@@ -1,5 +1,5 @@
 <?php
-// dashboard.php - Vehicle Sampark Smart QR Code Admin Dashboard
+// dashboard.php - Vehicle Sampark Modern Enterprise Admin Dashboard
 
 require_once __DIR__ . '/config/database.php';
 require_once __DIR__ . '/includes/functions.php';
@@ -80,11 +80,45 @@ include __DIR__ . '/includes/header.php';
 ?>
 
 <div class="page-container">
-    <!-- PAGE HEADER -->
+    <!-- TOP ENTERPRISE METRICS BANNER (INSPIRED BY REFERENCE SCREENSHOT) -->
+    <div class="kpi-strip">
+        <div class="kpi-item">
+            <span class="kpi-label">System Entity</span>
+            <span class="kpi-value" style="color: var(--primary);">Vehicle Sampark</span>
+            <span class="kpi-sub">Smart QR System</span>
+        </div>
+        <div class="kpi-item">
+            <span class="kpi-label">Total QR Tags</span>
+            <span class="kpi-value"><?= number_format($stats['total_qrs']) ?></span>
+            <span class="kpi-sub"><?= number_format($stats['total_batches']) ?> Batches</span>
+        </div>
+        <div class="kpi-item">
+            <span class="kpi-label">Active Registered</span>
+            <span class="kpi-value" style="color: var(--accent-green);"><?= number_format($stats['submitted_qrs']) ?></span>
+            <span class="kpi-sub">Verified Owners</span>
+        </div>
+        <div class="kpi-item">
+            <span class="kpi-label">Unregistered</span>
+            <span class="kpi-value" style="color: var(--accent-orange);"><?= number_format($stats['pending_qrs']) ?></span>
+            <span class="kpi-sub">Ready to Assign</span>
+        </div>
+        <div class="kpi-item">
+            <span class="kpi-label">Bot Alerts</span>
+            <span class="kpi-value" style="color: #6366f1;"><?= number_format($stats['total_bot_logs']) ?></span>
+            <span class="kpi-sub">WhatsApp Relays</span>
+        </div>
+        <div class="kpi-item">
+            <span class="kpi-label">Active Admin</span>
+            <span class="kpi-value" style="font-size: 1.1rem;"><?= htmlspecialchars($admin['username']) ?></span>
+            <span class="kpi-sub"><?= date('d/m/Y') ?></span>
+        </div>
+    </div>
+
+    <!-- PAGE TITLE & MAIN ACTIONS -->
     <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
         <div>
-            <h1 class="page-title"><i class="fa-solid fa-gauge-high" style="color: var(--primary);"></i> Admin Dashboard</h1>
-            <p class="page-subtitle">Welcome back, <strong><?= htmlspecialchars($admin['full_name']) ?></strong>! Manage Vehicle QR Tags & Registrations.</p>
+            <h1 class="page-title"><i class="fa-solid fa-gauge-high" style="color: var(--primary);"></i> Admin Enterprise Control</h1>
+            <p class="page-subtitle">Manage Vehicle QR Tags, Form Batches, and Registrations</p>
         </div>
         <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
             <?php if ($batchFilter > 0): ?>
@@ -126,7 +160,7 @@ include __DIR__ . '/includes/header.php';
     </div>
 
     <!-- SEARCH & FILTER TOOLBAR -->
-    <div class="content-card mb-4" style="padding: 1.25rem;">
+    <div class="content-card mb-4" style="padding: 1.25rem; margin-bottom: 1.5rem;">
         <form action="dashboard.php" method="GET" style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
             <div style="flex: 2; min-width: 220px;">
                 <input type="text" name="search" class="form-control" placeholder="Search by Code (e.g. QRC-...) or Batch Name" value="<?= htmlspecialchars($searchQuery) ?>">
@@ -160,7 +194,7 @@ include __DIR__ . '/includes/header.php';
         </form>
     </div>
 
-    <!-- QR CODES DATA TABLE -->
+    <!-- QR CODES DATA TABLE WITH CIRCULAR AVATARS -->
     <div class="content-card">
         <div style="display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border-color);">
             <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--text-main); margin: 0;">
@@ -191,10 +225,17 @@ include __DIR__ . '/includes/header.php';
                     </thead>
                     <tbody>
                         <?php foreach ($qrCodes as $qr): ?>
-                            <?php $scanUrl = getAppBaseUrl() . '/scan.php?code=' . urlencode($qr['code_number']); ?>
+                            <?php 
+                            $scanUrl = getAppBaseUrl() . '/scan.php?code=' . urlencode($qr['code_number']);
+                            $avatarClass = ($qr['status'] === 'submitted') ? 'avatar-green' : 'avatar-orange';
+                            $avatarIcon = ($qr['status'] === 'submitted') ? 'fa-check' : 'fa-clock';
+                            ?>
                             <tr>
                                 <td>
-                                    <span class="code-badge"><?= htmlspecialchars($qr['code_number']) ?></span>
+                                    <div style="display: flex; align-items: center;">
+                                        <span class="row-avatar <?= $avatarClass ?>"><i class="fa-solid <?= $avatarIcon ?>"></i></span>
+                                        <span class="code-badge"><?= htmlspecialchars($qr['code_number']) ?></span>
+                                    </div>
                                 </td>
                                 <td>
                                     <div style="font-weight: 600; color: var(--text-main);"><?= htmlspecialchars($qr['batch_name']) ?></div>
@@ -209,7 +250,7 @@ include __DIR__ . '/includes/header.php';
                                 </td>
                                 <td><?= date('M j, Y g:i A', strtotime($qr['created_at'])) ?></td>
                                 <td>
-                                    <a href="<?= $scanUrl ?>" target="_blank" class="scan-link">
+                                    <a href="<?= $scanUrl ?>" target="_blank" class="scan-link" style="font-weight: 600;">
                                         <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Public Scanner
                                     </a>
                                 </td>
@@ -236,12 +277,15 @@ include __DIR__ . '/includes/header.php';
                 </table>
             </div>
 
-            <!-- PAGINATION -->
-            <?php if ($totalPages > 1): ?>
-                <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 1.5rem; border-top: 1px solid var(--border-color); flex-wrap: wrap; gap: 1rem;">
-                    <div style="font-size: 0.88rem; color: var(--text-muted);">
-                        Showing Page <strong><?= $page ?></strong> of <strong><?= $totalPages ?></strong> (<?= $totalRecords ?> total records)
-                    </div>
+            <!-- PAGINATION & TOTAL SUMMARY FOOTER (INSPIRED BY REFERENCE SCREENSHOT) -->
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 1.5rem; border-top: 1px solid var(--border-color); flex-wrap: wrap; gap: 1rem; background: #f8fafc;">
+                <div style="font-size: 0.88rem; color: var(--text-muted);">
+                    Showing Page <strong><?= $page ?></strong> of <strong><?= $totalPages ?></strong> (<?= $totalRecords ?> total records)
+                </div>
+                <div style="font-size: 0.9rem; font-weight: 800; color: #0f172a;">
+                    Total Active Registered: <span style="color: var(--accent-green);"><?= $stats['submitted_qrs'] ?> Tags</span>
+                </div>
+                <?php if ($totalPages > 1): ?>
                     <div style="display: flex; gap: 0.5rem;">
                         <?php if ($page > 1): ?>
                             <a href="dashboard.php?page=<?= $page - 1 ?>&search=<?= urlencode($searchQuery) ?>&batch=<?= $batchFilter ?>&status=<?= $statusFilter ?>" class="btn btn-outline btn-sm">
@@ -255,8 +299,8 @@ include __DIR__ . '/includes/header.php';
                             </a>
                         <?php endif; ?>
                     </div>
-                </div>
-            <?php endif; ?>
+                <?php endif; ?>
+            </div>
         <?php endif; ?>
     </div>
 </div>

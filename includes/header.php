@@ -1,20 +1,33 @@
+<?php
+// includes/header.php - Vehicle Sampark Modern Enterprise Header
+
+require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/functions.php';
+
+$currentAdmin = isAdminLoggedIn() ? getLoggedInAdmin() : null;
+$currentPage = basename($_SERVER['PHP_SELF']);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title><?= isset($pageTitle) ? htmlspecialchars($pageTitle) : 'Vehicle Sampark - Smart Vehicle QR System' ?></title>
+    <title><?= htmlspecialchars($pageTitle ?? 'Vehicle Sampark | Smart Vehicle QR System') ?></title>
+    
     <!-- Google Fonts: Outfit & Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Custom Responsive CSS -->
+    
+    <!-- Custom Modern Enterprise CSS -->
     <link rel="stylesheet" href="assets/css/style.css?v=<?= time() ?>">
 </head>
 <body>
-    <!-- Top Responsive Navigation Bar -->
+
+    <!-- TOP NAVIGATION NAVBAR -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="index.php" class="nav-brand">
@@ -24,25 +37,23 @@
                     <span class="brand-tag">Connecting Mobility</span>
                 </div>
             </a>
-            
+
             <div class="nav-actions">
                 <?php if (isAdminLoggedIn()): ?>
-                    <?php $currentAdmin = getLoggedInAdmin(); ?>
-                    <a href="dashboard.php" class="nav-link <?= (basename($_SERVER['PHP_SELF']) === 'dashboard.php') ? 'active' : '' ?>">
-                        <i class="fa-solid fa-qrcode"></i> QR Codes
+                    <a href="dashboard.php" class="nav-link <?= $currentPage === 'dashboard.php' ? 'active' : '' ?>">
+                        <i class="fa-solid fa-gauge-high"></i> <span>Dashboard</span>
                     </a>
-                    <a href="batches.php" class="nav-link <?= (basename($_SERVER['PHP_SELF']) === 'batches.php') ? 'active' : '' ?>">
-                        <i class="fa-solid fa-layer-group"></i> Form Batches
+                    <a href="batches.php" class="nav-link <?= $currentPage === 'batches.php' ? 'active' : '' ?>">
+                        <i class="fa-solid fa-layer-group"></i> <span>Form Batches</span>
                     </a>
-                    <button type="button" class="btn btn-primary btn-glow" id="btnOpenGenerator">
-                        <i class="fa-solid fa-wand-magic-sparkles"></i> Generate QR Code
-                    </button>
-                    <!-- Admin User Profile Badge & Logout -->
-                    <div style="display: flex; align-items: center; gap: 0.4rem; margin-left: 0.5rem; padding-left: 0.75rem; border-left: 1px solid var(--border-color);">
-                        <a href="profile.php" class="btn btn-outline btn-sm <?= (basename($_SERVER['PHP_SELF']) === 'profile.php') ? 'active' : '' ?>" title="Admin Profile & Security Settings">
-                            <i class="fa-solid fa-user-gear" style="color: var(--primary);"></i> <?= htmlspecialchars($currentAdmin['username']) ?>
-                        </a>
-                        <a href="logout.php" class="btn btn-outline btn-sm" title="Sign Out of Admin Portal" style="color: var(--accent-rose); border-color: #fecaca;">
+                    <a href="profile.php" class="nav-link <?= $currentPage === 'profile.php' ? 'active' : '' ?>">
+                        <i class="fa-solid fa-user-gear"></i> <span>Settings</span>
+                    </a>
+                    
+                    <div class="user-chip">
+                        <div class="user-avatar"><?= strtoupper(substr($currentAdmin['username'], 0, 1)) ?></div>
+                        <span><?= htmlspecialchars($currentAdmin['username']) ?></span>
+                        <a href="logout.php" title="Logout" style="color: var(--accent-rose); margin-left: 0.25rem;">
                             <i class="fa-solid fa-right-from-bracket"></i>
                         </a>
                     </div>
@@ -50,4 +61,3 @@
             </div>
         </div>
     </nav>
-    <main class="main-content">
