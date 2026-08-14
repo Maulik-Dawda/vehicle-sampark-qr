@@ -27,7 +27,7 @@ $batches = $stmt->fetchAll();
     <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
         <div>
             <h1 class="page-title"><i class="fa-solid fa-layer-group" style="color: var(--primary);"></i> Form Batches</h1>
-            <p class="page-subtitle">Manage generated vehicle QR batches and form configurations</p>
+            <p class="page-subtitle">Manage generated vehicle QR batches and download full batch PDF sheets</p>
         </div>
         <div>
             <button type="button" id="btnOpenGenerator" class="btn btn-primary btn-glow">
@@ -75,9 +75,14 @@ $batches = $stmt->fetchAll();
                                 <td><span class="badge badge-pending"><?= $batch['pending_qrs'] ?> Pending</span></td>
                                 <td><?= date('M j, Y g:i A', strtotime($batch['created_at'])) ?></td>
                                 <td>
-                                    <a href="dashboard.php?batch=<?= $batch['id'] ?>" class="btn btn-outline btn-sm">
-                                        <i class="fa-solid fa-eye"></i> View Tags
-                                    </a>
+                                    <div style="display: flex; gap: 0.4rem; flex-wrap: wrap;">
+                                        <a href="dashboard.php?batch=<?= $batch['id'] ?>" class="btn btn-outline btn-sm">
+                                            <i class="fa-solid fa-eye"></i> View Tags
+                                        </a>
+                                        <a href="batch_pdf.php?batch_id=<?= $batch['id'] ?>" class="btn btn-primary btn-sm" style="background: linear-gradient(135deg, #10b981, #059669);">
+                                            <i class="fa-solid fa-file-pdf"></i> Download Batch PDF
+                                        </a>
+                                    </div>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

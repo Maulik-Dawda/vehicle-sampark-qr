@@ -87,6 +87,11 @@ include __DIR__ . '/includes/header.php';
             <p class="page-subtitle">Welcome back, <strong><?= htmlspecialchars($admin['full_name']) ?></strong>! Manage Vehicle QR Tags & Registrations.</p>
         </div>
         <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <?php if ($batchFilter > 0): ?>
+                <a href="batch_pdf.php?batch_id=<?= $batchFilter ?>" class="btn btn-secondary">
+                    <i class="fa-solid fa-file-pdf"></i> Download Batch PDF (#<?= $batchFilter ?>)
+                </a>
+            <?php endif; ?>
             <button type="button" id="btnOpenGenerator" class="btn btn-primary btn-glow">
                 <i class="fa-solid fa-plus"></i> Generate QR Code Batch
             </button>
@@ -221,7 +226,7 @@ include __DIR__ . '/includes/header.php';
                                         <?php endif; ?>
 
                                         <a href="qr.php?code=<?= urlencode($qr['code_number']) ?>&download=1" class="btn btn-secondary btn-sm">
-                                            <i class="fa-solid fa-download"></i> PDF
+                                            <i class="fa-solid fa-download"></i> Single PDF
                                         </a>
                                     </div>
                                 </td>
@@ -318,7 +323,7 @@ include __DIR__ . '/includes/header.php';
                 <button type="button" class="btn btn-outline btn-sm" onclick="copyScanUrl()"><i class="fa-solid fa-copy"></i></button>
             </div>
             <div>
-                <a id="qrDownloadBtn" href="#" class="btn btn-primary btn-sm"><i class="fa-solid fa-download"></i> Download PDF Tag</a>
+                <a id="qrDownloadBtn" href="#" class="btn btn-primary btn-sm"><i class="fa-solid fa-download"></i> Download Single PDF Tag</a>
             </div>
         </div>
     </div>
