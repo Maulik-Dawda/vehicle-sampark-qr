@@ -1,5 +1,5 @@
 <?php
-// index.php - Vehicle Sampark World-Class High-Converting Public Landing Page
+// index.php - Vehicle Sampark World-Class Landing Page with Interactive Hero Scan Animation
 
 require_once __DIR__ . '/config/database.php';
 require_once __DIR__ . '/includes/functions.php';
@@ -85,30 +85,144 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
             max-width: 580px;
         }
 
-        .tag-preview-card-wrapper {
+        /* HERO ANIMATED SCANNER MOCKUP CONTAINER */
+        .hero-scanner-container {
             position: relative;
             display: inline-block;
             width: 100%;
+            max-width: 580px;
+            margin: 0 auto;
         }
 
-        .tag-preview-card-wrapper::before {
+        .hero-scanner-container::before {
             content: '';
             position: absolute;
-            top: -15px;
-            left: -15px;
-            right: -15px;
-            bottom: -15px;
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(249, 115, 22, 0.15));
-            border-radius: 20px;
-            filter: blur(20px);
+            top: -20px;
+            left: -20px;
+            right: -20px;
+            bottom: -20px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(249, 115, 22, 0.2));
+            border-radius: 24px;
+            filter: blur(25px);
             z-index: 0;
+            animation: heroGlowPulse 4s infinite ease-in-out;
         }
 
-        .tag-preview-card-wrapper > div {
+        @keyframes heroGlowPulse {
+            0%, 100% { opacity: 0.4; transform: scale(0.98); }
+            50% { opacity: 0.8; transform: scale(1.02); }
+        }
+
+        .scanner-card-box {
             position: relative;
             z-index: 1;
+            border-radius: 14px;
+            overflow: hidden;
+            background: #ffffff;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
         }
 
+        /* LASER SCANNING BEAM ANIMATION */
+        .scanner-laser {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent 0%, #10b981 50%, transparent 100%);
+            box-shadow: 0 0 15px #10b981, 0 0 25px #10b981;
+            z-index: 10;
+            animation: laserSweep 3.5s infinite ease-in-out;
+        }
+
+        @keyframes laserSweep {
+            0% { top: 0%; opacity: 0; }
+            15% { opacity: 1; }
+            50% { top: 100%; opacity: 1; }
+            65% { opacity: 1; }
+            100% { top: 0%; opacity: 0; }
+        }
+
+        /* SCANNER TARGET BRACKETS */
+        .scanner-bracket {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            border: 3px solid #10b981;
+            z-index: 11;
+            pointer-events: none;
+            transition: var(--transition);
+        }
+
+        .bracket-tl { top: 10px; left: 10px; border-right: none; border-bottom: none; border-top-left-radius: 8px; }
+        .bracket-tr { top: 10px; right: 10px; border-left: none; border-bottom: none; border-top-right-radius: 8px; }
+        .bracket-bl { bottom: 10px; left: 10px; border-right: none; border-top: none; border-bottom-left-radius: 8px; }
+        .bracket-br { bottom: 10px; right: 10px; border-left: none; border-top: none; border-bottom-right-radius: 8px; }
+
+        /* LIVE CONNECTED OWNER STATUS TOAST */
+        .scan-status-toast {
+            margin-top: 1.25rem;
+            background: #ffffff;
+            border: 2px solid #a7f3d0;
+            padding: 0.85rem 1.25rem;
+            border-radius: var(--radius-lg);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: #0f172a;
+            position: relative;
+            z-index: 5;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .scan-status-toast.connected {
+            border-color: #10b981;
+            background: #ecfdf5;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #f97316;
+            display: inline-block;
+            animation: dotPing 1.5s infinite;
+        }
+
+        @keyframes dotPing {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(249, 115, 22, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(249, 115, 22, 0); }
+        }
+
+        .status-dot.active-green {
+            background: #10b981;
+            animation: greenDotPing 1.5s infinite;
+        }
+
+        @keyframes greenDotPing {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
+        .action-pills-live {
+            display: flex;
+            gap: 0.4rem;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.4s ease;
+        }
+
+        .action-pills-live.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* HAZARD CARDS */
         .section-header {
             text-align: center;
             max-width: 680px;
@@ -134,7 +248,6 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
             letter-spacing: -0.6px;
         }
 
-        /* HAZARD / USE CASE CARDS */
         .hazard-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
@@ -333,7 +446,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
         </div>
     </nav>
 
-    <!-- HERO SECTION -->
+    <!-- HERO SECTION WITH LIVE ANIMATED SCANNER -->
     <section class="hero-section">
         <div style="max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 3rem; align-items: center;">
             <div>
@@ -375,10 +488,38 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                 </div>
             </div>
 
-            <!-- PHYSICAL TAG STICKER VISUAL MOCKUP -->
+            <!-- HERO ANIMATED SCANNER DEMO MOCKUP -->
             <div style="text-align: center;">
-                <div class="tag-preview-card-wrapper">
-                    <?= renderVehicleSamparkTagHTML('QRC-SAMPARK-01', 'Vehicle Contact Tag') ?>
+                <div class="hero-scanner-container">
+                    <div class="scanner-card-box">
+                        <!-- Laser Beam -->
+                        <div class="scanner-laser"></div>
+                        <!-- Target Brackets -->
+                        <div class="scanner-bracket bracket-tl"></div>
+                        <div class="scanner-bracket bracket-tr"></div>
+                        <div class="scanner-bracket bracket-bl"></div>
+                        <div class="scanner-bracket bracket-br"></div>
+
+                        <!-- Render Physical Tag Card -->
+                        <?= renderVehicleSamparkTagHTML('QRC-SAMPARK-01', 'Vehicle Contact Tag') ?>
+                    </div>
+
+                    <!-- LIVE ANIMATED CONNECTION STATUS TOAST -->
+                    <div class="scan-status-toast" id="liveHeroScanToast">
+                        <div style="display: flex; align-items: center; gap: 0.65rem;">
+                            <span class="status-dot" id="liveHeroDot"></span>
+                            <span id="liveHeroMsg">Scanning Vehicle Tag...</span>
+                        </div>
+                        
+                        <div class="action-pills-live" id="liveHeroPills">
+                            <span class="badge badge-submitted" style="background: #10b981; color: #ffffff;">
+                                <i class="fa-solid fa-phone-volume"></i> Call Owner
+                            </span>
+                            <span class="badge" style="background: #f97316; color: #ffffff;">
+                                <i class="fa-brands fa-whatsapp"></i> WhatsApp Bot
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -724,6 +865,52 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
     </footer>
 
     <script>
+    // LIVE INTERACTIVE SCAN ANIMATION SEQUENCE
+    document.addEventListener('DOMContentLoaded', function() {
+        const toast = document.getElementById('liveHeroScanToast');
+        const dot = document.getElementById('liveHeroDot');
+        const msg = document.getElementById('liveHeroMsg');
+        const pills = document.getElementById('liveHeroPills');
+
+        const states = [
+            {
+                dotClass: 'status-dot',
+                toastClass: 'scan-status-toast',
+                text: '🔍 Scanning Vehicle Tag QRC-SAMPARK-01...',
+                showPills: false
+            },
+            {
+                dotClass: 'status-dot active-green',
+                toastClass: 'scan-status-toast connected',
+                text: '⚡ Tag Verified! Fetching Owner Details...',
+                showPills: false
+            },
+            {
+                dotClass: 'status-dot active-green',
+                toastClass: 'scan-status-toast connected',
+                text: '✅ Connected to Vehicle Owner!',
+                showPills: true
+            }
+        ];
+
+        let stepIndex = 0;
+
+        setInterval(function() {
+            stepIndex = (stepIndex + 1) % states.length;
+            const currentState = states[stepIndex];
+
+            dot.className = currentState.dotClass;
+            toast.className = currentState.toastClass;
+            msg.textContent = currentState.text;
+
+            if (currentState.showPills) {
+                pills.classList.add('show');
+            } else {
+                pills.classList.remove('show');
+            }
+        }, 1800);
+    });
+
     function toggleFaq(element) {
         const item = element.parentElement;
         item.classList.toggle('open');
