@@ -5,11 +5,16 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Hostinger MySQL / phpMyAdmin Connection Settings
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'vehicle_sampark');
-define('DB_USER', 'root');
-define('DB_PASS', '');
+// 1. Load Untracked Server Database Credentials if Present
+if (file_exists(__DIR__ . '/db_credentials.php')) {
+    require_once __DIR__ . '/db_credentials.php';
+}
+
+// 2. Default Fallback Credentials if db_credentials.php is Missing
+if (!defined('DB_HOST')) define('DB_HOST', 'localhost');
+if (!defined('DB_NAME')) define('DB_NAME', 'vehicle_sampark');
+if (!defined('DB_USER')) define('DB_USER', 'root');
+if (!defined('DB_PASS')) define('DB_PASS', '');
 
 $pdo = null;
 $dbEngine = 'mysql';
@@ -97,7 +102,6 @@ try {
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
         ");
 
-        // Add 2FA & Reset columns if upgrading existing MySQL DB
         try {
             $pdo->exec("ALTER TABLE admins ADD COLUMN two_factor_secret VARCHAR(255) DEFAULT NULL");
         } catch (Exception $ex) {}

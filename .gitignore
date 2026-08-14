@@ -1,5 +1,8 @@
 # .gitignore - Vehicle Sampark Smart Vehicle QR System
 
+# Untracked Database Credentials (Prevents overwriting Hostinger DB credentials on push)
+config/db_credentials.php
+
 # Runtime SQLite Database
 config/database.sqlite
 
