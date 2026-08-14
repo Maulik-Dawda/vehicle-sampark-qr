@@ -1,5 +1,5 @@
 <?php
-// batch_pdf.php - 4-Tags-Per-Page Line-by-Line Batch PDF Streamer for Vehicle Sampark
+// batch_pdf.php - Full-Page Balanced Spacing (4 Tags Per A4 Page) Batch PDF Streamer
 
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/config/database.php';
@@ -44,7 +44,7 @@ $html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><style>';
 $html .= getVehicleSamparkTagCSS();
 $html .= '
 @page {
-    margin: 12px 15px;
+    margin: 15px 18px;
 }
 body {
     font-family: Helvetica, Arial, sans-serif;
@@ -57,45 +57,45 @@ body {
     font-size: 11px;
     font-weight: bold;
     color: #475569;
-    margin-bottom: 8px;
-    padding-bottom: 4px;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
     border-bottom: 1px solid #cbd5e1;
 }
-/* Compact Tag Container for 4 Tags Per A4 Page */
+/* Balanced Full-Page Spacing Wrapper (4 Tags Per A4 Page) */
 .batch-tag-wrapper {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     page-break-inside: avoid;
 }
 .batch-tag-wrapper .sampark-tag-box {
     margin-bottom: 0 !important;
 }
 .batch-tag-wrapper .tag-left-cell {
-    padding: 8px 12px !important;
+    padding: 10px 14px !important;
 }
 .batch-tag-wrapper .tag-right-cell {
-    padding: 8px 10px !important;
+    padding: 10px 12px !important;
 }
 .batch-tag-wrapper .tag-brand-title {
-    font-size: 15px !important;
+    font-size: 17px !important;
 }
 .batch-tag-wrapper .tag-main-headline {
-    font-size: 16px !important;
-    margin-bottom: 6px !important;
+    font-size: 18px !important;
+    margin-bottom: 8px !important;
 }
 .batch-tag-wrapper .tag-qr-img {
-    width: 95px !important;
-    height: 95px !important;
+    width: 108px !important;
+    height: 108px !important;
 }
 .batch-tag-wrapper .tag-sub-caption {
-    font-size: 7.5px !important;
-    margin-bottom: 5px !important;
+    font-size: 8px !important;
+    margin-bottom: 6px !important;
 }
 .batch-tag-wrapper .tag-bottom-notice {
-    font-size: 6.5px !important;
+    font-size: 7px !important;
 }
 .batch-tag-wrapper .tag-panel-footer {
-    font-size: 7.5px !important;
-    margin-top: 4px !important;
+    font-size: 8px !important;
+    margin-top: 5px !important;
 }
 .page-break {
     page-break-after: always;
@@ -110,7 +110,7 @@ foreach ($qrCodes as $index => $codeNumber) {
     $html .= renderVehicleSamparkTagHTML($codeNumber, $batch['form_title']);
     $html .= '</div>';
     
-    // Clean page break after every 4 stacked tags for A4 printing
+    // Page break after every 4 tags to evenly cover full A4 page
     if (($index + 1) % 4 === 0 && ($index + 1) < $total) {
         $html .= '<div class="page-break"></div>';
     }
