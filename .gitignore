@@ -1,0 +1,20 @@
+# .gitignore - Vehicle Sampark Smart Vehicle QR System
+
+# Runtime SQLite Database
+config/database.sqlite
+
+# User Uploaded Files (Keep directory structure)
+uploads/*
+!uploads/.gitkeep
+
+# Operating System & IDE Files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Deployment & Temporary Archives
+*.zip
+*.log
+test_*.html
+test_*.json

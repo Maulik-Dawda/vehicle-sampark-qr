@@ -1,0 +1,31 @@
+# Vehicle Sampark Security & Server Upload Limits Configuration
+
+# Protect SQLite Database File
+<Files "database.sqlite">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Protect sensitive file types
+<FilesMatch "\.(sqlite|db|log|sh|sql)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# PHP Execution & File Upload Limits for Hostinger
+<IfModule mod_php7.c>
+    php_value upload_max_filesize 32M
+    php_value post_max_size 32M
+    php_value max_execution_time 300
+    php_value memory_limit 256M
+</IfModule>
+
+<IfModule mod_php.c>
+    php_value upload_max_filesize 32M
+    php_value post_max_size 32M
+    php_value max_execution_time 300
+    php_value memory_limit 256M
+</IfModule>
+
+# Enable Directory Indexes Protection
+Options -Indexes

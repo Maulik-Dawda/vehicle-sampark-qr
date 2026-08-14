@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <circle cx="50" cy="50" r="48" fill="#0b0f19" stroke="#10b981" stroke-width="4"/>
+  <!-- Location Pin Outline (Orange) -->
+  <path d="M50 16 C34 16 22 28 22 44 C22 62 50 84 50 84 C50 84 78 62 78 44 C78 28 66 16 50 16 Z" fill="#f97316"/>
+  <!-- Pin Inner Circle (Dark background) -->
+  <circle cx="50" cy="40" r="18" fill="#0b0f19"/>
+  <!-- Car Silhouette (Green) -->
+  <path d="M35 44 C37 40 40 37 45 36 L55 36 C60 37 63 40 65 44 L72 45 C75 45 77 47 77 50 L77 53 C77 55 75 56 73 56 L27 56 C25 56 23 55 23 53 L23 50 C23 47 25 45 28 45 Z" fill="#10b981"/>
+  <!-- Car Wheels (Orange) -->
+  <circle cx="36" cy="55" r="5" fill="#f97316" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="64" cy="55" r="5" fill="#f97316" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="50" cy="30" r="3" fill="#10b981"/>
+</svg>
