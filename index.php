@@ -760,16 +760,25 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
         </div>
     </nav>
 
-    <!-- HERO SECTION WITH PERFECTLY ALIGNED ANIMATED SCANNER -->
-    <section class="hero-section">
-        <div style="max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 3.5rem; align-items: center;">
+    <!-- HERO SECTION WITH DYNAMIC MOVING VISUALS -->
+    <section class="hero-section" style="position: relative; overflow: hidden; padding: 4.5rem 1.5rem;">
+        <!-- DYNAMIC AMBIENT GLOW MESH ORBS -->
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-orb hero-orb-2"></div>
+        <div class="hero-orb hero-orb-3"></div>
+
+        <div style="max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 3.5rem; align-items: center; position: relative; z-index: 2;">
             <div>
-                <div class="hero-badge">
+                <!-- LIVE ANIMATED PRIVACY BADGE -->
+                <div class="hero-badge hero-badge-animated">
+                    <span class="live-dot-pulse"></span>
                     <i class="fa-solid fa-shield-halved" style="color: #10b981;"></i> Protect Your Vehicle & Personal Privacy
                 </div>
 
+                <!-- DYNAMIC ANIMATED HEADLINE WITH CYCLING TEXT -->
                 <h1 class="hero-title">
-                    Let Anyone Reach You With a <span class="gradient-text">Quick QR Scan</span>
+                    Let Anyone Reach You With <br class="mobile-hide">
+                    <span id="heroDynamicWord" class="gradient-text hero-dynamic-word">a Quick QR Scan ⚡</span>
                 </h1>
 
                 <p class="hero-subtitle">
@@ -777,7 +786,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                 </p>
 
                 <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                    <a href="#contact" class="btn btn-primary btn-glow" style="padding: 1.1rem 2rem; font-size: 1.05rem; border-radius: var(--radius-lg); font-weight: 700;">
+                    <a href="#contact" class="btn btn-primary btn-glow btn-hero-pulse" style="padding: 1.1rem 2rem; font-size: 1.05rem; border-radius: var(--radius-lg); font-weight: 700;">
                         <i class="fa-solid fa-phone-volume"></i> Get Smart QR Tag Now
                     </a>
                     <a href="https://wa.me/919876543210?text=Hi%20Vehicle%20Sampark!%20I%20want%20to%20get%20smart%20vehicle%20QR%20tags" target="_blank" class="btn btn-secondary" style="padding: 1.1rem 2rem; font-size: 1.05rem; color: #ea580c; border-color: #ffedd5; border-radius: var(--radius-lg); font-weight: 700;">
@@ -785,26 +794,39 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                     </a>
                 </div>
 
-                <!-- TRUST BADGES -->
-                <div style="display: flex; gap: 2.25rem; margin-top: 2.5rem; padding-top: 1.75rem; border-top: 1px solid #e2e8f0; flex-wrap: wrap;">
-                    <div>
-                        <div style="font-family: var(--font-heading); font-size: 1.55rem; font-weight: 900; color: #10b981;">100% Private</div>
-                        <div style="font-size: 0.82rem; color: var(--text-muted); font-weight: 700;">No Mobile Numbers Exposed</div>
+                <!-- TRUST METRICS STRIP -->
+                <div class="hero-trust-strip">
+                    <div class="trust-item">
+                        <div class="trust-val color-emerald">100% Private</div>
+                        <div class="trust-lbl">No Phone Exposed</div>
                     </div>
-                    <div>
-                        <div style="font-family: var(--font-heading); font-size: 1.55rem; font-weight: 900; color: #f97316;">Instant Relay</div>
-                        <div style="font-size: 0.82rem; color: var(--text-muted); font-weight: 700;">Call & WhatsApp Bot</div>
+                    <div class="trust-item">
+                        <div class="trust-val color-orange">Instant Relay</div>
+                        <div class="trust-lbl">Call & WhatsApp Bot</div>
                     </div>
-                    <div>
-                        <div style="font-family: var(--font-heading); font-size: 1.55rem; font-weight: 900; color: #0f172a;">Smart Badge</div>
-                        <div style="font-size: 0.82rem; color: var(--text-muted); font-weight: 700;">Center Logo Tag Card</div>
+                    <div class="trust-item">
+                        <div class="trust-val color-slate">Smart Badge</div>
+                        <div class="trust-lbl">Center Logo Tag Card</div>
                     </div>
                 </div>
             </div>
 
-            <!-- HERO PERFECTLY ALIGNED SCANNER DEMO MOCKUP -->
-            <div style="text-align: center;">
+            <!-- HERO PERFECTLY ALIGNED DYNAMIC SCANNER MOCKUP -->
+            <div style="text-align: center; position: relative;">
                 <div class="hero-scanner-container">
+                    <!-- FLOATING BADGE 1: TOP LEFT -->
+                    <div class="floating-hero-badge float-top-left">
+                        <i class="fa-solid fa-lock" style="color: #10b981;"></i> 100% Phone Privacy
+                    </div>
+
+                    <!-- FLOATING BADGE 2: TOP RIGHT -->
+                    <div class="floating-hero-badge float-top-right">
+                        <i class="fa-solid fa-bolt" style="color: #f97316;"></i> 3-Sec Connect
+                    </div>
+
+                    <!-- SONAR PING BACKDROP -->
+                    <div class="hero-sonar-ping"></div>
+
                     <div class="scanner-card-box">
                         <!-- Laser Beam -->
                         <div class="scanner-laser"></div>
@@ -820,9 +842,9 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
 
                     <!-- LIVE ANIMATED CONNECTION STATUS TOAST -->
                     <div class="scan-status-toast" id="liveHeroScanToast">
-                        <div style="display: flex; align-items: center; gap: 0.65rem;">
-                            <span class="status-dot" id="liveHeroDot"></span>
-                            <span id="liveHeroMsg">Scanning Vehicle Tag...</span>
+                        <div style="display: flex; align-items: center; gap: 0.65rem; justify-content: center;">
+                            <span class="status-dot live-dot-pulse" id="liveHeroDot"></span>
+                            <span id="liveHeroMsg">Scanning Vehicle Tag QRC-SAMPARK-01...</span>
                         </div>
                         
                         <div class="action-pills-live" id="liveHeroPills">

@@ -227,3 +227,65 @@ function showToast(msg, type) {
         setTimeout(() => toast.remove(), 300);
     }, 3000);
 }
+
+// Auto-initialize Hero dynamic text and scanner status loop on DOM load
+document.addEventListener('DOMContentLoaded', function () {
+    initHeroDynamicWord();
+    initHeroStatusToast();
+});
+
+/**
+ * Dynamic Hero Headline Word Switcher
+ */
+function initHeroDynamicWord() {
+    const wordElem = document.getElementById('heroDynamicWord');
+    if (!wordElem) return;
+
+    const phrases = [
+        "a Quick QR Scan ⚡",
+        "1-Click Call Relay 📞",
+        "Instant WhatsApp Bot 💬",
+        "Zero Phone Leakage 🛡️"
+    ];
+    let idx = 0;
+
+    setInterval(() => {
+        idx = (idx + 1) % phrases.length;
+        wordElem.style.opacity = '0';
+        wordElem.style.transform = 'translateY(-12px)';
+
+        setTimeout(() => {
+            wordElem.textContent = phrases[idx];
+            wordElem.style.opacity = '1';
+            wordElem.style.transform = 'translateY(0)';
+        }, 300);
+    }, 2800);
+}
+
+/**
+ * Dynamic Live Hero Scan Status Toast Switcher
+ */
+function initHeroStatusToast() {
+    const msgElem = document.getElementById('liveHeroMsg');
+    const dotElem = document.getElementById('liveHeroDot');
+    if (!msgElem || !dotElem) return;
+
+    const states = [
+        { msg: "Scanning Vehicle Tag QRC-SAMPARK-01...", color: "#f97316" },
+        { msg: "Tag Recognized! Connecting Owner...", color: "#10b981" },
+        { msg: "1-Click Call & WhatsApp Bot Active!", color: "#06b6d4" },
+        { msg: "Privacy Protected: Mobile # Shielded!", color: "#8b5cf6" }
+    ];
+    let step = 0;
+
+    setInterval(() => {
+        step = (step + 1) % states.length;
+        msgElem.style.opacity = '0';
+        setTimeout(() => {
+            msgElem.textContent = states[step].msg;
+            dotElem.style.background = states[step].color;
+            msgElem.style.opacity = '1';
+        }, 250);
+    }, 3200);
+}
+
