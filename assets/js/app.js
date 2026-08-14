@@ -6,6 +6,38 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 /**
+ * Triggers the Logout Confirmation Modal
+ */
+function openLogoutModal(event) {
+    if (event) event.preventDefault();
+    const modal = document.getElementById('logoutModal');
+    if (modal) {
+        modal.classList.add('show');
+    } else {
+        window.location.href = 'logout.php';
+    }
+}
+
+/**
+ * Toggles Password Input Visibility
+ */
+function togglePasswordVisibility(inputId, iconId) {
+    const input = document.getElementById(inputId);
+    const icon = document.getElementById(iconId);
+    if (!input || !icon) return;
+
+    if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+    } else {
+        input.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+    }
+}
+
+/**
  * Initializes the QR Generator Modal on both Dashboard and Batches pages
  */
 function initGeneratorModal() {

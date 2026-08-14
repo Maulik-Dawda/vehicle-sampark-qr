@@ -786,3 +786,15 @@ a:hover {
         padding-right: 0;
     }
 }
+
+@keyframes pulseLogout {
+    0% {
+        box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 14px rgba(244, 63, 94, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(244, 63, 94, 0);
+    }
+}

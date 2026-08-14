@@ -53,9 +53,9 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                     <div class="user-chip">
                         <div class="user-avatar"><?= strtoupper(substr($currentAdmin['username'], 0, 1)) ?></div>
                         <span><?= htmlspecialchars($currentAdmin['username']) ?></span>
-                        <a href="logout.php" title="Logout" style="color: var(--accent-rose); margin-left: 0.25rem;">
+                        <button type="button" onclick="openLogoutModal(event)" title="Logout" style="background: none; border: none; color: var(--accent-rose); margin-left: 0.25rem; cursor: pointer; padding: 4px 6px; font-size: 1.05rem; display: inline-flex; align-items: center;">
                             <i class="fa-solid fa-right-from-bracket"></i>
-                        </a>
+                        </button>
                     </div>
                 <?php endif; ?>
             </div>
