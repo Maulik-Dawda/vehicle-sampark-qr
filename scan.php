@@ -1,7 +1,11 @@
 <?php
 // scan.php - Vehicle Sampark Mobile-Responsive Scanner & Owner Registration Page
 
-require_once __DIR__ . '/config/database.php';
+if (file_exists(__DIR__ . '/config/database.php')) {
+    require_once __DIR__ . '/config/database.php';
+} elseif (file_exists(__DIR__ . '/config/database.sample.php')) {
+    require_once __DIR__ . '/config/database.sample.php';
+}
 require_once __DIR__ . '/includes/functions.php';
 
 $codeNumber = sanitize($_GET['code'] ?? '');

@@ -1,7 +1,11 @@
 <?php
 // batches.php - Vehicle Sampark QR Code Batches & Form Generator Management
 
-require_once __DIR__ . '/config/database.php';
+if (file_exists(__DIR__ . '/config/database.php')) {
+    require_once __DIR__ . '/config/database.php';
+} elseif (file_exists(__DIR__ . '/config/database.sample.php')) {
+    require_once __DIR__ . '/config/database.sample.php';
+}
 require_once __DIR__ . '/includes/functions.php';
 
 requireAdminLogin();
