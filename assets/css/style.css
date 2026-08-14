@@ -632,6 +632,136 @@ a:hover {
 .toast-success i { color: var(--accent-green); }
 .toast-error i { color: var(--accent-rose); }
 
+/* ==========================================================================
+   PHYSICAL VEHICLE SAMPARK TAG CARD CSS RULES (MODAL & WEB PREVIEWS)
+   ========================================================================== */
+.sampark-tag-box {
+    width: 100%;
+    max-width: 580px;
+    margin: 0 auto 15px auto;
+    border: 2px solid #000000 !important;
+    border-radius: 10px !important;
+    overflow: hidden !important;
+    background: #ffffff !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.12) !important;
+    font-family: Helvetica, Arial, sans-serif !important;
+    text-align: left !important;
+}
+
+.sampark-tag-table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+}
+
+.tag-left-cell {
+    width: 58% !important;
+    background: #ffffff !important;
+    padding: 14px 16px !important;
+    vertical-align: top !important;
+    color: #000000 !important;
+    border-right: 2px solid #000000 !important;
+}
+
+.tag-right-cell {
+    width: 42% !important;
+    background: #f97316 !important; /* Energetic Orange Panel */
+    padding: 12px 14px !important;
+    vertical-align: top !important;
+    text-align: center !important;
+    color: #ffffff !important;
+}
+
+.tag-brand-title {
+    font-size: 19px !important;
+    font-weight: 900 !important;
+    letter-spacing: -0.5px !important;
+    color: #000000 !important;
+    text-transform: uppercase !important;
+    display: block !important;
+}
+
+.tag-logo-thumb {
+    height: 32px !important;
+    max-height: 32px !important;
+    width: auto !important;
+    max-width: 100px !important;
+    object-fit: contain !important;
+    border-radius: 4px !important;
+    display: block !important;
+    margin-left: auto !important;
+}
+
+.tag-yellow-bar {
+    height: 4px !important;
+    background: #10b981 !important; /* Emerald Green Bar */
+    width: 100% !important;
+    margin-top: 2px !important;
+    border-radius: 2px !important;
+}
+
+.tag-sub-caption {
+    font-size: 8.5px !important;
+    color: #475569 !important;
+    margin-top: 4px !important;
+    margin-bottom: 10px !important;
+}
+
+.tag-main-headline {
+    font-size: 21px !important;
+    font-weight: 900 !important;
+    line-height: 1.15 !important;
+    color: #000000 !important;
+    margin-bottom: 12px !important;
+    letter-spacing: -0.5px !important;
+}
+
+.tag-highlight {
+    text-decoration: underline !important;
+    text-decoration-color: #10b981 !important; /* Green underline */
+    text-decoration-thickness: 3px !important;
+}
+
+.tag-bottom-notice {
+    font-size: 7.5px !important;
+    font-weight: bold !important;
+    color: #64748b !important;
+    letter-spacing: 0.2px !important;
+    line-height: 1.3 !important;
+}
+
+.qr-white-card {
+    background: #ffffff !important;
+    border-radius: 8px !important;
+    padding: 5px !important;
+    border: 2px solid #000000 !important;
+    display: inline-block !important;
+}
+
+.tag-qr-img {
+    width: 125px !important;
+    height: 125px !important;
+    max-width: 100% !important;
+    display: block !important;
+    border-radius: 4px !important;
+}
+
+.nfc-badge {
+    background: #000000 !important;
+    color: #ffffff !important;
+    padding: 1px 5px !important;
+    border-radius: 3px !important;
+    font-size: 8px !important;
+    letter-spacing: 0.5px !important;
+}
+
+.tag-panel-footer {
+    font-size: 8.5px !important;
+    font-weight: bold !important;
+    color: #ffffff !important;
+    margin-top: 6px !important;
+    line-height: 1.25 !important;
+}
+
 /* RESPONSIVE BREAKPOINTS */
 @media (max-width: 768px) {
     .nav-container {

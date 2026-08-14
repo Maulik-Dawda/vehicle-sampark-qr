@@ -11,7 +11,9 @@ function renderVehicleSamparkTagHTML($codeNumber, $formTitle = 'Vehicle Contact 
         $logoBase64 = 'data:image/jpeg;base64,' . base64_encode(file_get_contents($logoPath));
     }
 
-    return '
+    $cssBlock = '<style>' . getVehicleSamparkTagCSS() . '</style>';
+
+    return $cssBlock . '
     <div class="sampark-tag-box">
         <table class="sampark-tag-table">
             <tr>
@@ -24,7 +26,7 @@ function renderVehicleSamparkTagHTML($codeNumber, $formTitle = 'Vehicle Contact 
                                     <span class="tag-brand-title">VEHICLE SAMPARK</span>
                                     <div class="tag-yellow-bar"></div>
                                 </td>
-                                ' . ($logoBase64 ? '<td style="text-align: right; vertical-align: middle;"><img src="' . $logoBase64 . '" class="tag-logo-thumb"></td>' : '') . '
+                                ' . ($logoBase64 ? '<td style="text-align: right; vertical-align: middle;"><img src="' . $logoBase64 . '" class="tag-logo-thumb" style="height:32px; max-height:32px; width:auto; max-width:100px; object-fit:contain; border-radius:4px; display:block; margin-left:auto;"></td>' : '') . '
                             </tr>
                         </table>
                     </div>
@@ -112,9 +114,14 @@ function getVehicleSamparkTagCSS() {
         display: block;
     }
     .tag-logo-thumb {
-        height: 30px;
-        width: auto;
+        height: 32px !important;
+        max-height: 32px !important;
+        width: auto !important;
+        max-width: 100px !important;
+        object-fit: contain !important;
         border-radius: 4px;
+        display: block;
+        margin-left: auto;
     }
     .tag-yellow-bar {
         height: 4px;
@@ -159,6 +166,7 @@ function getVehicleSamparkTagCSS() {
     .tag-qr-img {
         width: 125px;
         height: 125px;
+        max-width: 100%;
         display: block;
         border-radius: 4px;
     }
