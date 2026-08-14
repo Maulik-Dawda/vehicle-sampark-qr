@@ -1,5 +1,5 @@
 <?php
-// index.php - Vehicle Sampark Landing Page with Floating WhatsApp Connect Widget & Live Ticker
+// index.php - Vehicle Sampark Landing Page with Cartoon Animated Privacy Journey Story
 
 require_once __DIR__ . '/config/database.php';
 require_once __DIR__ . '/includes/functions.php';
@@ -270,6 +270,180 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
             font-size: 1.05rem;
         }
 
+        /* CARTOON ANIMATED PRIVACY STORY TIMELINE SECTION */
+        .story-section {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #ffffff;
+            padding: 5rem 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .story-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .story-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-xl);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            position: relative;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .story-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: #10b981;
+            box-shadow: 0 20px 40px rgba(16, 185, 129, 0.15);
+        }
+
+        .story-badge-num {
+            position: absolute;
+            top: -16px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: #ffffff;
+            font-family: var(--font-heading);
+            font-weight: 900;
+            font-size: 0.88rem;
+            padding: 0.25rem 0.85rem;
+            border-radius: var(--radius-full);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+        }
+
+        /* CARTOON SCENE ILLUSTRATION CONTAINERS */
+        .cartoon-scene-box {
+            height: 130px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        /* SCENE 1: CAR WRONGLY PARKED */
+        .car-anim-container {
+            font-size: 4rem;
+            color: #f97316;
+            animation: carShake 2s infinite ease-in-out;
+            position: relative;
+        }
+
+        @keyframes carShake {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-4px) rotate(-1deg); }
+            75% { transform: translateY(2px) rotate(1deg); }
+        }
+
+        .alert-bubble-cartoon {
+            position: absolute;
+            top: -15px;
+            right: -25px;
+            background: #ef4444;
+            color: #ffffff;
+            font-size: 0.72rem;
+            font-weight: 800;
+            padding: 0.2rem 0.55rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(239, 68, 68, 0.4);
+            animation: alertPop 1.5s infinite alternate;
+        }
+
+        @keyframes alertPop {
+            0% { transform: scale(0.9); }
+            100% { transform: scale(1.1); }
+        }
+
+        /* SCENE 2: SCANNING QR CODE */
+        .phone-scan-container {
+            position: relative;
+            font-size: 3.5rem;
+            color: #10b981;
+        }
+
+        .scan-beam-line {
+            position: absolute;
+            top: 25%;
+            left: 20%;
+            width: 60%;
+            height: 3px;
+            background: #10b981;
+            box-shadow: 0 0 10px #10b981;
+            animation: scanBeamMove 1.8s infinite alternate ease-in-out;
+        }
+
+        @keyframes scanBeamMove {
+            0% { top: 20%; }
+            100% { top: 70%; }
+        }
+
+        /* SCENE 3: BOT GATEWAY MASKING */
+        .bot-shield-container {
+            font-size: 3.8rem;
+            color: #25d366;
+            position: relative;
+            animation: shieldPulse 2.5s infinite ease-in-out;
+        }
+
+        @keyframes shieldPulse {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 5px rgba(37, 211, 102, 0.4)); }
+            50% { transform: scale(1.08); filter: drop-shadow(0 0 20px rgba(37, 211, 102, 0.8)); }
+        }
+
+        .privacy-lock-icon {
+            position: absolute;
+            bottom: -5px;
+            right: -10px;
+            background: #0f172a;
+            border: 2px solid #10b981;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            color: #10b981;
+        }
+
+        /* SCENE 4: ANONYMOUS ALERT SOLVED */
+        .owner-received-container {
+            font-size: 3.8rem;
+            color: #38bdf8;
+            position: relative;
+        }
+
+        .success-checkmark-cartoon {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #10b981;
+            color: #ffffff;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.5);
+            animation: checkBounce 1.8s infinite ease-in-out;
+        }
+
+        @keyframes checkBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
         /* FLOATING WHATSAPP QUICK CONNECT WIDGET (BOTTOM RIGHT) */
         .floating-wa-wrapper {
             position: fixed;
@@ -349,22 +523,6 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
         @keyframes waPulseRing {
             0% { transform: scale(0.95); opacity: 0.9; }
             100% { transform: scale(1.35); opacity: 0; }
-        }
-
-        /* STATS COUNTER STRIP */
-        .stats-counter-strip {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            color: #ffffff;
-            padding: 3.5rem 1.5rem;
-        }
-
-        .counter-num {
-            font-family: var(--font-heading);
-            font-size: 2.75rem;
-            font-weight: 900;
-            color: var(--primary);
-            line-height: 1;
-            margin-bottom: 0.35rem;
         }
 
         /* HAZARD CARDS */
@@ -730,24 +888,77 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
         </div>
     </section>
 
-    <!-- LIVE STATS COUNTER STRIP -->
-    <section class="stats-counter-strip">
-        <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2.5rem; text-align: center;">
-            <div>
-                <div class="counter-num" data-target="12480">0</div>
-                <div style="font-size: 0.9rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">Active QR Tags</div>
+    <!-- CARTOON ANIMATED PRIVACY STORY TIMELINE (REPLACED NUMBER STRIP) -->
+    <section class="story-section">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <div class="section-header" style="margin-bottom: 3.5rem;">
+                <span class="section-tag" style="color: #f97316;">Zero Personal Number Shared</span>
+                <h2 class="section-title" style="color: #ffffff;">How Vehicle Sampark Connects You Safely</h2>
+                <p style="color: #94a3b8; font-size: 1.02rem; margin-top: 0.5rem;">
+                    Bystanders connect with vehicle owners through our official company WhatsApp gateway — keeping your private phone number 100% hidden!
+                </p>
             </div>
-            <div>
-                <div class="counter-num" style="color: #f97316;" data-target="45200">0</div>
-                <div style="font-size: 0.9rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">Anonymous Alerts Relayed</div>
-            </div>
-            <div>
-                <div class="counter-num" data-target="99">0</div>
-                <div style="font-size: 0.9rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">% Emergency Response Rate</div>
-            </div>
-            <div>
-                <div class="counter-num" style="color: #f97316;" data-target="3">0</div>
-                <div style="font-size: 0.9rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">Sec Avg WhatsApp Alert Time</div>
+
+            <div class="story-grid">
+                <!-- SCENE 1: WRONG PARKING -->
+                <div class="story-card">
+                    <div class="story-badge-num">SCENE 1</div>
+                    <div class="cartoon-scene-box">
+                        <div class="car-anim-container">
+                            <i class="fa-solid fa-car-side"></i>
+                            <div class="alert-bubble-cartoon">🚫 Blocked Exit!</div>
+                        </div>
+                    </div>
+                    <h3 style="font-size: 1.2rem; font-weight: 800; color: #ffffff; margin-bottom: 0.5rem;">Vehicle Wrongly Parked</h3>
+                    <p style="color: #94a3b8; font-size: 0.88rem; line-height: 1.6;">
+                        A car blocks a driveway, gate, or another vehicle in a crowded parking area. The driver is away.
+                    </p>
+                </div>
+
+                <!-- SCENE 2: SCANNING QR STICKER -->
+                <div class="story-card">
+                    <div class="story-badge-num">SCENE 2</div>
+                    <div class="cartoon-scene-box">
+                        <div class="phone-scan-container">
+                            <i class="fa-solid fa-mobile-screen-button"></i>
+                            <div class="scan-beam-line"></div>
+                        </div>
+                    </div>
+                    <h3 style="font-size: 1.2rem; font-weight: 800; color: #ffffff; margin-bottom: 0.5rem;">Bystander Scans QR Tag</h3>
+                    <p style="color: #94a3b8; font-size: 0.88rem; line-height: 1.6;">
+                        The bystander scans the Vehicle Sampark sticker on the car windshield using any phone camera.
+                    </p>
+                </div>
+
+                <!-- SCENE 3: COMPANY WHATSAPP BOT GATEWAY -->
+                <div class="story-card">
+                    <div class="story-badge-num">SCENE 3</div>
+                    <div class="cartoon-scene-box">
+                        <div class="bot-shield-container">
+                            <i class="fa-brands fa-whatsapp"></i>
+                            <div class="privacy-lock-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                        </div>
+                    </div>
+                    <h3 style="font-size: 1.2rem; font-weight: 800; color: #ffffff; margin-bottom: 0.5rem;">Company WhatsApp Masking</h3>
+                    <p style="color: #94a3b8; font-size: 0.88rem; line-height: 1.6;">
+                        Connected via Vehicle Sampark's official WhatsApp Bot line. **No personal phone number is ever exposed to the bystander.**
+                    </p>
+                </div>
+
+                <!-- SCENE 4: OWNER RELAYED ALERT & SOLVED -->
+                <div class="story-card">
+                    <div class="story-badge-num">SCENE 4</div>
+                    <div class="cartoon-scene-box">
+                        <div class="owner-received-container">
+                            <i class="fa-solid fa-bell"></i>
+                            <div class="success-checkmark-cartoon"><i class="fa-solid fa-check"></i></div>
+                        </div>
+                    </div>
+                    <h3 style="font-size: 1.2rem; font-weight: 800; color: #ffffff; margin-bottom: 0.5rem;">Anonymous Alert & Solved!</h3>
+                    <p style="color: #94a3b8; font-size: 0.88rem; line-height: 1.6;">
+                        The owner receives an urgent WhatsApp alert, moves their vehicle peacefully, and both parties stay 100% private & safe!
+                    </p>
+                </div>
             </div>
         </div>
     </section>
@@ -1113,41 +1324,6 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                 pills.classList.remove('show');
             }
         }, 1800);
-    });
-
-    // 2. ANIMATED SCROLL COUNTER NUMBERS
-    document.addEventListener('DOMContentLoaded', function() {
-        const counters = document.querySelectorAll('.counter-num');
-        let animated = false;
-
-        function runCounters() {
-            const strip = document.querySelector('.stats-counter-strip');
-            if (!strip) return;
-            const rect = strip.getBoundingClientRect();
-
-            if (rect.top <= window.innerHeight && rect.bottom >= 0 && !animated) {
-                animated = true;
-                counters.forEach(counter => {
-                    const target = +counter.getAttribute('data-target');
-                    let count = 0;
-                    const speed = target > 1000 ? Math.ceil(target / 40) : 1;
-
-                    const updateCount = () => {
-                        count += speed;
-                        if (count < target) {
-                            counter.innerText = count.toLocaleString() + (target === 99 ? '%' : '+');
-                            setTimeout(updateCount, 30);
-                        } else {
-                            counter.innerText = target.toLocaleString() + (target === 99 ? '%' : target === 3 ? ' Sec' : '+');
-                        }
-                    };
-                    updateCount();
-                });
-            }
-        }
-
-        window.addEventListener('scroll', runCounters);
-        runCounters();
     });
 
     function toggleFaq(element) {
