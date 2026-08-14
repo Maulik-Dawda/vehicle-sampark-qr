@@ -289,3 +289,70 @@ function initHeroStatusToast() {
     }, 3200);
 }
 
+/**
+ * Multi-Language Selection Engine (All Indian Languages)
+ */
+function toggleLangMenu(event) {
+    if (event) event.stopPropagation();
+    const menu = document.getElementById('langDropdownMenu');
+    if (menu) {
+        menu.classList.toggle('show');
+    }
+}
+
+document.addEventListener('click', function (e) {
+    const menu = document.getElementById('langDropdownMenu');
+    const btn = document.getElementById('langDropdownBtn');
+    if (menu && btn && !btn.contains(e.target) && !menu.contains(e.target)) {
+        menu.classList.remove('show');
+    }
+});
+
+function selectLang(langCode, langName) {
+    localStorage.setItem('selectedLangCode', langCode);
+    localStorage.setItem('selectedLangName', langName);
+
+    const labelElem = document.getElementById('currentLangLabel');
+    if (labelElem) labelElem.textContent = langName;
+
+    // Update active state in menu
+    const options = document.querySelectorAll('.lang-option');
+    options.forEach(opt => {
+        const onClickAttr = opt.getAttribute('onclick') || '';
+        if (onClickAttr.includes(`'${langCode}'`)) {
+            opt.classList.add('active');
+        } else {
+            opt.classList.remove('active');
+        }
+    });
+
+    const menu = document.getElementById('langDropdownMenu');
+    if (menu) menu.classList.remove('show');
+
+    // Apply Google Translate
+    applyGoogleTranslate(langCode);
+}
+
+function applyGoogleTranslate(langCode) {
+    const selectElem = document.querySelector('.goog-te-combo');
+    if (selectElem) {
+        selectElem.value = langCode;
+        selectElem.dispatchEvent(new Event('change'));
+    } else {
+        // Retry if Google Translate widget script is still loading
+        setTimeout(() => applyGoogleTranslate(langCode), 400);
+    }
+}
+
+// Auto-restore saved language preference on load
+document.addEventListener('DOMContentLoaded', function () {
+    const savedCode = localStorage.getItem('selectedLangCode');
+    const savedName = localStorage.getItem('selectedLangName');
+    if (savedCode && savedName) {
+        const labelElem = document.getElementById('currentLangLabel');
+        if (labelElem) labelElem.textContent = savedName;
+        setTimeout(() => applyGoogleTranslate(savedCode), 800);
+    }
+});
+
+

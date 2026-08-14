@@ -758,6 +758,27 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                 <a href="#why-us" class="nav-link"><i class="fa-solid fa-shield-halved"></i> Why Us</a>
                 <a href="#faq" class="nav-link"><i class="fa-solid fa-circle-question"></i> FAQ</a>
                 <a href="#contact" class="nav-link"><i class="fa-solid fa-envelope"></i> Contact Us</a>
+
+                <!-- MULTI-LANGUAGE SELECTOR DROPDOWN (ALL INDIAN LANGUAGES) -->
+                <div class="lang-selector-dropdown">
+                    <button class="lang-dropdown-btn" id="langDropdownBtn" onclick="toggleLangMenu(event)" aria-label="Select Language">
+                        <i class="fa-solid fa-globe" style="color: #10b981;"></i>
+                        <span id="currentLangLabel">English</span>
+                        <i class="fa-solid fa-chevron-down" style="font-size: 0.7rem; opacity: 0.7;"></i>
+                    </button>
+                    <div class="lang-dropdown-menu" id="langDropdownMenu">
+                        <a href="javascript:void(0)" onclick="selectLang('en', 'English')" class="lang-option active"><span class="flag-icon">🇬🇧</span> English</a>
+                        <a href="javascript:void(0)" onclick="selectLang('hi', 'हिंदी (Hindi)')" class="lang-option"><span class="flag-icon">🇮🇳</span> हिंदी (Hindi)</a>
+                        <a href="javascript:void(0)" onclick="selectLang('gu', 'ગુજરાતી (Gujarati)')" class="lang-option"><span class="flag-icon">🇮🇳</span> ગુજરાતી (Gujarati)</a>
+                        <a href="javascript:void(0)" onclick="selectLang('mr', 'मराठी (Marathi)')" class="lang-option"><span class="flag-icon">🇮🇳</span> मराठी (Marathi)</a>
+                        <a href="javascript:void(0)" onclick="selectLang('bn', 'বাংলা (Bengali)')" class="lang-option"><span class="flag-icon">🇮🇳</span> বাংলা (Bengali)</a>
+                        <a href="javascript:void(0)" onclick="selectLang('ta', 'தமிழ் (Tamil)')" class="lang-option"><span class="flag-icon">🇮🇳</span> தமிழ் (Tamil)</a>
+                        <a href="javascript:void(0)" onclick="selectLang('te', 'తెలుగు (Telugu)')" class="lang-option"><span class="flag-icon">🇮🇳</span> తెలుగు (Telugu)</a>
+                        <a href="javascript:void(0)" onclick="selectLang('kn', 'ಕನ್ನಡ (Kannada)')" class="lang-option"><span class="flag-icon">🇮🇳</span> ಕನ್ನಡ (Kannada)</a>
+                        <a href="javascript:void(0)" onclick="selectLang('ml', 'മലയാളം (Malayalam)')" class="lang-option"><span class="flag-icon">🇮🇳</span> മലയാളം (Malayalam)</a>
+                        <a href="javascript:void(0)" onclick="selectLang('pa', 'ਪੰਜਾਬੀ (Punjabi)')" class="lang-option"><span class="flag-icon">🇮🇳</span> ਪੰਜਾਬੀ (Punjabi)</a>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
@@ -1539,5 +1560,20 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
         });
     });
     </script>
+
+    <!-- HIDDEN GOOGLE TRANSLATE ENGINE CONTAINER -->
+    <div id="google_translate_element" style="display:none; visibility:hidden; position:absolute; left:-9999px;"></div>
+
+    <script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            includedLanguages: 'en,hi,gu,mr,bn,ta,te,kn,ml,pa',
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+            autoDisplay: false
+        }, 'google_translate_element');
+    }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
