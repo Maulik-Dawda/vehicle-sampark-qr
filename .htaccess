@@ -6,29 +6,14 @@
     RewriteCond %{ENV:REDIRECT_STATUS} 200
     RewriteRule ^ - [L]
 
-    # 301 Redirect Direct .php Admin Requests to Custom admin-qr- URLs
-    RewriteCond %{THE_REQUEST} \s/login\.php[\s\?] [NC]
-    RewriteRule ^login\.php$ /admin-qr-login [R=301,L]
+    # Custom 404 Page
+    ErrorDocument 404 /404.php
 
-    RewriteCond %{THE_REQUEST} \s/dashboard\.php[\s\?] [NC]
-    RewriteRule ^dashboard\.php$ /admin-qr-dashboard [R=301,L]
+    # 1. SERVE 404 FOR DIRECT .php ADMIN FILE REQUESTS IN BROWSER
+    RewriteCond %{THE_REQUEST} \s/(login|dashboard|batches|profile|single_pdf|batch_pdf|api)\.php[\s\?] [NC]
+    RewriteRule ^ - [R=404,L]
 
-    RewriteCond %{THE_REQUEST} \s/batches\.php[\s\?] [NC]
-    RewriteRule ^batches\.php$ /admin-qr-batches [R=301,L]
-
-    RewriteCond %{THE_REQUEST} \s/profile\.php[\s\?] [NC]
-    RewriteRule ^profile\.php$ /admin-qr-profile [R=301,L]
-
-    RewriteCond %{THE_REQUEST} \s/single_pdf\.php[\s\?] [NC]
-    RewriteRule ^single_pdf\.php$ /admin-qr-single-pdf [R=301,L]
-
-    RewriteCond %{THE_REQUEST} \s/batch_pdf\.php[\s\?] [NC]
-    RewriteRule ^batch_pdf\.php$ /admin-qr-batch-pdf [R=301,L]
-
-    RewriteCond %{THE_REQUEST} \s/api\.php[\s\?] [NC]
-    RewriteRule ^api\.php$ /admin-qr-api [R=301,L]
-
-    # Internal Rewrites to Servicing PHP Files
+    # 2. ALLOWED INTERNAL CUSTOM ADMIN ROUTES
     RewriteRule ^admin-qr-login/?$ login.php [L,QSA]
     RewriteRule ^admin-qr-dashboard/?$ dashboard.php [L,QSA]
     RewriteRule ^admin-qr-batches/?$ batches.php [L,QSA]

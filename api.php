@@ -9,6 +9,12 @@ if (file_exists(__DIR__ . '/config/database.php')) {
 require_once __DIR__ . '/includes/functions.php';
 require_once __DIR__ . '/includes/tag_template.php';
 
+if (strpos($_SERVER['REQUEST_URI'] ?? '', 'api.php') !== false) {
+    header("HTTP/1.1 404 Not Found");
+    include __DIR__ . '/404.php';
+    exit;
+}
+
 $action = sanitize($_GET['action'] ?? '');
 
 switch ($action) {

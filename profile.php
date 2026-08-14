@@ -9,8 +9,8 @@ if (file_exists(__DIR__ . '/config/database.php')) {
 require_once __DIR__ . '/includes/functions.php';
 
 if (strpos($_SERVER['REQUEST_URI'] ?? '', 'profile.php') !== false) {
-    header('HTTP/1.1 301 Moved Permanently');
-    header('Location: admin-qr-profile');
+    header("HTTP/1.1 404 Not Found");
+    include __DIR__ . '/404.php';
     exit;
 }
 

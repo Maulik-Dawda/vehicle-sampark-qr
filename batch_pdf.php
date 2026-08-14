@@ -14,9 +14,8 @@ use Dompdf\Dompdf;
 use Dompdf\Options;
 
 if (strpos($_SERVER['REQUEST_URI'] ?? '', 'batch_pdf.php') !== false) {
-    $qs = !empty($_SERVER['QUERY_STRING']) ? '?' . $_SERVER['QUERY_STRING'] : '';
-    header('HTTP/1.1 301 Moved Permanently');
-    header('Location: admin-qr-batch-pdf' . $qs);
+    header("HTTP/1.1 404 Not Found");
+    include __DIR__ . '/404.php';
     exit;
 }
 

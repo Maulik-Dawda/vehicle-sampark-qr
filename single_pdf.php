@@ -11,9 +11,8 @@ require_once __DIR__ . '/includes/functions.php';
 require_once __DIR__ . '/includes/tag_template.php';
 
 if (strpos($_SERVER['REQUEST_URI'] ?? '', 'single_pdf.php') !== false) {
-    $qs = !empty($_SERVER['QUERY_STRING']) ? '?' . $_SERVER['QUERY_STRING'] : '';
-    header('HTTP/1.1 301 Moved Permanently');
-    header('Location: admin-qr-single-pdf' . $qs);
+    header("HTTP/1.1 404 Not Found");
+    include __DIR__ . '/404.php';
     exit;
 }
 
