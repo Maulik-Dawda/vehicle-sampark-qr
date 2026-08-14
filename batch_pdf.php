@@ -1,5 +1,5 @@
 <?php
-// batch_pdf.php - Full-Page Balanced Spacing (4 Tags Per A4 Page) Batch PDF Streamer
+// batch_pdf.php - Full-Page Edge-to-Edge Batch PDF Streamer (Only Batch # on Top Corner)
 
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/config/database.php';
@@ -44,7 +44,7 @@ $html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><style>';
 $html .= getVehicleSamparkTagCSS();
 $html .= '
 @page {
-    margin: 15px 18px;
+    margin: 10px 14px;
 }
 body {
     font-family: Helvetica, Arial, sans-serif;
@@ -52,65 +52,71 @@ body {
     padding: 0;
     background: #ffffff;
 }
-.batch-header-title {
-    text-align: center;
-    font-size: 11px;
+/* Small Batch Identifier in Top Right Corner */
+.batch-corner-id {
+    text-align: right;
+    font-size: 8px;
     font-weight: bold;
-    color: #475569;
-    margin-bottom: 15px;
-    padding-bottom: 5px;
-    border-bottom: 1px solid #cbd5e1;
+    color: #94a3b8;
+    margin-bottom: 6px;
+    font-family: monospace;
 }
-/* Balanced Full-Page Spacing Wrapper (4 Tags Per A4 Page) */
+/* Full-Page Tag Card Wrapper (4 Tags Cover Whole A4 Page) */
 .batch-tag-wrapper {
-    margin-bottom: 20px;
+    margin-bottom: 12px;
     page-break-inside: avoid;
 }
 .batch-tag-wrapper .sampark-tag-box {
     margin-bottom: 0 !important;
+    max-width: 100% !important;
+    border-width: 2px !important;
 }
 .batch-tag-wrapper .tag-left-cell {
-    padding: 10px 14px !important;
+    padding: 12px 16px !important;
 }
 .batch-tag-wrapper .tag-right-cell {
-    padding: 10px 12px !important;
+    padding: 12px 14px !important;
 }
 .batch-tag-wrapper .tag-brand-title {
-    font-size: 17px !important;
+    font-size: 18px !important;
 }
 .batch-tag-wrapper .tag-main-headline {
-    font-size: 18px !important;
-    margin-bottom: 8px !important;
+    font-size: 20px !important;
+    margin-bottom: 10px !important;
+    line-height: 1.15 !important;
 }
 .batch-tag-wrapper .tag-qr-img {
-    width: 108px !important;
-    height: 108px !important;
+    width: 120px !important;
+    height: 120px !important;
 }
 .batch-tag-wrapper .tag-sub-caption {
-    font-size: 8px !important;
-    margin-bottom: 6px !important;
+    font-size: 8.5px !important;
+    margin-bottom: 8px !important;
 }
 .batch-tag-wrapper .tag-bottom-notice {
-    font-size: 7px !important;
+    font-size: 7.5px !important;
 }
 .batch-tag-wrapper .tag-panel-footer {
-    font-size: 8px !important;
-    margin-top: 5px !important;
+    font-size: 8.5px !important;
+    margin-top: 6px !important;
 }
 .page-break {
     page-break-after: always;
 }
 </style></head><body>';
 
-$html .= '<div class="batch-header-title">Vehicle Sampark Batch Tags PDF - ' . htmlspecialchars($batch['batch_name']) . ' (' . count($qrCodes) . ' Total Tags &bull; 4 Tags Per Page)</div>';
-
 $total = count($qrCodes);
 foreach ($qrCodes as $index => $codeNumber) {
+    // Show tiny batch ID at the top right of each page
+    if ($index % 4 === 0) {
+        $html .= '<div class="batch-corner-id">#BATCH-' . $batchId . '</div>';
+    }
+
     $html .= '<div class="batch-tag-wrapper">';
     $html .= renderVehicleSamparkTagHTML($codeNumber, $batch['form_title']);
     $html .= '</div>';
     
-    // Page break after every 4 tags to evenly cover full A4 page
+    // Page break after every 4 tags to fill full A4 page
     if (($index + 1) % 4 === 0 && ($index + 1) < $total) {
         $html .= '<div class="page-break"></div>';
     }
