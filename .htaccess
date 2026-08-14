@@ -1,4 +1,4 @@
-# Vehicle Sampark Clean Hostinger Rewrite Rules
+# Vehicle Sampark Clean Hostinger LiteSpeed Rewrite Rules
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteBase /
@@ -6,7 +6,32 @@
     # Custom 404 Error Handler
     ErrorDocument 404 /404.php
 
-    # Admin Custom Extensionless Clean Routes
+    # 1. BLOCK DIRECT ACCESSIBLE .PHP FILES (Serve 404.php for direct browser requests)
+    RewriteCond %{THE_REQUEST} \s/login\.php[\s\?] [NC]
+    RewriteRule ^login\.php$ 404.php [L]
+
+    RewriteCond %{THE_REQUEST} \s/dashboard\.php[\s\?] [NC]
+    RewriteRule ^dashboard\.php$ 404.php [L]
+
+    RewriteCond %{THE_REQUEST} \s/batches\.php[\s\?] [NC]
+    RewriteRule ^batches\.php$ 404.php [L]
+
+    RewriteCond %{THE_REQUEST} \s/profile\.php[\s\?] [NC]
+    RewriteRule ^profile\.php$ 404.php [L]
+
+    RewriteCond %{THE_REQUEST} \s/single_pdf\.php[\s\?] [NC]
+    RewriteRule ^single_pdf\.php$ 404.php [L]
+
+    RewriteCond %{THE_REQUEST} \s/batch_pdf\.php[\s\?] [NC]
+    RewriteRule ^batch_pdf\.php$ 404.php [L]
+
+    RewriteCond %{THE_REQUEST} \s/api\.php[\s\?] [NC]
+    RewriteRule ^api\.php$ 404.php [L]
+
+    RewriteCond %{THE_REQUEST} \s/index\.php[\s\?] [NC]
+    RewriteRule ^index\.php$ 404.php [L]
+
+    # 2. ADMIN CUSTOM EXTENSIONLESS CLEAN ROUTES
     RewriteRule ^admin-qr-login/?$ login.php [L,QSA]
     RewriteRule ^admin-qr-dashboard/?$ dashboard.php [L,QSA]
     RewriteRule ^admin-qr-batches/?$ batches.php [L,QSA]

@@ -1,5 +1,7 @@
 <?php
-if (isset($_SERVER['REQUEST_URI']) && preg_match('/single_pdf\.php/i', $_SERVER['REQUEST_URI'])) {
+$theReq = $_SERVER['THE_REQUEST'] ?? '';
+$reqUri = $_SERVER['REQUEST_URI'] ?? '';
+if (strpos($theReq, 'single_pdf.php') !== false || strpos($reqUri, 'single_pdf.php') !== false) {
     http_response_code(404);
     require __DIR__ . '/404.php';
     exit;
