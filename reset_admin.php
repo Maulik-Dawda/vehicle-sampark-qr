@@ -1,5 +1,5 @@
 <?php
-// reset_admin.php - One-Click Admin Credentials Reset & Verifier
+// reset_admin.php - One-Click Admin Credentials Reset & Verifier (MariaDB/MySQL & SQLite Compatible)
 
 if (file_exists(__DIR__ . '/config/database.php')) {
     require_once __DIR__ . '/config/database.php';
@@ -17,31 +17,52 @@ try {
     $password = 'admin123';
     $hash = password_hash($password, PASSWORD_BCRYPT);
 
-    // Ensure admins table exists
-    $pdo->exec("
-        CREATE TABLE IF NOT EXISTS admins (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            username TEXT UNIQUE NOT NULL,
-            email TEXT UNIQUE NOT NULL,
-            password_hash TEXT NOT NULL,
-            full_name TEXT DEFAULT 'Administrator',
-            last_login DATETIME,
-            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-        );
-    ");
+    // Detect Database Driver
+    $driver = $pdo->getAttribute(PDO::ATTR_DRIVER_NAME);
+
+    // Ensure admins table exists with driver-specific syntax
+    if ($driver === 'mysql') {
+        $pdo->exec("
+            CREATE TABLE IF NOT EXISTS admins (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                username VARCHAR(50) NOT NULL UNIQUE,
+                email VARCHAR(100) NOT NULL UNIQUE,
+                password_hash VARCHAR(255) NOT NULL,
+                full_name VARCHAR(100) DEFAULT 'Administrator',
+                two_factor_secret VARCHAR(100) DEFAULT NULL,
+                two_factor_enabled TINYINT(1) DEFAULT 0,
+                last_login DATETIME DEFAULT NULL,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+        ");
+    } else {
+        $pdo->exec("
+            CREATE TABLE IF NOT EXISTS admins (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                username VARCHAR(50) NOT NULL UNIQUE,
+                email VARCHAR(100) NOT NULL UNIQUE,
+                password_hash VARCHAR(255) NOT NULL,
+                full_name VARCHAR(100) DEFAULT 'Administrator',
+                two_factor_secret VARCHAR(100) DEFAULT NULL,
+                two_factor_enabled INTEGER DEFAULT 0,
+                last_login DATETIME,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            );
+        ");
+    }
 
     // Check if admin user exists
-    $stmt = $pdo->prepare("SELECT id FROM admins WHERE username = ?");
-    $stmt->execute([$username]);
+    $stmt = $pdo->prepare("SELECT id FROM admins WHERE username = ? OR email = ?");
+    $stmt->execute([$username, 'admin@vehiclesampark.com']);
     $admin = $stmt->fetch();
 
     if ($admin) {
-        // Update password
-        $up = $pdo->prepare("UPDATE admins SET password_hash = ? WHERE username = ?");
-        $up->execute([$hash, $username]);
+        // Update password hash
+        $up = $pdo->prepare("UPDATE admins SET password_hash = ?, username = 'admin' WHERE id = ?");
+        $up->execute([$hash, $admin['id']]);
         $message = "Admin password successfully reset to 'admin123' for user 'admin'!";
     } else {
-        // Create admin user
+        // Create default admin user
         $ins = $pdo->prepare("
             INSERT INTO admins (username, email, password_hash, full_name)
             VALUES (?, 'admin@vehiclesampark.com', ?, 'System Administrator')
@@ -50,7 +71,7 @@ try {
         $message = "Created new default Admin account (Username: 'admin' | Password: 'admin123')!";
     }
 } catch (Exception $e) {
-    $error = "Error: " . $e->getMessage();
+    $error = "Database Error: " . $e->getMessage();
 }
 
 $pageTitle = 'Admin Credentials Reset | Vehicle Sampark';
