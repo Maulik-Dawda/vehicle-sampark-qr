@@ -809,3 +809,55 @@ a:hover {
     50% { transform: scale(1.35); opacity: 0.5; }
     100% { transform: scale(0.95); opacity: 1; }
 }
+
+/* VISUAL LANDING PAGE STYLES */
+.gradient-text-emerald {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.gradient-text-orange {
+    background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hover-lift-card {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease;
+}
+
+.hover-lift-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 35px rgba(0, 0, 0, 0.08) !important;
+    border-color: rgba(16, 185, 129, 0.4) !important;
+}
+
+.scene-card-visual {
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.scene-card-visual:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 14px 30px rgba(16, 185, 129, 0.12) !important;
+}
+
+.hazard-box-interactive {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+
+.hazard-box-interactive:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 35px rgba(249, 115, 22, 0.15) !important;
+    border-color: #f97316 !important;
+}
+
+.faq-card-modern {
+    transition: all 0.25s ease;
+}
+
+.faq-card-modern:hover {
+    border-color: #10b981 !important;
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.08) !important;
+}

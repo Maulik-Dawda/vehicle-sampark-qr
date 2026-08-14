@@ -1,5 +1,5 @@
 <?php
-// index.php - Vehicle Sampark Landing Page with Clean HTML Formatting in Cartoon Privacy Story
+// index.php - Vehicle Sampark Modern Enterprise Visual Landing Page
 
 if (file_exists(__DIR__ . '/config/database.php')) {
     require_once __DIR__ . '/config/database.php';
@@ -30,12 +30,12 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
     <link rel="stylesheet" href="assets/css/style.css?v=<?= time() ?>">
     
     <style>
-        /* LANDING PAGE CUSTOM HIGH-AESTHETIC STYLES */
+        /* LANDING PAGE HIGH-AESTHETIC STYLES */
         .announcement-bar {
             background: linear-gradient(90deg, #10b981 0%, #059669 50%, #f97316 100%);
             color: #ffffff;
             text-align: center;
-            padding: 0.55rem 1rem;
+            padding: 0.6rem 1rem;
             font-size: 0.85rem;
             font-weight: 700;
             letter-spacing: 0.3px;
@@ -43,8 +43,8 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
         }
 
         .hero-section {
-            background: radial-gradient(circle at 50% 0%, #ecfdf5 0%, #ffffff 70%, #f8fafc 100%);
-            padding: 4.5rem 1.5rem 4rem 1.5rem;
+            background: radial-gradient(circle at 50% 0%, #ecfdf5 0%, #ffffff 65%, #f8fafc 100%);
+            padding: 5rem 1.5rem 4.5rem 1.5rem;
             border-bottom: 1px solid #e2e8f0;
             position: relative;
             overflow: hidden;
@@ -53,25 +53,25 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
         .hero-badge {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.6rem;
             background: #ffffff;
             border: 1px solid #a7f3d0;
-            padding: 0.45rem 1.1rem;
+            padding: 0.5rem 1.25rem;
             border-radius: var(--radius-full);
             color: #047857;
-            font-size: 0.85rem;
+            font-size: 0.88rem;
             font-weight: 800;
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.12);
+            box-shadow: 0 4px 18px rgba(16, 185, 129, 0.15);
             margin-bottom: 1.5rem;
         }
 
         .hero-title {
             font-family: var(--font-heading);
-            font-size: 3.1rem;
+            font-size: 3.25rem;
             font-weight: 900;
             color: #0f172a;
             line-height: 1.12;
-            letter-spacing: -0.8px;
+            letter-spacing: -1px;
             margin-bottom: 1.25rem;
         }
 
@@ -82,14 +82,14 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
         }
 
         .hero-subtitle {
-            font-size: 1.12rem;
+            font-size: 1.15rem;
             color: var(--text-muted);
-            line-height: 1.65;
+            line-height: 1.7;
             margin-bottom: 2.25rem;
             max-width: 580px;
         }
 
-        /* HERO PERFECTLY ALIGNED ANIMATED SCANNER CONTAINER */
+        /* HERO ANIMATED SCANNER CONTAINER */
         .hero-scanner-container {
             position: relative;
             display: inline-block;
@@ -105,7 +105,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
             left: -15px;
             right: -15px;
             bottom: -15px;
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(249, 115, 22, 0.2));
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(249, 115, 22, 0.25));
             border-radius: 24px;
             filter: blur(25px);
             z-index: 0;
@@ -114,7 +114,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
 
         @keyframes heroGlowPulse {
             0%, 100% { opacity: 0.4; transform: scale(0.98); }
-            50% { opacity: 0.8; transform: scale(1.02); }
+            50% { opacity: 0.85; transform: scale(1.02); }
         }
 
         .scanner-card-box {
@@ -237,9 +237,11 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
             overflow: hidden;
             background: #0f172a;
             color: #ffffff;
-            padding: 0.9rem 0;
+            padding: 0.95rem 0;
             position: relative;
             box-shadow: 0 4px 15px rgba(15, 23, 42, 0.2);
+            border-top: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
         .ticker-move {
@@ -261,7 +263,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
         .ticker-item {
             display: inline-flex;
             align-items: center;
-            gap: 0.6rem;
+            gap: 0.65rem;
             font-size: 0.92rem;
             font-weight: 700;
             letter-spacing: 0.3px;
@@ -278,7 +280,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
         .story-section {
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             color: #ffffff;
-            padding: 5rem 1.5rem;
+            padding: 5.5rem 1.5rem;
             position: relative;
             overflow: hidden;
         }
@@ -295,7 +297,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: var(--radius-xl);
-            padding: 2rem 1.5rem;
+            padding: 2.25rem 1.5rem 1.75rem 1.5rem;
             text-align: center;
             position: relative;
             transition: all 0.4s ease;
@@ -319,7 +321,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
             font-family: var(--font-heading);
             font-weight: 900;
             font-size: 0.88rem;
-            padding: 0.25rem 0.85rem;
+            padding: 0.28rem 0.95rem;
             border-radius: var(--radius-full);
             box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
         }
@@ -548,7 +550,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
 
         .section-title {
             font-family: var(--font-heading);
-            font-size: 2.35rem;
+            font-size: 2.4rem;
             font-weight: 900;
             color: #0f172a;
             line-height: 1.2;
@@ -634,8 +636,9 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
         }
 
         .step-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-hover);
+            transform: translateY(-6px);
+            box-shadow: 0 18px 35px rgba(16, 185, 129, 0.12);
+            border-color: #10b981;
         }
 
         .step-num-badge {
@@ -652,63 +655,58 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
             box-shadow: 0 6px 15px rgba(0,0,0,0.06);
         }
 
-        /* COMPARISON TABLE */
-        .compare-card {
-            background: #ffffff;
-            border-radius: var(--radius-xl);
-            border: 1px solid var(--border-color);
-            box-shadow: var(--shadow-card);
-            overflow: hidden;
+        /* COMPARISON SHOWCASE CARDS */
+        .compare-showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
         }
 
-        .compare-table {
-            width: 100%;
-            border-collapse: collapse;
+        .compare-box-item {
+            border-radius: 20px;
+            padding: 2.25rem 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .compare-table th, .compare-table td {
-            padding: 1.15rem 1.5rem;
-            text-align: left;
-            border-bottom: 1px solid var(--border-color);
-            font-size: 0.92rem;
+        .compare-box-old {
+            background: #fff1f2;
+            border: 2px solid #fecaca;
         }
 
-        .compare-table th {
-            background: #f8fafc;
-            font-family: var(--font-heading);
-            font-weight: 800;
-            color: #0f172a;
-            font-size: 0.98rem;
+        .compare-box-new {
+            background: #ecfdf5;
+            border: 2.5px solid #10b981;
+            box-shadow: 0 15px 35px rgba(16, 185, 129, 0.15);
         }
 
         /* FAQ ACCORDION */
         .faq-item {
             background: #ffffff;
             border: 1px solid var(--border-color);
-            border-radius: var(--radius-lg);
+            border-radius: 14px;
             margin-bottom: 1rem;
             overflow: hidden;
-            transition: var(--transition);
+            transition: all 0.25s ease;
         }
 
         .faq-item.open {
-            border-color: var(--primary);
-            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.08);
+            border-color: #10b981;
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.1);
         }
 
         .faq-question {
             padding: 1.25rem 1.5rem;
-            font-weight: 800;
+            font-weight: 700;
             color: #0f172a;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            font-size: 1.02rem;
+            font-size: 1rem;
         }
 
         .faq-answer {
-            padding: 0 1.5rem 1.25rem 1.5rem;
+            padding: 0 1.5rem 1.35rem 1.5rem;
             color: var(--text-muted);
             font-size: 0.92rem;
             line-height: 1.65;
@@ -719,17 +717,21 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
             display: block;
         }
 
+        .faq-icon {
+            transition: transform 0.3s ease;
+            color: var(--primary);
+        }
+
         .faq-item.open .faq-icon {
             transform: rotate(180deg);
-            color: var(--primary);
         }
     </style>
 </head>
 <body>
 
-    <!-- ANNOUNCEMENT BAR -->
+    <!-- TOP ANNOUNCEMENT BAR -->
     <div class="announcement-bar">
-        ⚡ 100% Privacy-Guarded Smart Vehicle QR System &bull; Instant Call & WhatsApp Emergency Alerts!
+        🚀 Instant 1-Click WhatsApp Bot & Call Relay &bull; 100% Mobile Number Privacy Protection Guaranteed!
     </div>
 
     <!-- TOP NAVIGATION NAVBAR -->
@@ -745,20 +747,30 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
 
             <div class="nav-actions">
                 <a href="#how-it-works" class="nav-link"><i class="fa-solid fa-list-check"></i> How It Works</a>
-                <a href="#hazards" class="nav-link"><i class="fa-solid fa-triangle-exclamation"></i> Emergency Cases</a>
+                <a href="#hazards" class="nav-link"><i class="fa-solid fa-triangle-exclamation"></i> Hazards Solved</a>
                 <a href="#why-us" class="nav-link"><i class="fa-solid fa-shield-halved"></i> Why Us</a>
                 <a href="#faq" class="nav-link"><i class="fa-solid fa-circle-question"></i> FAQ</a>
                 <a href="#contact" class="nav-link"><i class="fa-solid fa-envelope"></i> Contact Us</a>
+
+                <?php if (isAdminLoggedIn()): ?>
+                    <a href="dashboard.php" class="btn btn-primary btn-sm">
+                        <i class="fa-solid fa-gauge-high"></i> Dashboard
+                    </a>
+                <?php else: ?>
+                    <a href="login.php" class="btn btn-outline btn-sm">
+                        <i class="fa-solid fa-lock"></i> Admin Portal
+                    </a>
+                <?php endif; ?>
             </div>
         </div>
     </nav>
 
     <!-- HERO SECTION WITH PERFECTLY ALIGNED ANIMATED SCANNER -->
     <section class="hero-section">
-        <div style="max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 3rem; align-items: center;">
+        <div style="max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 3.5rem; align-items: center;">
             <div>
                 <div class="hero-badge">
-                    <i class="fa-solid fa-shield-halved"></i> Protect Your Vehicle & Personal Privacy
+                    <i class="fa-solid fa-shield-halved" style="color: #10b981;"></i> Protect Your Vehicle & Personal Privacy
                 </div>
 
                 <h1 class="hero-title">
@@ -770,27 +782,27 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                 </p>
 
                 <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                    <a href="#contact" class="btn btn-primary btn-glow" style="padding: 1.05rem 1.85rem; font-size: 1.05rem; border-radius: var(--radius-lg);">
+                    <a href="#contact" class="btn btn-primary btn-glow" style="padding: 1.1rem 2rem; font-size: 1.05rem; border-radius: var(--radius-lg); font-weight: 700;">
                         <i class="fa-solid fa-phone-volume"></i> Get Smart QR Tag Now
                     </a>
-                    <a href="https://wa.me/919876543210?text=Hi%20Vehicle%20Sampark!%20I%20want%20to%20get%20smart%20vehicle%20QR%20tags" target="_blank" class="btn btn-secondary" style="padding: 1.05rem 1.85rem; font-size: 1.05rem; color: #ea580c; border-color: #ffedd5; border-radius: var(--radius-lg);">
+                    <a href="https://wa.me/919876543210?text=Hi%20Vehicle%20Sampark!%20I%20want%20to%20get%20smart%20vehicle%20QR%20tags" target="_blank" class="btn btn-secondary" style="padding: 1.1rem 2rem; font-size: 1.05rem; color: #ea580c; border-color: #ffedd5; border-radius: var(--radius-lg); font-weight: 700;">
                         <i class="fa-brands fa-whatsapp" style="font-size: 1.3rem;"></i> Chat on WhatsApp
                     </a>
                 </div>
 
                 <!-- TRUST BADGES -->
-                <div style="display: flex; gap: 2rem; margin-top: 2.5rem; padding-top: 1.75rem; border-top: 1px solid #e2e8f0; flex-wrap: wrap;">
+                <div style="display: flex; gap: 2.25rem; margin-top: 2.5rem; padding-top: 1.75rem; border-top: 1px solid #e2e8f0; flex-wrap: wrap;">
                     <div>
-                        <div style="font-family: var(--font-heading); font-size: 1.5rem; font-weight: 900; color: var(--primary);">100% Private</div>
-                        <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: 700;">No Numbers Revealed</div>
+                        <div style="font-family: var(--font-heading); font-size: 1.55rem; font-weight: 900; color: #10b981;">100% Private</div>
+                        <div style="font-size: 0.82rem; color: var(--text-muted); font-weight: 700;">No Mobile Numbers Exposed</div>
                     </div>
                     <div>
-                        <div style="font-family: var(--font-heading); font-size: 1.5rem; font-weight: 900; color: var(--accent-orange);">Instant Relay</div>
-                        <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: 700;">Call & WhatsApp Bot</div>
+                        <div style="font-family: var(--font-heading); font-size: 1.55rem; font-weight: 900; color: #f97316;">Instant Relay</div>
+                        <div style="font-size: 0.82rem; color: var(--text-muted); font-weight: 700;">Call & WhatsApp Bot</div>
                     </div>
                     <div>
-                        <div style="font-family: var(--font-heading); font-size: 1.5rem; font-weight: 900; color: #0f172a;">Smart Badge</div>
-                        <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: 700;">Center Logo Tag Card</div>
+                        <div style="font-family: var(--font-heading); font-size: 1.55rem; font-weight: 900; color: #0f172a;">Smart Badge</div>
+                        <div style="font-size: 0.82rem; color: var(--text-muted); font-weight: 700;">Center Logo Tag Card</div>
                     </div>
                 </div>
             </div>
@@ -819,10 +831,10 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                         </div>
                         
                         <div class="action-pills-live" id="liveHeroPills">
-                            <span class="badge badge-submitted" style="background: #10b981; color: #ffffff;">
+                            <span class="badge badge-submitted" style="background: #10b981; color: #ffffff; padding: 4px 10px;">
                                 <i class="fa-solid fa-phone-volume"></i> Call Owner
                             </span>
-                            <span class="badge" style="background: #f97316; color: #ffffff;">
+                            <span class="badge" style="background: #f97316; color: #ffffff; padding: 4px 10px;">
                                 <i class="fa-brands fa-whatsapp"></i> WhatsApp Bot
                             </span>
                         </div>
@@ -851,7 +863,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
     </div>
 
     <!-- HOW IT WORKS - 3 STEP QUICK FLOW -->
-    <section id="how-it-works" style="padding: 5rem 1.5rem; background: #ffffff;">
+    <section id="how-it-works" style="padding: 5.5rem 1.5rem; background: #ffffff;">
         <div style="max-width: 1200px; margin: 0 auto;">
             <div class="section-header">
                 <span class="section-tag">Scan To Call & WhatsApp</span>
@@ -859,7 +871,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
             </div>
 
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
-                <div class="step-card">
+                <div class="step-card hover-lift-card">
                     <div class="step-num-badge" style="background: #ecfdf5; color: var(--primary); border: 2px solid #a7f3d0;">
                         <i class="fa-solid fa-qrcode"></i>
                     </div>
@@ -869,7 +881,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                     </p>
                 </div>
 
-                <div class="step-card">
+                <div class="step-card hover-lift-card">
                     <div class="step-num-badge" style="background: #fff7ed; color: var(--accent-orange); border: 2px solid #ffedd5;">
                         <i class="fa-solid fa-phone-volume"></i>
                     </div>
@@ -879,7 +891,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                     </p>
                 </div>
 
-                <div class="step-card">
+                <div class="step-card hover-lift-card">
                     <div class="step-num-badge" style="background: #ecfdf5; color: var(--primary); border: 2px solid #a7f3d0;">
                         <i class="fa-solid fa-circle-check"></i>
                     </div>
@@ -905,7 +917,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
 
             <div class="story-grid">
                 <!-- SCENE 1: WRONG PARKING -->
-                <div class="story-card">
+                <div class="story-card scene-card-visual">
                     <div class="story-badge-num">SCENE 1</div>
                     <div class="cartoon-scene-box">
                         <div class="car-anim-container">
@@ -920,7 +932,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                 </div>
 
                 <!-- SCENE 2: SCANNING QR STICKER -->
-                <div class="story-card">
+                <div class="story-card scene-card-visual">
                     <div class="story-badge-num">SCENE 2</div>
                     <div class="cartoon-scene-box">
                         <div class="phone-scan-container">
@@ -935,7 +947,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                 </div>
 
                 <!-- SCENE 3: COMPANY WHATSAPP BOT GATEWAY -->
-                <div class="story-card">
+                <div class="story-card scene-card-visual">
                     <div class="story-badge-num">SCENE 3</div>
                     <div class="cartoon-scene-box">
                         <div class="bot-shield-container">
@@ -950,7 +962,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                 </div>
 
                 <!-- SCENE 4: OWNER RELAYED ALERT & SOLVED -->
-                <div class="story-card">
+                <div class="story-card scene-card-visual">
                     <div class="story-badge-num">SCENE 4</div>
                     <div class="cartoon-scene-box">
                         <div class="owner-received-container">
@@ -968,7 +980,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
     </section>
 
     <!-- REAL USE CASES & HAZARDS SOLVED GRID -->
-    <section id="hazards" style="padding: 5rem 1.5rem; background: #f8fafc; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;">
+    <section id="hazards" style="padding: 5.5rem 1.5rem; background: #f8fafc; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;">
         <div style="max-width: 1240px; margin: 0 auto;">
             <div class="section-header">
                 <span class="section-tag">Real-World Protection</span>
@@ -976,7 +988,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
             </div>
 
             <div class="hazard-grid">
-                <div class="hazard-card">
+                <div class="hazard-card hazard-box-interactive">
                     <div class="hazard-icon-box icon-box-orange"><i class="fa-solid fa-ban"></i></div>
                     <h4 class="hazard-title">Prevent Scratching & Vandalism</h4>
                     <p class="hazard-desc">
@@ -984,7 +996,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                     </p>
                 </div>
 
-                <div class="hazard-card">
+                <div class="hazard-card hazard-box-interactive">
                     <div class="hazard-icon-box icon-box-green"><i class="fa-solid fa-truck-pickup"></i></div>
                     <h4 class="hazard-title">Avoid Towing & Expensive Fines</h4>
                     <p class="hazard-desc">
@@ -992,7 +1004,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                     </p>
                 </div>
 
-                <div class="hazard-card">
+                <div class="hazard-card hazard-box-interactive">
                     <div class="hazard-icon-box icon-box-orange"><i class="fa-solid fa-soap"></i></div>
                     <h4 class="hazard-title">Doorstep Cleaning Service</h4>
                     <p class="hazard-desc">
@@ -1000,7 +1012,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                     </p>
                 </div>
 
-                <div class="hazard-card">
+                <div class="hazard-card hazard-box-interactive">
                     <div class="hazard-icon-box icon-box-green"><i class="fa-solid fa-wrench"></i></div>
                     <h4 class="hazard-title">Garage & Mechanic Solution</h4>
                     <p class="hazard-desc">
@@ -1008,7 +1020,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                     </p>
                 </div>
 
-                <div class="hazard-card">
+                <div class="hazard-card hazard-box-interactive">
                     <div class="hazard-icon-box icon-box-orange"><i class="fa-solid fa-battery-quarter"></i></div>
                     <h4 class="hazard-title">Battery Drain & Headlights Left ON</h4>
                     <p class="hazard-desc">
@@ -1016,7 +1028,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                     </p>
                 </div>
 
-                <div class="hazard-card">
+                <div class="hazard-card hazard-box-interactive">
                     <div class="hazard-icon-box icon-box-green"><i class="fa-solid fa-cloud-showers-heavy"></i></div>
                     <h4 class="hazard-title">Windows Left Open & Theft Prevention</h4>
                     <p class="hazard-desc">
@@ -1024,7 +1036,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                     </p>
                 </div>
 
-                <div class="hazard-card">
+                <div class="hazard-card hazard-box-interactive">
                     <div class="hazard-icon-box icon-box-orange"><i class="fa-solid fa-triangle-exclamation"></i></div>
                     <h4 class="hazard-title">Critical Emergencies & Accidents</h4>
                     <p class="hazard-desc">
@@ -1032,7 +1044,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                     </p>
                 </div>
 
-                <div class="hazard-card">
+                <div class="hazard-card hazard-box-interactive">
                     <div class="hazard-icon-box icon-box-green"><i class="fa-solid fa-paw"></i></div>
                     <h4 class="hazard-title">Fluid Leaks & Animal Safety</h4>
                     <p class="hazard-desc">
@@ -1043,71 +1055,86 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
         </div>
     </section>
 
-    <!-- WHY VEHICLE SAMPARK VS TRADITIONAL STICKERS -->
-    <section id="why-us" style="padding: 5rem 1.5rem; background: #ffffff;">
-        <div style="max-width: 1040px; margin: 0 auto;">
+    <!-- WHY VEHICLE SAMPARK VS TRADITIONAL STICKERS SHOWCASE -->
+    <section id="why-us" style="padding: 5.5rem 1.5rem; background: #ffffff;">
+        <div style="max-width: 1100px; margin: 0 auto;">
             <div class="section-header">
                 <span class="section-tag">Privacy Protection Comparison</span>
                 <h2 class="section-title">Vehicle Sampark vs Traditional Paper Stickers</h2>
             </div>
 
-            <div class="compare-card">
-                <div class="table-responsive">
-                    <table class="compare-table">
-                        <thead>
-                            <tr>
-                                <th>Feature</th>
-                                <th style="color: var(--accent-rose);">Traditional Paper Number Card</th>
-                                <th style="color: var(--primary); font-size: 1.05rem;">
-                                    Vehicle Sampark Smart Tag 
-                                    <span class="badge badge-submitted" style="margin-left: 0.4rem; background: #10b981; color: #ffffff;">
-                                        <span class="status-dot active-green" style="width:7px; height:7px; margin-right:3px;"></span> LIVE PROTECTED
-                                    </span>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td style="font-weight: 700;">Personal Phone Number Privacy</td>
-                                <td style="color: var(--accent-rose); font-weight: 600;"><i class="fa-solid fa-circle-xmark"></i> Exposed to strangers & spammers</td>
-                                <td style="color: var(--primary); font-weight: 800;"><i class="fa-solid fa-circle-check"></i> 100% Privacy Protected</td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: 700;">Automated Emergency WhatsApp Bot</td>
-                                <td style="color: var(--accent-rose); font-weight: 600;"><i class="fa-solid fa-circle-xmark"></i> Not Available</td>
-                                <td style="color: var(--primary); font-weight: 800;"><i class="fa-solid fa-circle-check"></i> 4-Option WhatsApp Bot Relay</td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: 700;">Doorstep Cleaning & Garage Support</td>
-                                <td style="color: var(--accent-rose); font-weight: 600;"><i class="fa-solid fa-circle-xmark"></i> Not Available</td>
-                                <td style="color: var(--primary); font-weight: 800;"><i class="fa-solid fa-circle-check"></i> Integrated Service Access</td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: 700;">Update Phone Number Anytime</td>
-                                <td style="color: var(--accent-rose); font-weight: 600;"><i class="fa-solid fa-circle-xmark"></i> Must replace physical paper card</td>
-                                <td style="color: var(--primary); font-weight: 800;"><i class="fa-solid fa-circle-check"></i> Instant Online Update</td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: 700;">Tamper & Vandal Proof</td>
-                                <td style="color: var(--accent-rose); font-weight: 600;"><i class="fa-solid fa-circle-xmark"></i> Easily torn or scratched off</td>
-                                <td style="color: var(--primary); font-weight: 800;"><i class="fa-solid fa-circle-check"></i> Pasted Inside Glass / Durable</td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <div class="compare-showcase-grid">
+                <!-- TRADITIONAL PAPER STICKER (OLD WAY) -->
+                <div class="compare-box-item compare-box-old">
+                    <div style="font-size: 0.85rem; font-weight: 800; color: #e11d48; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem;">
+                        ❌ Traditional Method
+                    </div>
+                    <h3 style="font-family: var(--font-heading); font-size: 1.4rem; font-weight: 800; color: #9f1239; margin-bottom: 1.25rem;">
+                        Paper Mobile Number Sticker
+                    </h3>
+
+                    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.9rem;">
+                        <li style="display: flex; align-items: flex-start; gap: 0.65rem; color: #881337; font-size: 0.92rem; font-weight: 600;">
+                            <i class="fa-solid fa-xmark" style="color: #e11d48; font-size: 1.1rem; margin-top: 2px;"></i>
+                            <span>Personal phone number exposed to every stranger & spammer.</span>
+                        </li>
+                        <li style="display: flex; align-items: flex-start; gap: 0.65rem; color: #881337; font-size: 0.92rem; font-weight: 600;">
+                            <i class="fa-solid fa-xmark" style="color: #e11d48; font-size: 1.1rem; margin-top: 2px;"></i>
+                            <span>No automated WhatsApp bot alerts or emergency classifications.</span>
+                        </li>
+                        <li style="display: flex; align-items: flex-start; gap: 0.65rem; color: #881337; font-size: 0.92rem; font-weight: 600;">
+                            <i class="fa-solid fa-xmark" style="color: #e11d48; font-size: 1.1rem; margin-top: 2px;"></i>
+                            <span>Cannot update phone number without buying a new sticker.</span>
+                        </li>
+                        <li style="display: flex; align-items: flex-start; gap: 0.65rem; color: #881337; font-size: 0.92rem; font-weight: 600;">
+                            <i class="fa-solid fa-xmark" style="color: #e11d48; font-size: 1.1rem; margin-top: 2px;"></i>
+                            <span>Paper fades, tears, or peels off easily in rain.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- VEHICLE SAMPARK SMART TAG (NEW WAY) -->
+                <div class="compare-box-item compare-box-new">
+                    <div style="font-size: 0.85rem; font-weight: 800; color: #047857; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: space-between;">
+                        <span>✅ Vehicle Sampark</span>
+                        <span style="background: #10b981; color: #ffffff; padding: 2px 8px; border-radius: 12px; font-size: 0.72rem;">RECOMMENDED</span>
+                    </div>
+                    <h3 style="font-family: var(--font-heading); font-size: 1.4rem; font-weight: 800; color: #065f46; margin-bottom: 1.25rem;">
+                        Smart QR Privacy Tag
+                    </h3>
+
+                    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.9rem;">
+                        <li style="display: flex; align-items: flex-start; gap: 0.65rem; color: #064e3b; font-size: 0.92rem; font-weight: 700;">
+                            <i class="fa-solid fa-check" style="color: #10b981; font-size: 1.1rem; margin-top: 2px;"></i>
+                            <span>100% Phone Number Privacy — Zero stranger exposure.</span>
+                        </li>
+                        <li style="display: flex; align-items: flex-start; gap: 0.65rem; color: #064e3b; font-size: 0.92rem; font-weight: 700;">
+                            <i class="fa-solid fa-check" style="color: #10b981; font-size: 1.1rem; margin-top: 2px;"></i>
+                            <span>4-Option Emergency WhatsApp Bot Relay & Direct Call line.</span>
+                        </li>
+                        <li style="display: flex; align-items: flex-start; gap: 0.65rem; color: #064e3b; font-size: 0.92rem; font-weight: 700;">
+                            <i class="fa-solid fa-check" style="color: #10b981; font-size: 1.1rem; margin-top: 2px;"></i>
+                            <span>Instant online phone number update anytime via website.</span>
+                        </li>
+                        <li style="display: flex; align-items: flex-start; gap: 0.65rem; color: #064e3b; font-size: 0.92rem; font-weight: 700;">
+                            <i class="fa-solid fa-check" style="color: #10b981; font-size: 1.1rem; margin-top: 2px;"></i>
+                            <span>Durable, UV-resistant tag card pasted inside windshield.</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- FREQUENTLY ASKED QUESTIONS (FAQ) -->
-    <section id="faq" style="padding: 5rem 1.5rem; background: #f8fafc; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;">
+    <section id="faq" style="padding: 5.5rem 1.5rem; background: #f8fafc; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;">
         <div style="max-width: 880px; margin: 0 auto;">
             <div class="section-header" style="margin-bottom: 3rem;">
                 <span class="section-tag">Got Questions?</span>
                 <h2 class="section-title">Frequently Asked Questions</h2>
             </div>
 
-            <div class="faq-item open">
+            <div class="faq-item faq-card-modern open">
                 <div class="faq-question" onclick="toggleFaq(this)">
                     <span>How does Vehicle Sampark protect my personal phone number?</span>
                     <i class="fa-solid fa-chevron-down faq-icon"></i>
@@ -1117,7 +1144,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                 </div>
             </div>
 
-            <div class="faq-item">
+            <div class="faq-item faq-card-modern">
                 <div class="faq-question" onclick="toggleFaq(this)">
                     <span>Does a person scanning my QR sticker need to download an app?</span>
                     <i class="fa-solid fa-chevron-down faq-icon"></i>
@@ -1127,7 +1154,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                 </div>
             </div>
 
-            <div class="faq-item">
+            <div class="faq-item faq-card-modern">
                 <div class="faq-question" onclick="toggleFaq(this)">
                     <span>How do Doorstep Cleaning and Garage Solutions work?</span>
                     <i class="fa-solid fa-chevron-down faq-icon"></i>
@@ -1137,7 +1164,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                 </div>
             </div>
 
-            <div class="faq-item">
+            <div class="faq-item faq-card-modern">
                 <div class="faq-question" onclick="toggleFaq(this)">
                     <span>Can I change my registered phone number or vehicle details later?</span>
                     <i class="fa-solid fa-chevron-down faq-icon"></i>
@@ -1147,7 +1174,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                 </div>
             </div>
 
-            <div class="faq-item">
+            <div class="faq-item faq-card-modern">
                 <div class="faq-question" onclick="toggleFaq(this)">
                     <span>How does the 4-Option Emergency WhatsApp Bot work?</span>
                     <i class="fa-solid fa-chevron-down faq-icon"></i>
@@ -1160,7 +1187,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
     </section>
 
     <!-- DIRECT CONTACT & INQUIRY FORM SECTION -->
-    <section id="contact" style="padding: 5rem 1.5rem; background: #ffffff;">
+    <section id="contact" style="padding: 5.5rem 1.5rem; background: #ffffff;">
         <div style="max-width: 1060px; margin: 0 auto;">
             <div class="section-header" style="margin-bottom: 3rem;">
                 <span class="section-tag">Get In Touch</span>
@@ -1366,22 +1393,25 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
     </div>
 
     <!-- FOOTER -->
-    <footer style="background: #0f172a; color: #ffffff; padding: 3rem 1.5rem; text-align: center;">
+    <footer style="background: #0f172a; color: #ffffff; padding: 3.5rem 1.5rem 2.5rem 1.5rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.08);">
         <div style="max-width: 1200px; margin: 0 auto;">
-            <div style="margin-bottom: 1rem;">
-                <span style="font-family: var(--font-heading); font-size: 1.6rem; font-weight: 900; color: #ffffff;">
+            <div style="margin-bottom: 1.25rem;">
+                <span style="font-family: var(--font-heading); font-size: 1.75rem; font-weight: 900; color: #ffffff;">
                     Vehicle <span style="color: var(--primary);">Sampark</span>
                 </span>
+                <div style="font-size: 0.82rem; color: #10b981; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-top: 2px;">
+                    Connecting Mobility
+                </div>
             </div>
-            <p style="color: #94a3b8; font-size: 0.88rem; margin-bottom: 1.5rem;">
-                Connecting Mobility & Smart Emergency Vehicle Safety &bull; Built with ❤️ for Indian Roads &bull; &copy; <?= date('Y') ?>
+            <p style="color: #94a3b8; font-size: 0.92rem; margin-bottom: 1.75rem; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+                Smart Emergency Vehicle Safety & Privacy Tag System &bull; Built with ❤️ for Indian Roads &bull; &copy; <?= date('Y') ?> Vehicle Sampark.
             </p>
-            <div style="display: flex; gap: 1.25rem; justify-content: center; font-size: 0.88rem; color: #94a3b8; flex-wrap: wrap;">
-                <a href="#how-it-works" style="color: #94a3b8; text-decoration: none;">How It Works</a> &bull;
-                <a href="#hazards" style="color: #94a3b8; text-decoration: none;">Emergency Cases</a> &bull;
-                <a href="#why-us" style="color: #94a3b8; text-decoration: none;">Why Vehicle Sampark</a> &bull;
-                <a href="#faq" style="color: #94a3b8; text-decoration: none;">FAQ</a> &bull;
-                <a href="#contact" style="color: #94a3b8; text-decoration: none;">Contact Us</a>
+            <div style="display: flex; gap: 1.25rem; justify-content: center; font-size: 0.9rem; color: #94a3b8; flex-wrap: wrap;">
+                <a href="#how-it-works" style="color: #94a3b8; text-decoration: none; font-weight: 600;">How It Works</a> &bull;
+                <a href="#hazards" style="color: #94a3b8; text-decoration: none; font-weight: 600;">Emergency Cases</a> &bull;
+                <a href="#why-us" style="color: #94a3b8; text-decoration: none; font-weight: 600;">Why Vehicle Sampark</a> &bull;
+                <a href="#faq" style="color: #94a3b8; text-decoration: none; font-weight: 600;">FAQ</a> &bull;
+                <a href="#contact" style="color: #94a3b8; text-decoration: none; font-weight: 600;">Contact Us</a>
             </div>
         </div>
     </footer>
@@ -1460,7 +1490,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
         .then(res => res.json())
         .then(data => {
             btn.disabled = false;
-            txt.style.display = 'inline-block';
+            txt.style.display = 'flex';
             loader.style.display = 'none';
 
             if (data.success) {
@@ -1473,18 +1503,18 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
             } else {
                 statusDiv.innerHTML = `
                     <div style="background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; padding: 0.95rem; border-radius: var(--radius-md); font-size: 0.9rem; margin-bottom: 1.25rem; font-weight: 700;">
-                        <i class="fa-solid fa-triangle-exclamation"></i> ${data.message}
+                        <i class="fa-solid fa-circle-exclamation"></i> ${data.message || 'Something went wrong.'}
                     </div>
                 `;
             }
         })
         .catch(err => {
             btn.disabled = false;
-            txt.style.display = 'inline-block';
+            txt.style.display = 'flex';
             loader.style.display = 'none';
             statusDiv.innerHTML = `
-                <div style="background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; padding: 0.95rem; border-radius: var(--radius-md); font-size: 0.9rem; margin-bottom: 1.25rem;">
-                    <i class="fa-solid fa-triangle-exclamation"></i> Network error. Please try again or call us directly.
+                <div style="background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; padding: 0.95rem; border-radius: var(--radius-md); font-size: 0.9rem; margin-bottom: 1.25rem; font-weight: 700;">
+                    <i class="fa-solid fa-circle-exclamation"></i> Network error. Please try calling or WhatsApp.
                 </div>
             `;
         });
