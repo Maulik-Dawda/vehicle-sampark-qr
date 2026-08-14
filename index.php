@@ -1,5 +1,5 @@
 <?php
-// index.php - Vehicle Sampark Landing Page with Cartoon Animated Privacy Journey Story
+// index.php - Vehicle Sampark Landing Page with Clean HTML Formatting in Cartoon Privacy Story
 
 require_once __DIR__ . '/config/database.php';
 require_once __DIR__ . '/includes/functions.php';
@@ -888,7 +888,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
         </div>
     </section>
 
-    <!-- CARTOON ANIMATED PRIVACY STORY TIMELINE (REPLACED NUMBER STRIP) -->
+    <!-- CARTOON ANIMATED PRIVACY STORY TIMELINE -->
     <section class="story-section">
         <div style="max-width: 1200px; margin: 0 auto;">
             <div class="section-header" style="margin-bottom: 3.5rem;">
@@ -941,7 +941,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                     </div>
                     <h3 style="font-size: 1.2rem; font-weight: 800; color: #ffffff; margin-bottom: 0.5rem;">Company WhatsApp Masking</h3>
                     <p style="color: #94a3b8; font-size: 0.88rem; line-height: 1.6;">
-                        Connected via Vehicle Sampark's official WhatsApp Bot line. **No personal phone number is ever exposed to the bystander.**
+                        Connected via Vehicle Sampark's official WhatsApp Bot line. <strong style="color: #10b981;">No personal phone number is ever exposed to the bystander.</strong>
                     </p>
                 </div>
 
