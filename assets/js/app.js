@@ -14,7 +14,7 @@ function openLogoutModal(event) {
     if (modal) {
         modal.classList.add('show');
     } else {
-        window.location.href = 'logout.php';
+        window.location.href = 'admin-qr-login?action=logout';
     }
 }
 
@@ -80,7 +80,7 @@ function submitSingleStepGenerator() {
     btnSubmit.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Generating QR Codes...';
 
     // Send payload directly to API
-    fetch('api.php?action=create_batch', {
+    fetch('admin-qr-api?action=create_batch', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -147,7 +147,7 @@ function viewQRCodeModal(codeNumber) {
     container.innerHTML = '<div style="padding: 2rem;"><i class="fa-solid fa-spinner fa-spin fa-2x" style="color: var(--primary);"></i></div>';
     modal.classList.add('show');
 
-    fetch('api.php?action=get_qrcode&code=' + encodeURIComponent(codeNumber))
+    fetch('admin-qr-api?action=get_qrcode&code=' + encodeURIComponent(codeNumber))
         .then(res => res.json())
         .then(data => {
             if (data.success) {
@@ -177,7 +177,7 @@ function viewSubmissionDetails(codeNumber) {
     body.innerHTML = '<div style="text-align: center; padding: 2rem;"><i class="fa-solid fa-spinner fa-spin fa-2x" style="color: var(--primary);"></i></div>';
     modal.classList.add('show');
 
-    fetch('api.php?action=get_submission&code=' + encodeURIComponent(codeNumber))
+    fetch('admin-qr-api?action=get_submission&code=' + encodeURIComponent(codeNumber))
         .then(res => res.json())
         .then(data => {
             if (data.success) {

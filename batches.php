@@ -80,10 +80,10 @@ $batches = $stmt->fetchAll();
                                 <td><?= date('M j, Y g:i A', strtotime($batch['created_at'])) ?></td>
                                 <td>
                                     <div style="display: flex; gap: 0.4rem; flex-wrap: wrap;">
-                                        <a href="dashboard.php?batch=<?= $batch['id'] ?>" class="btn btn-outline btn-sm">
+                                        <a href="admin-qr-dashboard?batch=<?= $batch['id'] ?>" class="btn btn-outline btn-sm">
                                             <i class="fa-solid fa-eye"></i> View Tags
                                         </a>
-                                        <a href="batch_pdf.php?batch_id=<?= $batch['id'] ?>" class="btn btn-primary btn-sm" style="background: linear-gradient(135deg, #10b981, #059669);">
+                                        <a href="admin-qr-batch-pdf?batch_id=<?= $batch['id'] ?>" class="btn btn-primary btn-sm" style="background: linear-gradient(135deg, #10b981, #059669);">
                                             <i class="fa-solid fa-file-pdf"></i> Download Batch PDF
                                         </a>
                                     </div>

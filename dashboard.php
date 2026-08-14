@@ -165,9 +165,9 @@ include __DIR__ . '/includes/header.php';
 
     <!-- SEARCH & FILTER TOOLBAR -->
     <div class="content-card mb-4" style="padding: 1.25rem; margin-bottom: 1.5rem;">
-        <form action="dashboard.php" method="GET" style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
-            <div style="flex: 2; min-width: 220px;">
-                <input type="text" name="search" class="form-control" placeholder="Search by Code (e.g. QRC-...) or Batch Name" value="<?= htmlspecialchars($searchQuery) ?>">
+        <form action="admin-qr-dashboard" method="GET" style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: flex-end;">
+            <div style="flex: 2; min-width: 200px;">
+                <input type="text" name="search" class="form-control" placeholder="Search by QR Serial Code or Batch Name..." value="<?= htmlspecialchars($searchQuery) ?>">
             </div>
 
             <div style="flex: 1; min-width: 160px;">
@@ -175,7 +175,7 @@ include __DIR__ . '/includes/header.php';
                     <option value="0">All Form Batches</option>
                     <?php foreach ($allBatches as $b): ?>
                         <option value="<?= $b['id'] ?>" <?= $batchFilter == $b['id'] ? 'selected' : '' ?>>
-                            <?= htmlspecialchars($b['batch_name']) ?>
+                            <?= htmlspecialchars($b['batch_name']) ?> (<?= htmlspecialchars($b['form_title']) ?>)
                         </option>
                     <?php endforeach; ?>
                 </select>
@@ -192,7 +192,7 @@ include __DIR__ . '/includes/header.php';
             <div style="display: flex; gap: 0.5rem;">
                 <button type="submit" class="btn btn-primary"><i class="fa-solid fa-filter"></i> Filter</button>
                 <?php if (!empty($searchQuery) || $batchFilter > 0 || !empty($statusFilter)): ?>
-                    <a href="dashboard.php" class="btn btn-secondary"><i class="fa-solid fa-rotate-left"></i> Reset</a>
+                    <a href="admin-qr-dashboard" class="btn btn-secondary"><i class="fa-solid fa-rotate-left"></i> Reset</a>
                 <?php endif; ?>
             </div>
         </form>
@@ -270,7 +270,7 @@ include __DIR__ . '/includes/header.php';
                                             </button>
                                         <?php endif; ?>
 
-                                        <a href="single_pdf.php?code=<?= urlencode($qr['code_number']) ?>" class="btn btn-secondary btn-sm">
+                                        <a href="admin-qr-single-pdf?code=<?= urlencode($qr['code_number']) ?>" class="btn btn-secondary btn-sm">
                                             <i class="fa-solid fa-file-pdf"></i> Single PDF
                                         </a>
                                     </div>
@@ -292,13 +292,13 @@ include __DIR__ . '/includes/header.php';
                 <?php if ($totalPages > 1): ?>
                     <div style="display: flex; gap: 0.5rem;">
                         <?php if ($page > 1): ?>
-                            <a href="dashboard.php?page=<?= $page - 1 ?>&search=<?= urlencode($searchQuery) ?>&batch=<?= $batchFilter ?>&status=<?= $statusFilter ?>" class="btn btn-outline btn-sm">
+                            <a href="admin-qr-dashboard?page=<?= $page - 1 ?>&search=<?= urlencode($searchQuery) ?>&batch=<?= $batchFilter ?>&status=<?= $statusFilter ?>" class="btn btn-outline btn-sm">
                                 &laquo; Previous
                             </a>
                         <?php endif; ?>
 
                         <?php if ($page < $totalPages): ?>
-                            <a href="dashboard.php?page=<?= $page + 1 ?>&search=<?= urlencode($searchQuery) ?>&batch=<?= $batchFilter ?>&status=<?= $statusFilter ?>" class="btn btn-outline btn-sm">
+                            <a href="admin-qr-dashboard?page=<?= $page + 1 ?>&search=<?= urlencode($searchQuery) ?>&batch=<?= $batchFilter ?>&status=<?= $statusFilter ?>" class="btn btn-outline btn-sm">
                                 Next &raquo;
                             </a>
                         <?php endif; ?>

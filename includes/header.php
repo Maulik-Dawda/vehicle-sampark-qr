@@ -40,13 +40,13 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 
             <div class="nav-actions">
                 <?php if (isAdminLoggedIn()): ?>
-                    <a href="dashboard.php" class="nav-link <?= $currentPage === 'dashboard.php' ? 'active' : '' ?>">
+                    <a href="admin-qr-dashboard" class="nav-link <?= strpos($_SERVER['REQUEST_URI'] ?? '', 'admin-qr-dashboard') !== false || $currentPage === 'dashboard.php' ? 'active' : '' ?>">
                         <i class="fa-solid fa-gauge-high"></i> <span>Dashboard</span>
                     </a>
-                    <a href="batches.php" class="nav-link <?= $currentPage === 'batches.php' ? 'active' : '' ?>">
+                    <a href="admin-qr-batches" class="nav-link <?= strpos($_SERVER['REQUEST_URI'] ?? '', 'admin-qr-batches') !== false || $currentPage === 'batches.php' ? 'active' : '' ?>">
                         <i class="fa-solid fa-layer-group"></i> <span>Form Batches</span>
                     </a>
-                    <a href="profile.php" class="nav-link <?= $currentPage === 'profile.php' ? 'active' : '' ?>">
+                    <a href="admin-qr-profile" class="nav-link <?= strpos($_SERVER['REQUEST_URI'] ?? '', 'admin-qr-profile') !== false || $currentPage === 'profile.php' ? 'active' : '' ?>">
                         <i class="fa-solid fa-user-gear"></i> <span>Settings</span>
                     </a>
                     

@@ -146,7 +146,7 @@ function handleGetQRCode($pdo) {
         'scan_url' => $scanUrl,
         'qr_image' => $qrImageBase64,
         'tag_html' => $tagHtml,
-        'download_url' => 'single_pdf.php?code=' . urlencode($codeNumber)
+        'download_url' => 'admin-qr-single-pdf?code=' . urlencode($codeNumber)
     ]);
 }
 

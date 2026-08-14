@@ -4,9 +4,24 @@
 require_once __DIR__ . '/config/database.php';
 require_once __DIR__ . '/includes/functions.php';
 
+// Logout action handler
+if (isset($_GET['action']) && $_GET['action'] === 'logout') {
+    $_SESSION = array();
+    if (ini_get("session.use_cookies")) {
+        $params = session_get_cookie_params();
+        setcookie(session_name(), '', time() - 42000,
+            $params["path"], $params["domain"],
+            $params["secure"], $params["httponly"]
+        );
+    }
+    session_destroy();
+    header('Location: admin-qr-login');
+    exit;
+}
+
 // If already logged in & 2FA verified, redirect to Dashboard
 if (isAdminLoggedIn()) {
-    header('Location: dashboard.php');
+    header('Location: admin-qr-dashboard');
     exit;
 }
 
@@ -46,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $_SESSION['admin_logged_in'] = true;
                     $_SESSION['admin_id'] = $admin['id'];
                     $_SESSION['admin_2fa_passed'] = true;
-                    header('Location: dashboard.php');
+                    header('Location: admin-qr-dashboard');
                     exit;
                 }
             } else {
@@ -99,7 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         <?php endif; ?>
 
-        <form action="login.php" method="POST" id="loginForm">
+        <form action="admin-qr-login" method="POST" id="loginForm">
             <div class="form-group">
                 <label class="form-label" for="username">Username or Email</label>
                 <div style="position: relative;">

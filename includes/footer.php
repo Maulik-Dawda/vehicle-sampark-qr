@@ -17,7 +17,7 @@
             </p>
             <div style="display: flex; gap: 0.75rem; justify-content: center;">
                 <button type="button" class="btn btn-secondary modal-close" style="flex: 1; padding: 0.75rem; font-weight: 600;">Cancel</button>
-                <a href="logout.php" class="btn btn-danger" style="flex: 1; padding: 0.75rem; background: #f43f5e; color: white; text-decoration: none; border-radius: 8px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; border: none; transition: transform 0.2s, background 0.2s;">
+                <a href="admin-qr-login?action=logout" class="btn btn-danger" style="flex: 1; padding: 0.75rem; background: #f43f5e; color: white; text-decoration: none; border-radius: 8px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; border: none; transition: transform 0.2s, background 0.2s;">
                     <i class="fa-solid fa-right-from-bracket"></i> Yes, Logout
                 </a>
             </div>

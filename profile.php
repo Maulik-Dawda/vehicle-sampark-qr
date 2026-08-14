@@ -159,7 +159,7 @@ include __DIR__ . '/includes/header.php';
                 </div>
             </div>
 
-            <form action="profile.php" method="POST">
+            <form action="admin-qr-profile" method="POST">
                 <input type="hidden" name="form_type" value="update_info">
                 
                 <div class="form-group" style="margin-bottom: 1.15rem;">
@@ -206,7 +206,7 @@ include __DIR__ . '/includes/header.php';
                 </div>
             </div>
 
-            <form action="profile.php" method="POST">
+            <form action="admin-qr-profile" method="POST">
                 <input type="hidden" name="form_type" value="change_password">
 
                 <div class="form-group" style="margin-bottom: 1.15rem;">
@@ -281,7 +281,7 @@ include __DIR__ . '/includes/header.php';
                 </div>
             </div>
 
-            <form action="profile.php" method="POST" style="margin: 0;">
+            <form action="admin-qr-profile" method="POST" style="margin: 0;">
                 <input type="hidden" name="form_type" value="toggle_2fa">
                 <?php if (!empty($admin['two_factor_enabled'])): ?>
                     <button type="submit" class="btn btn-outline" style="color: #f43f5e; border-color: #fecaca; background: #fff1f2; font-weight: 600; padding: 0.65rem 1.25rem;">

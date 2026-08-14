@@ -1,31 +1,17 @@
-# Vehicle Sampark Security & Server Upload Limits Configuration
+# Vehicle Sampark Apache Rewrite Rules for Hostinger
+<IfModule mod_rewrite.c>
+    RewriteEngine On
 
-# Protect SQLite Database File
-<Files "database.sqlite">
-    Order allow,deny
-    Deny from all
-</Files>
+    # Prevent infinite rewrite loops
+    RewriteCond %{ENV:REDIRECT_STATUS} 200
+    RewriteRule ^ - [L]
 
-# Protect sensitive file types
-<FilesMatch "\.(sqlite|db|log|sh|sql)$">
-    Order allow,deny
-    Deny from all
-</FilesMatch>
-
-# PHP Execution & File Upload Limits for Hostinger
-<IfModule mod_php7.c>
-    php_value upload_max_filesize 32M
-    php_value post_max_size 32M
-    php_value max_execution_time 300
-    php_value memory_limit 256M
+    # Admin Prefix Extensionless Routes
+    RewriteRule ^admin-qr-login/?$ login.php [L,QSA]
+    RewriteRule ^admin-qr-dashboard/?$ dashboard.php [L,QSA]
+    RewriteRule ^admin-qr-batches/?$ batches.php [L,QSA]
+    RewriteRule ^admin-qr-profile/?$ profile.php [L,QSA]
+    RewriteRule ^admin-qr-api/?$ api.php [L,QSA]
+    RewriteRule ^admin-qr-single-pdf/?$ single_pdf.php [L,QSA]
+    RewriteRule ^admin-qr-batch-pdf/?$ batch_pdf.php [L,QSA]
 </IfModule>
-
-<IfModule mod_php.c>
-    php_value upload_max_filesize 32M
-    php_value post_max_size 32M
-    php_value max_execution_time 300
-    php_value memory_limit 256M
-</IfModule>
-
-# Enable Directory Indexes Protection
-Options -Indexes
