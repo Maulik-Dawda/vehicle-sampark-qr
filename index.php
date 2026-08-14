@@ -249,7 +249,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Alerts System';
         <div style="max-width: 1200px; margin: 0 auto;">
             <div style="text-align: center; max-width: 640px; margin: 0 auto 3rem auto;">
                 <span class="section-tag">Real-World Protection</span>
-                <h2 class="section-title">Common Vehicle Emergencies Solved</h2>
+                <h2 class="section-title">Common Vehicle Emergencies & Services Solved</h2>
             </div>
 
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 1.5rem;">
@@ -266,6 +266,22 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Alerts System';
                     <h4 style="font-size: 1.1rem; font-weight: 700; color: #0f172a; margin-bottom: 0.35rem;">Avoid Towing & Expensive Fines</h4>
                     <p style="color: var(--text-muted); font-size: 0.88rem; line-height: 1.5;">
                         Traffic police or neighbors can scan your sticker to warn you to move your car before calling a tow truck or issuing a fine.
+                    </p>
+                </div>
+
+                <div class="hazard-card">
+                    <div style="color: var(--accent-orange); font-size: 1.5rem; margin-bottom: 0.85rem;"><i class="fa-solid fa-soap"></i></div>
+                    <h4 style="font-size: 1.1rem; font-weight: 700; color: #0f172a; margin-bottom: 0.35rem;">Doorstep Cleaning Service</h4>
+                    <p style="color: var(--text-muted); font-size: 0.88rem; line-height: 1.5;">
+                        Request professional doorstep car washing, eco waterless cleaning, interior detailing, and polishing right at your parking spot with one tap.
+                    </p>
+                </div>
+
+                <div class="hazard-card">
+                    <div style="color: var(--primary); font-size: 1.5rem; margin-bottom: 0.85rem;"><i class="fa-solid fa-wrench"></i></div>
+                    <h4 style="font-size: 1.1rem; font-weight: 700; color: #0f172a; margin-bottom: 0.35rem;">Garage & Mechanic Solution</h4>
+                    <p style="color: var(--text-muted); font-size: 0.88rem; line-height: 1.5;">
+                        Instant access to nearby verified garages, roadside mechanics, flat tyre puncture repair, battery jumpstart, and emergency towing assistance.
                     </p>
                 </div>
 
@@ -333,6 +349,11 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Alerts System';
                             <td style="color: var(--primary); font-weight: 700;"><i class="fa-solid fa-circle-check"></i> 4-Option WhatsApp Bot Relay</td>
                         </tr>
                         <tr>
+                            <td style="font-weight: 600;">Doorstep Cleaning & Garage Support</td>
+                            <td style="color: var(--accent-rose);"><i class="fa-solid fa-circle-xmark"></i> Not Available</td>
+                            <td style="color: var(--primary); font-weight: 700;"><i class="fa-solid fa-circle-check"></i> Integrated Service Access</td>
+                        </tr>
+                        <tr>
                             <td style="font-weight: 600;">Update Phone Number Anytime</td>
                             <td style="color: var(--accent-rose);"><i class="fa-solid fa-circle-xmark"></i> Must replace physical paper card</td>
                             <td style="color: var(--primary); font-weight: 700;"><i class="fa-solid fa-circle-check"></i> Instant Online Update</td>
@@ -378,6 +399,16 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Alerts System';
                 </div>
                 <div class="faq-answer">
                     No! Anyone with a regular smartphone camera, Google Lens, or default QR scanner can scan your tag and connect instantly. Zero app downloads required.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>How do Doorstep Cleaning and Garage Solutions work?</span>
+                    <i class="fa-solid fa-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    Vehicle Sampark links your vehicle tag with verified doorstep car cleaning partners and nearby emergency garage/breakdown mechanic services, giving you instant access to maintenance and roadside support.
                 </div>
             </div>
 
