@@ -1264,17 +1264,17 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                         </div>
 
                         <!-- VISUAL CHANNEL 3: EMAIL SUPPORT CARD -->
-                        <div style="background: #0f172a; padding: 1.25rem 1.35rem; border-radius: 16px; color: #ffffff; display: flex; align-items: center; justify-content: space-between; border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 4px 15px rgba(15, 23, 42, 0.12);">
-                            <div style="display: flex; align-items: center; gap: 0.85rem;">
-                                <div style="width: 42px; height: 42px; border-radius: 10px; background: rgba(16, 185, 129, 0.2); color: #34d399; display: flex; align-items: center; justify-content: center; font-size: 1.15rem;">
+                        <div class="email-support-card" style="background: #0f172a; padding: 1.25rem 1.35rem; border-radius: 16px; color: #ffffff; display: flex; align-items: center; justify-content: space-between; gap: 0.85rem; border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 4px 15px rgba(15, 23, 42, 0.12);">
+                            <div style="display: flex; align-items: center; gap: 0.85rem; min-width: 0;">
+                                <div style="width: 42px; height: 42px; border-radius: 10px; background: rgba(16, 185, 129, 0.2); color: #34d399; display: flex; align-items: center; justify-content: center; font-size: 1.15rem; flex-shrink: 0;">
                                     <i class="fa-solid fa-envelope"></i>
                                 </div>
-                                <div>
+                                <div style="min-width: 0;">
                                     <div style="font-size: 0.75rem; color: #94a3b8; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Email Support Line</div>
-                                    <div style="font-size: 0.9rem; font-weight: 700; color: #ffffff;">contact@vehiclesampark.com</div>
+                                    <div style="font-size: 0.88rem; font-weight: 700; color: #ffffff; word-break: break-all;">contact@vehiclesampark.com</div>
                                 </div>
                             </div>
-                            <a href="mailto:contact@vehiclesampark.com" style="color: #34d399; font-size: 0.85rem; padding: 6px 12px; background: rgba(52, 211, 153, 0.12); border-radius: 8px; text-decoration: none; font-weight: 700; border: 1px solid rgba(52, 211, 153, 0.2);">
+                            <a href="mailto:contact@vehiclesampark.com" class="email-btn-link" style="color: #34d399; font-size: 0.85rem; padding: 8px 14px; background: rgba(52, 211, 153, 0.12); border-radius: 8px; text-decoration: none; font-weight: 700; border: 1px solid rgba(52, 211, 153, 0.2); text-align: center; white-space: nowrap; flex-shrink: 0;">
                                 Send Email
                             </a>
                         </div>

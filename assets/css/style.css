@@ -969,15 +969,66 @@ a:hover {
         justify-content: center;
     }
     .hero-scanner-container {
-        max-width: 100%;
-        transform: scale(0.96);
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 1.5rem auto 0 auto !important;
+    }
+    .scanner-card-box {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow: hidden !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        padding: 0.5rem 0.25rem !important;
+        box-sizing: border-box !important;
+    }
+    .scanner-card-box .sampark-tag-box {
+        max-width: 100% !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        transform: scale(0.92);
+        transform-origin: center center;
+        margin: 0 auto !important;
     }
     .scan-status-toast {
-        font-size: 0.82rem;
-        padding: 0.65rem 0.85rem;
-        flex-direction: column;
-        gap: 0.5rem;
-        text-align: center;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        flex-direction: column !important;
+        gap: 0.65rem !important;
+        padding: 0.75rem 0.85rem !important;
+        text-align: center !important;
+        justify-content: center !important;
+        margin-top: 1rem !important;
+    }
+    .scan-status-toast > div {
+        justify-content: center !important;
+        width: 100% !important;
+    }
+    .action-pills-live {
+        justify-content: center !important;
+        width: 100% !important;
+    }
+    .email-support-card {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 0.85rem !important;
+        padding: 1.15rem 1rem !important;
+        box-sizing: border-box !important;
+    }
+    .email-support-card > div {
+        justify-content: center !important;
+        text-align: center !important;
+        width: 100% !important;
+    }
+    .email-support-card .email-btn-link {
+        width: 100% !important;
+        display: block !important;
+        box-sizing: border-box !important;
+        text-align: center !important;
+        margin-top: 0.25rem !important;
     }
     .story-section {
         padding: 3.5rem 1rem;
@@ -1032,18 +1083,18 @@ a:hover {
         overflow-y: auto;
     }
     .floating-wa-wrapper {
-        bottom: 16px;
-        right: 16px;
+        bottom: 14px;
+        right: 14px;
     }
     .wa-chat-bubble {
-        max-width: 230px;
-        font-size: 0.82rem;
-        padding: 0.75rem 0.95rem;
+        max-width: 200px;
+        font-size: 0.76rem;
+        padding: 0.55rem 0.75rem;
     }
     .wa-btn-circle {
-        width: 52px;
-        height: 52px;
-        font-size: 1.65rem;
+        width: 48px;
+        height: 48px;
+        font-size: 1.5rem;
     }
 }
 
@@ -1067,8 +1118,12 @@ a:hover {
     .ticker-item {
         font-size: 0.82rem;
     }
+    .scanner-card-box .sampark-tag-box {
+        transform: scale(0.80) !important;
+        transform-origin: center center !important;
+    }
     .sampark-tag-box {
-        transform: scale(0.86);
+        transform: scale(0.80);
         transform-origin: center top;
     }
     .kpi-strip {
