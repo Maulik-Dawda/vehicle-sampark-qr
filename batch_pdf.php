@@ -1,5 +1,5 @@
 <?php
-// batch_pdf.php - Full-Page Edge-to-Edge Batch PDF Streamer (Only Batch # on Top Corner)
+// batch_pdf.php - Medium-Width Centered 4-Tags-Per-Page Batch PDF Streamer
 
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/config/database.php';
@@ -44,7 +44,7 @@ $html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><style>';
 $html .= getVehicleSamparkTagCSS();
 $html .= '
 @page {
-    margin: 10px 14px;
+    margin: 12px 16px;
 }
 body {
     font-family: Helvetica, Arial, sans-serif;
@@ -61,44 +61,48 @@ body {
     margin-bottom: 6px;
     font-family: monospace;
 }
-/* Full-Page Tag Card Wrapper (4 Tags Cover Whole A4 Page) */
+/* Medium Width Centered Tag Card Wrapper (4 Tags Per Page) */
 .batch-tag-wrapper {
-    margin-bottom: 12px;
+    margin-bottom: 14px;
     page-break-inside: avoid;
+    text-align: center;
 }
 .batch-tag-wrapper .sampark-tag-box {
-    margin-bottom: 0 !important;
-    max-width: 100% !important;
+    margin: 0 auto !important;
+    width: 480px !important;
+    max-width: 480px !important;
     border-width: 2px !important;
 }
 .batch-tag-wrapper .tag-left-cell {
-    padding: 12px 16px !important;
+    width: 58% !important;
+    padding: 10px 14px !important;
 }
 .batch-tag-wrapper .tag-right-cell {
-    padding: 12px 14px !important;
+    width: 42% !important;
+    padding: 10px 12px !important;
 }
 .batch-tag-wrapper .tag-brand-title {
-    font-size: 18px !important;
+    font-size: 16px !important;
 }
 .batch-tag-wrapper .tag-main-headline {
-    font-size: 20px !important;
-    margin-bottom: 10px !important;
+    font-size: 17px !important;
+    margin-bottom: 8px !important;
     line-height: 1.15 !important;
 }
 .batch-tag-wrapper .tag-qr-img {
-    width: 120px !important;
-    height: 120px !important;
+    width: 105px !important;
+    height: 105px !important;
 }
 .batch-tag-wrapper .tag-sub-caption {
-    font-size: 8.5px !important;
-    margin-bottom: 8px !important;
+    font-size: 8px !important;
+    margin-bottom: 6px !important;
 }
 .batch-tag-wrapper .tag-bottom-notice {
-    font-size: 7.5px !important;
+    font-size: 7px !important;
 }
 .batch-tag-wrapper .tag-panel-footer {
-    font-size: 8.5px !important;
-    margin-top: 6px !important;
+    font-size: 8px !important;
+    margin-top: 5px !important;
 }
 .page-break {
     page-break-after: always;
