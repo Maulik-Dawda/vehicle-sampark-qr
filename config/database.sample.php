@@ -33,3 +33,41 @@ try {
         die("Database Connection Error: " . $sqle->getMessage());
     }
 }
+
+// Ensure Admins Table & Default Admin Seed Exist
+try {
+    $pdo->exec("
+        CREATE TABLE IF NOT EXISTS admins (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            username VARCHAR(50) UNIQUE NOT NULL,
+            email VARCHAR(100) UNIQUE NOT NULL,
+            password_hash VARCHAR(255) NOT NULL,
+            full_name VARCHAR(100) NOT NULL,
+            two_factor_secret VARCHAR(100) DEFAULT NULL,
+            two_factor_enabled TINYINT(1) DEFAULT 0,
+            last_login DATETIME DEFAULT NULL,
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        )
+    ");
+
+    $chkAdmin = $pdo->prepare("SELECT * FROM admins WHERE username = ?");
+    $chkAdmin->execute(['admin']);
+    $existingAdmin = $chkAdmin->fetch();
+
+    if (!$existingAdmin) {
+        $defaultPassHash = password_hash('admin123', PASSWORD_BCRYPT);
+        $seedStmt = $pdo->prepare("
+            INSERT INTO admins (username, email, password_hash, full_name, two_factor_secret, two_factor_enabled)
+            VALUES ('admin', 'admin@vehiclesampark.com', ?, 'System Administrator', 'VSPK2FASECRET123', 0)
+        ");
+        $seedStmt->execute([$defaultPassHash]);
+    } else {
+        if (!password_verify('admin123', $existingAdmin['password_hash'])) {
+            $upHash = password_hash('admin123', PASSWORD_BCRYPT);
+            $upStmt = $pdo->prepare("UPDATE admins SET password_hash = ?, two_factor_enabled = 0 WHERE username = ?");
+            $upStmt->execute([$upHash, 'admin']);
+        }
+    }
+} catch (Exception $ex) {
+    // Silent seed handler
+}
