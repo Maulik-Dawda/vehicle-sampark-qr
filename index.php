@@ -143,15 +143,6 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Alerts System';
                 <a href="#why-us" class="nav-link"><i class="fa-solid fa-shield-halved"></i> Why Us</a>
                 <a href="#faq" class="nav-link"><i class="fa-solid fa-circle-question"></i> FAQ</a>
                 <a href="#contact" class="nav-link"><i class="fa-solid fa-envelope"></i> Contact Us</a>
-                <?php if (isAdminLoggedIn()): ?>
-                    <a href="dashboard.php" class="btn btn-primary btn-glow">
-                        <i class="fa-solid fa-chart-line"></i> Go to Admin Dashboard
-                    </a>
-                <?php else: ?>
-                    <a href="login.php" class="btn btn-outline btn-sm">
-                        <i class="fa-solid fa-user-lock"></i> Admin Portal
-                    </a>
-                <?php endif; ?>
             </div>
         </div>
     </nav>
@@ -539,8 +530,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Alerts System';
                 <a href="#hazards" style="color: #94a3b8; text-decoration: none;">Emergency Cases</a> &bull;
                 <a href="#why-us" style="color: #94a3b8; text-decoration: none;">Why Vehicle Sampark</a> &bull;
                 <a href="#faq" style="color: #94a3b8; text-decoration: none;">FAQ</a> &bull;
-                <a href="#contact" style="color: #94a3b8; text-decoration: none;">Contact Us</a> &bull;
-                <a href="login.php" style="color: var(--primary); text-decoration: none; font-weight: bold;">Admin Login</a>
+                <a href="#contact" style="color: #94a3b8; text-decoration: none;">Contact Us</a>
             </div>
         </div>
     </footer>

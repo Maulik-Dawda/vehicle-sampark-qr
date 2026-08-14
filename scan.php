@@ -181,6 +181,9 @@ include __DIR__ . '/includes/header.php';
             <i class="fa-solid fa-triangle-exclamation empty-icon" style="color: var(--accent-rose); font-size: 3rem;"></i>
             <h3 style="margin-top: 1rem; color: var(--text-main);">Scanning Error</h3>
             <p style="color: var(--accent-rose); font-weight: 500; margin-top: 0.5rem;"><?= htmlspecialchars($error) ?></p>
+            <div style="margin-top: 1.5rem;">
+                <a href="index.php" class="btn btn-secondary"><i class="fa-solid fa-house"></i> Go to Homepage</a>
+            </div>
         </div>
 
     <?php elseif ($success): ?>
