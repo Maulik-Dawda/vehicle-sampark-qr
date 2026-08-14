@@ -142,7 +142,7 @@ function handleGetQRCode($pdo) {
         'scan_url' => $scanUrl,
         'qr_image' => $qrImageBase64,
         'tag_html' => $tagHtml,
-        'download_url' => 'qr.php?code=' . urlencode($codeNumber) . '&download=1'
+        'download_url' => 'single_pdf.php?code=' . urlencode($codeNumber)
     ]);
 }
 

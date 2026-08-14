@@ -225,8 +225,8 @@ include __DIR__ . '/includes/header.php';
                                             </button>
                                         <?php endif; ?>
 
-                                        <a href="qr.php?code=<?= urlencode($qr['code_number']) ?>&download=1" class="btn btn-secondary btn-sm">
-                                            <i class="fa-solid fa-download"></i> Single PDF
+                                        <a href="single_pdf.php?code=<?= urlencode($qr['code_number']) ?>" class="btn btn-secondary btn-sm">
+                                            <i class="fa-solid fa-file-pdf"></i> Single PDF
                                         </a>
                                     </div>
                                 </td>
@@ -323,7 +323,7 @@ include __DIR__ . '/includes/header.php';
                 <button type="button" class="btn btn-outline btn-sm" onclick="copyScanUrl()"><i class="fa-solid fa-copy"></i></button>
             </div>
             <div>
-                <a id="qrDownloadBtn" href="#" class="btn btn-primary btn-sm"><i class="fa-solid fa-download"></i> Download Single PDF Tag</a>
+                <a id="qrDownloadBtn" href="#" class="btn btn-primary btn-sm"><i class="fa-solid fa-file-pdf"></i> Download Single PDF Tag</a>
             </div>
         </div>
     </div>
