@@ -292,47 +292,18 @@ function initHeroStatusToast() {
 /**
  * Multi-Language Selection Engine (All Indian Languages)
  */
-function toggleLangMenu(event) {
-    if (event) event.stopPropagation();
-    const menu = document.getElementById('langDropdownMenu');
-    if (menu) {
-        menu.classList.toggle('show');
-    }
-}
+function onLangSelectChange(selectElem) {
+    if (!selectElem) return;
+    const langCode = selectElem.value;
+    const langName = selectElem.options[selectElem.selectedIndex].text;
 
-document.addEventListener('click', function (e) {
-    const menu = document.getElementById('langDropdownMenu');
-    const btn = document.getElementById('langDropdownBtn');
-    if (menu && btn && !btn.contains(e.target) && !menu.contains(e.target)) {
-        menu.classList.remove('show');
-    }
-});
-
-function selectLang(langCode, langName) {
     localStorage.setItem('selectedLangCode', langCode);
     localStorage.setItem('selectedLangName', langName);
-
-    const labelElem = document.getElementById('currentLangLabel');
-    if (labelElem) labelElem.textContent = langName;
 
     // 1. Set Google Translate Cookie (googtrans=/en/code)
     setGoogleTranslateCookie(langCode);
 
-    // 2. Update active class in menu
-    const options = document.querySelectorAll('.lang-option');
-    options.forEach(opt => {
-        const onClickAttr = opt.getAttribute('onclick') || '';
-        if (onClickAttr.includes(`'${langCode}'`)) {
-            opt.classList.add('active');
-        } else {
-            opt.classList.remove('active');
-        }
-    });
-
-    const menu = document.getElementById('langDropdownMenu');
-    if (menu) menu.classList.remove('show');
-
-    // 3. Trigger Google Translate Widget & DOM Refresh
+    // 2. Trigger Google Translate Widget & DOM Refresh
     applyGoogleTranslate(langCode);
 }
 
@@ -356,21 +327,21 @@ function applyGoogleTranslate(langCode) {
                 retrySelect.value = langCode;
                 retrySelect.dispatchEvent(new Event('change'));
             } else {
-                // If widget still loading, reload page to apply cookie
                 setGoogleTranslateCookie(langCode);
                 window.location.reload();
             }
-        }, 300);
+        }, 350);
     }
 }
 
 // Auto-restore saved language preference on load
 document.addEventListener('DOMContentLoaded', function () {
     const savedCode = localStorage.getItem('selectedLangCode');
-    const savedName = localStorage.getItem('selectedLangName');
-    if (savedCode && savedName) {
-        const labelElem = document.getElementById('currentLangLabel');
-        if (labelElem) labelElem.textContent = savedName;
+    if (savedCode) {
+        const selectElem = document.getElementById('langSelectBox');
+        if (selectElem) {
+            selectElem.value = savedCode;
+        }
         setGoogleTranslateCookie(savedCode);
         setTimeout(() => applyGoogleTranslate(savedCode), 600);
     }

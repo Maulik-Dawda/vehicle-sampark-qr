@@ -759,25 +759,22 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                 <a href="#faq" class="nav-link"><i class="fa-solid fa-circle-question"></i> FAQ</a>
                 <a href="#contact" class="nav-link"><i class="fa-solid fa-envelope"></i> Contact Us</a>
 
-                <!-- MULTI-LANGUAGE SELECTOR DROPDOWN (ALL INDIAN LANGUAGES) -->
-                <div class="lang-selector-dropdown">
-                    <button class="lang-dropdown-btn" id="langDropdownBtn" onclick="toggleLangMenu(event)" aria-label="Select Language">
-                        <i class="fa-solid fa-globe" style="color: #10b981;"></i>
-                        <span id="currentLangLabel">English</span>
-                        <i class="fa-solid fa-chevron-down" style="font-size: 0.7rem; opacity: 0.7;"></i>
-                    </button>
-                    <div class="lang-dropdown-menu" id="langDropdownMenu">
-                        <a href="javascript:void(0)" onclick="selectLang('en', 'English')" class="lang-option active"><span class="flag-icon">🇬🇧</span> English</a>
-                        <a href="javascript:void(0)" onclick="selectLang('hi', 'हिंदी (Hindi)')" class="lang-option"><span class="flag-icon">🇮🇳</span> हिंदी (Hindi)</a>
-                        <a href="javascript:void(0)" onclick="selectLang('gu', 'ગુજરાતી (Gujarati)')" class="lang-option"><span class="flag-icon">🇮🇳</span> ગુજરાતી (Gujarati)</a>
-                        <a href="javascript:void(0)" onclick="selectLang('mr', 'मराठी (Marathi)')" class="lang-option"><span class="flag-icon">🇮🇳</span> मराठी (Marathi)</a>
-                        <a href="javascript:void(0)" onclick="selectLang('bn', 'বাংলা (Bengali)')" class="lang-option"><span class="flag-icon">🇮🇳</span> বাংলা (Bengali)</a>
-                        <a href="javascript:void(0)" onclick="selectLang('ta', 'தமிழ் (Tamil)')" class="lang-option"><span class="flag-icon">🇮🇳</span> தமிழ் (Tamil)</a>
-                        <a href="javascript:void(0)" onclick="selectLang('te', 'తెలుగు (Telugu)')" class="lang-option"><span class="flag-icon">🇮🇳</span> తెలుగు (Telugu)</a>
-                        <a href="javascript:void(0)" onclick="selectLang('kn', 'ಕನ್ನಡ (Kannada)')" class="lang-option"><span class="flag-icon">🇮🇳</span> ಕನ್ನಡ (Kannada)</a>
-                        <a href="javascript:void(0)" onclick="selectLang('ml', 'മലയാളം (Malayalam)')" class="lang-option"><span class="flag-icon">🇮🇳</span> മലയാളം (Malayalam)</a>
-                        <a href="javascript:void(0)" onclick="selectLang('pa', 'ਪੰਜਾਬੀ (Punjabi)')" class="lang-option"><span class="flag-icon">🇮🇳</span> ਪੰਜਾਬੀ (Punjabi)</a>
-                    </div>
+                <!-- MULTI-LANGUAGE SELECTOR (ALL INDIAN LANGUAGES) -->
+                <div class="lang-select-wrapper">
+                    <i class="fa-solid fa-globe lang-select-icon"></i>
+                    <select class="lang-select-box" id="langSelectBox" onchange="onLangSelectChange(this)" aria-label="Select Language">
+                        <option value="en">🇬🇧 English</option>
+                        <option value="hi">🇮🇳 हिंदी (Hindi)</option>
+                        <option value="gu">🇮🇳 ગુજરાતી (Gujarati)</option>
+                        <option value="mr">🇮🇳 मराठी (Marathi)</option>
+                        <option value="bn">🇮🇳 বাংলা (Bengali)</option>
+                        <option value="ta">🇮🇳 தமிழ் (Tamil)</option>
+                        <option value="te">🇮🇳 తెలుగు (Telugu)</option>
+                        <option value="kn">🇮🇳 ಕನ್ನಡ (Kannada)</option>
+                        <option value="ml">🇮🇳 മലയാളം (Malayalam)</option>
+                        <option value="pa">🇮🇳 ਪੰਜਾਬੀ (Punjabi)</option>
+                    </select>
+                    <i class="fa-solid fa-chevron-down lang-select-arrow"></i>
                 </div>
             </div>
         </div>
