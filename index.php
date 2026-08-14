@@ -1259,50 +1259,93 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                     </div>
                 </div>
 
-                <!-- Landing Page Inquiry Form -->
-                <div class="content-card" style="padding: 2rem;">
-                    <h3 style="font-size: 1.3rem; font-weight: 900; color: #0f172a; margin-bottom: 1.25rem;">
-                        <i class="fa-solid fa-paper-plane" style="color: var(--accent-orange);"></i> Send Us an Inquiry
-                    </h3>
+                <!-- Landing Page Inquiry Form (Redesigned & Attractive) -->
+                <div class="content-card" style="padding: 2.25rem 2rem; border-radius: 20px; border: 1px solid rgba(249, 115, 22, 0.25); background: linear-gradient(180deg, #ffffff 0%, #fff7ed 100%); box-shadow: 0 12px 35px rgba(0,0,0,0.05); position: relative; overflow: hidden;">
+                    
+                    <!-- Subtle Orange Backdrop Accent -->
+                    <div style="position: absolute; right: -40px; top: -40px; width: 180px; height: 180px; background: radial-gradient(circle, rgba(249, 115, 22, 0.15) 0%, rgba(0,0,0,0) 70%); pointer-events: none;"></div>
+
+                    <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.5rem; border-bottom: 1px solid #ffedd5; padding-bottom: 1rem;">
+                        <h3 style="font-family: var(--font-heading); font-size: 1.35rem; font-weight: 800; color: #0f172a; margin: 0; display: flex; align-items: center; gap: 0.6rem;">
+                            <span style="width: 42px; height: 42px; border-radius: 12px; background: rgba(249, 115, 22, 0.12); color: #f97316; display: inline-flex; align-items: center; justify-content: center; font-size: 1.25rem;">
+                                <i class="fa-solid fa-paper-plane"></i>
+                            </span>
+                            Send Us an Inquiry
+                        </h3>
+                        <span style="font-size: 0.78rem; font-weight: 700; color: #c2410c; background: #fff7ed; padding: 4px 10px; border-radius: 20px; border: 1px solid #ffedd5;">
+                            ⚡ Fast Response
+                        </span>
+                    </div>
 
                     <div id="contactFormStatus"></div>
 
                     <form id="landingContactForm" action="contact_handler.php" method="POST">
-                        <div class="form-group">
-                            <label class="form-label">Full Name <span class="required">*</span></label>
-                            <input type="text" name="name" class="form-control" placeholder="Enter your full name" required>
+                        <div class="form-group" style="margin-bottom: 1.15rem;">
+                            <label class="form-label" style="font-size: 0.85rem; font-weight: 700; color: #334155; margin-bottom: 0.35rem; display: block;">
+                                Full Name <span class="required" style="color: #f43f5e;">*</span>
+                            </label>
+                            <div style="position: relative;">
+                                <input type="text" name="name" class="form-control" placeholder="e.g. Rahul Sharma" required style="padding-left: 2.6rem; border-radius: 12px; height: 46px;">
+                                <i class="fa-solid fa-user" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: #10b981; font-size: 0.95rem;"></i>
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label class="form-label">Mobile / WhatsApp Number <span class="required">*</span></label>
-                            <input type="tel" name="mobile" class="form-control" placeholder="+91 98765 43210" required>
+                        <div class="form-group" style="margin-bottom: 1.15rem;">
+                            <label class="form-label" style="font-size: 0.85rem; font-weight: 700; color: #334155; margin-bottom: 0.35rem; display: block;">
+                                Mobile / WhatsApp Number <span class="required" style="color: #f43f5e;">*</span>
+                            </label>
+                            <div style="position: relative;">
+                                <input type="tel" name="mobile" class="form-control" placeholder="+91 98765 43210" required style="padding-left: 2.6rem; border-radius: 12px; height: 46px;">
+                                <i class="fa-solid fa-mobile-screen-button" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: #f97316; font-size: 1rem;"></i>
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label class="form-label">Email Address (Optional)</label>
-                            <input type="email" name="email" class="form-control" placeholder="name@example.com">
+                        <div class="form-group" style="margin-bottom: 1.15rem;">
+                            <label class="form-label" style="font-size: 0.85rem; font-weight: 700; color: #334155; margin-bottom: 0.35rem; display: block;">
+                                Email Address <span style="font-weight: normal; color: #94a3b8;">(Optional)</span>
+                            </label>
+                            <div style="position: relative;">
+                                <input type="email" name="email" class="form-control" placeholder="name@example.com" style="padding-left: 2.6rem; border-radius: 12px; height: 46px;">
+                                <i class="fa-solid fa-envelope" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: #38bdf8; font-size: 0.95rem;"></i>
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label class="form-label">Number of Vehicle Tags Needed</label>
-                            <select name="quantity" class="form-control">
-                                <option value="1">1 Tag (Personal Car/Bike)</option>
-                                <option value="5">5 Tags (Family Fleet)</option>
-                                <option value="10">10 Tags (Small Fleet)</option>
-                                <option value="50+">50+ Tags (Commercial Fleet / Business)</option>
-                            </select>
+                        <div class="form-group" style="margin-bottom: 1.15rem;">
+                            <label class="form-label" style="font-size: 0.85rem; font-weight: 700; color: #334155; margin-bottom: 0.35rem; display: block;">
+                                Number of Vehicle Tags Needed
+                            </label>
+                            <div style="position: relative;">
+                                <select name="quantity" class="form-control" style="padding-left: 2.6rem; border-radius: 12px; height: 46px; appearance: none; background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2394A3B8%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'); background-repeat: no-repeat; background-position: right 1rem center; background-size: 0.65rem auto;">
+                                    <option value="1">🚗 1 Tag (Personal Car/Bike)</option>
+                                    <option value="5">👨‍👩‍👧‍👦 5 Tags (Family Fleet)</option>
+                                    <option value="10">🏢 10 Tags (Small Fleet)</option>
+                                    <option value="50+">🚛 50+ Tags (Commercial Fleet / Business)</option>
+                                </select>
+                                <i class="fa-solid fa-tags" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: #a855f7; font-size: 0.95rem;"></i>
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label class="form-label">Message / Delivery Address (Optional)</label>
-                            <textarea name="message" class="form-control" rows="3" placeholder="Tell us your location or questions..."></textarea>
+                        <div class="form-group" style="margin-bottom: 1.35rem;">
+                            <label class="form-label" style="font-size: 0.85rem; font-weight: 700; color: #334155; margin-bottom: 0.35rem; display: block;">
+                                Delivery Address / Questions <span style="font-weight: normal; color: #94a3b8;">(Optional)</span>
+                            </label>
+                            <div style="position: relative;">
+                                <textarea name="message" class="form-control" rows="3" placeholder="Tell us your city or any questions..." style="padding-left: 2.6rem; border-radius: 12px; padding-top: 0.75rem;"></textarea>
+                                <i class="fa-solid fa-location-dot" style="position: absolute; left: 1rem; top: 1rem; color: #f43f5e; font-size: 0.95rem;"></i>
+                            </div>
                         </div>
 
-                        <button type="submit" id="btnContactSubmit" class="btn btn-primary btn-glow" style="width: 100%; padding: 0.95rem; font-size: 1.05rem; border-radius: var(--radius-lg);">
-                            <span id="btnContactTxt"><i class="fa-solid fa-paper-plane"></i> Submit Inquiry</span>
+                        <button type="submit" id="btnContactSubmit" class="btn btn-primary btn-glow" style="width: 100%; padding: 0.95rem; font-size: 1.05rem; border-radius: 12px; font-weight: 700; background: linear-gradient(135deg, #f97316, #ea580c); box-shadow: 0 10px 25px rgba(249, 115, 22, 0.35);">
+                            <span id="btnContactTxt" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                                <i class="fa-solid fa-paper-plane"></i> Submit Inquiry Now
+                            </span>
                             <span id="btnContactLoader" style="display: none;"><i class="fa-solid fa-circle-notch fa-spin"></i> Sending Inquiry...</span>
                         </button>
                     </form>
+
+                    <div style="font-size: 0.78rem; color: #64748b; text-align: center; margin-top: 1.15rem; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 0.4rem;">
+                        <i class="fa-solid fa-shield-check" style="color: #10b981;"></i> 100% Safe & Private. No spam, guaranteed.
+                    </div>
                 </div>
             </div>
         </div>
