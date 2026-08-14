@@ -315,7 +315,10 @@ function selectLang(langCode, langName) {
     const labelElem = document.getElementById('currentLangLabel');
     if (labelElem) labelElem.textContent = langName;
 
-    // Update active state in menu
+    // 1. Set Google Translate Cookie (googtrans=/en/code)
+    setGoogleTranslateCookie(langCode);
+
+    // 2. Update active class in menu
     const options = document.querySelectorAll('.lang-option');
     options.forEach(opt => {
         const onClickAttr = opt.getAttribute('onclick') || '';
@@ -329,8 +332,16 @@ function selectLang(langCode, langName) {
     const menu = document.getElementById('langDropdownMenu');
     if (menu) menu.classList.remove('show');
 
-    // Apply Google Translate
+    // 3. Trigger Google Translate Widget & DOM Refresh
     applyGoogleTranslate(langCode);
+}
+
+function setGoogleTranslateCookie(langCode) {
+    const cookieVal = '/en/' + langCode;
+    const host = window.location.hostname;
+    document.cookie = 'googtrans=' + cookieVal + '; path=/;';
+    document.cookie = 'googtrans=' + cookieVal + '; path=/; domain=' + host + ';';
+    document.cookie = 'googtrans=' + cookieVal + '; path=/; domain=.' + host + ';';
 }
 
 function applyGoogleTranslate(langCode) {
@@ -339,8 +350,17 @@ function applyGoogleTranslate(langCode) {
         selectElem.value = langCode;
         selectElem.dispatchEvent(new Event('change'));
     } else {
-        // Retry if Google Translate widget script is still loading
-        setTimeout(() => applyGoogleTranslate(langCode), 400);
+        setTimeout(() => {
+            const retrySelect = document.querySelector('.goog-te-combo');
+            if (retrySelect) {
+                retrySelect.value = langCode;
+                retrySelect.dispatchEvent(new Event('change'));
+            } else {
+                // If widget still loading, reload page to apply cookie
+                setGoogleTranslateCookie(langCode);
+                window.location.reload();
+            }
+        }, 300);
     }
 }
 
@@ -351,7 +371,8 @@ document.addEventListener('DOMContentLoaded', function () {
     if (savedCode && savedName) {
         const labelElem = document.getElementById('currentLangLabel');
         if (labelElem) labelElem.textContent = savedName;
-        setTimeout(() => applyGoogleTranslate(savedCode), 800);
+        setGoogleTranslateCookie(savedCode);
+        setTimeout(() => applyGoogleTranslate(savedCode), 600);
     }
 });
 
