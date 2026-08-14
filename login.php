@@ -4,6 +4,13 @@
 require_once __DIR__ . '/config/database.php';
 require_once __DIR__ . '/includes/functions.php';
 
+if (strpos($_SERVER['REQUEST_URI'] ?? '', 'login.php') !== false) {
+    $qs = !empty($_SERVER['QUERY_STRING']) ? '?' . $_SERVER['QUERY_STRING'] : '';
+    header('HTTP/1.1 301 Moved Permanently');
+    header('Location: admin-qr-login' . $qs);
+    exit;
+}
+
 // Logout action handler
 if (isset($_GET['action']) && $_GET['action'] === 'logout') {
     $_SESSION = array();

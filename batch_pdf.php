@@ -13,6 +13,13 @@ require_once __DIR__ . '/includes/tag_template.php';
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
+if (strpos($_SERVER['REQUEST_URI'] ?? '', 'batch_pdf.php') !== false) {
+    $qs = !empty($_SERVER['QUERY_STRING']) ? '?' . $_SERVER['QUERY_STRING'] : '';
+    header('HTTP/1.1 301 Moved Permanently');
+    header('Location: admin-qr-batch-pdf' . $qs);
+    exit;
+}
+
 requireAdminLogin();
 
 $batchId = (int)($_GET['batch_id'] ?? 0);

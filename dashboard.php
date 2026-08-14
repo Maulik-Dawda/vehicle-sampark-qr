@@ -8,6 +8,13 @@ if (file_exists(__DIR__ . '/config/database.php')) {
 }
 require_once __DIR__ . '/includes/functions.php';
 
+if (strpos($_SERVER['REQUEST_URI'] ?? '', 'dashboard.php') !== false) {
+    $qs = !empty($_SERVER['QUERY_STRING']) ? '?' . $_SERVER['QUERY_STRING'] : '';
+    header('HTTP/1.1 301 Moved Permanently');
+    header('Location: admin-qr-dashboard' . $qs);
+    exit;
+}
+
 requireAdminLogin();
 
 $admin = getLoggedInAdmin();
