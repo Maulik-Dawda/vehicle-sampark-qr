@@ -1,10 +1,10 @@
-/* assets/css/style.css - Vehicle Sampark Modern Enterprise Dashboard UI Design System */
+/* assets/css/style.css - Vehicle Sampark Emerald Green & Orange Theme */
 
 :root {
-    /* Modern Color Palette */
-    --primary: #0284c7;           /* Electric Slate Blue */
-    --primary-hover: #0369a1;
-    --primary-light: #e0f2fe;
+    /* Emerald Green Primary Brand Color Palette */
+    --primary: #10b981;           /* Emerald Green */
+    --primary-hover: #059669;     /* Deep Emerald Green */
+    --primary-light: #ecfdf5;     /* Soft Mint Green */
     
     --accent-green: #10b981;      /* Emerald Green */
     --accent-green-light: #ecfdf5;
@@ -206,7 +206,7 @@ a:hover {
     transition: var(--transition);
 }
 
-/* ENTERPRISE METRICS KPI STRIP (INSPIRED BY SCREENSHOT) */
+/* ENTERPRISE METRICS KPI STRIP */
 .kpi-strip {
     background: #ffffff;
     border: 1px solid var(--border-color);
@@ -309,7 +309,7 @@ a:hover {
     margin-top: 0.4rem;
 }
 
-/* DATA TABLE DESIGN (ENTERPRISE CLEAN ROW HOVER WITH CIRCULAR AVATARS) */
+/* DATA TABLE DESIGN */
 .table-responsive {
     width: 100%;
     overflow-x: auto;
@@ -366,7 +366,7 @@ a:hover {
     margin-right: 0.6rem;
 }
 
-.avatar-blue { background: #e0f2fe; color: #0284c7; }
+.avatar-blue { background: var(--primary-light); color: var(--primary); }
 .avatar-green { background: #ecfdf5; color: #10b981; }
 .avatar-orange { background: #fff7ed; color: #f97316; }
 .avatar-red { background: #fef2f2; color: #ef4444; }
@@ -430,11 +430,11 @@ a:hover {
 .btn-primary:hover {
     background: var(--primary-hover);
     color: #ffffff;
-    box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
 }
 
 .btn-glow {
-    box-shadow: 0 4px 14px rgba(2, 132, 199, 0.3);
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
 }
 
 .btn-secondary {
@@ -452,7 +452,7 @@ a:hover {
 .btn-outline {
     background: transparent;
     color: var(--primary);
-    border-color: #bae6fd;
+    border-color: #a7f3d0;
 }
 
 .btn-outline:hover {
@@ -498,7 +498,7 @@ a:hover {
 .form-control:focus {
     outline: none;
     border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
 }
 
 .form-control-sm {
