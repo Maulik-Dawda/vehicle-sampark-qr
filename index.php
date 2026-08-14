@@ -1,5 +1,5 @@
 <?php
-// index.php - Vehicle Sampark World-Class Landing Page with Interactive Hero Scan Animation
+// index.php - Vehicle Sampark World-Class Landing Page with Perfectly Aligned Hero Scan Animation
 
 require_once __DIR__ . '/config/database.php';
 require_once __DIR__ . '/includes/functions.php';
@@ -85,7 +85,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
             max-width: 580px;
         }
 
-        /* HERO ANIMATED SCANNER MOCKUP CONTAINER */
+        /* HERO PERFECTLY ALIGNED ANIMATED SCANNER CONTAINER */
         .hero-scanner-container {
             position: relative;
             display: inline-block;
@@ -97,10 +97,10 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
         .hero-scanner-container::before {
             content: '';
             position: absolute;
-            top: -20px;
-            left: -20px;
-            right: -20px;
-            bottom: -20px;
+            top: -15px;
+            left: -15px;
+            right: -15px;
+            bottom: -15px;
             background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(249, 115, 22, 0.2));
             border-radius: 24px;
             filter: blur(25px);
@@ -116,10 +116,16 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
         .scanner-card-box {
             position: relative;
             z-index: 1;
-            border-radius: 14px;
+            border-radius: 12px;
             overflow: hidden;
             background: #ffffff;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+
+        .hero-scanner-container .sampark-tag-box {
+            margin-bottom: 0 !important;
+            box-shadow: none !important;
+            border-radius: 10px !important;
         }
 
         /* LASER SCANNING BEAM ANIMATION */
@@ -128,7 +134,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
             top: 0;
             left: 0;
             width: 100%;
-            height: 4px;
+            height: 3px;
             background: linear-gradient(90deg, transparent 0%, #10b981 50%, transparent 100%);
             box-shadow: 0 0 15px #10b981, 0 0 25px #10b981;
             z-index: 10;
@@ -143,30 +149,31 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
             100% { top: 0%; opacity: 0; }
         }
 
-        /* SCANNER TARGET BRACKETS */
+        /* SCANNER TARGET BRACKETS - PERFECTLY SNAPPED TO CORNERS */
         .scanner-bracket {
             position: absolute;
-            width: 24px;
-            height: 24px;
+            width: 20px;
+            height: 20px;
             border: 3px solid #10b981;
             z-index: 11;
             pointer-events: none;
-            transition: var(--transition);
         }
 
-        .bracket-tl { top: 10px; left: 10px; border-right: none; border-bottom: none; border-top-left-radius: 8px; }
-        .bracket-tr { top: 10px; right: 10px; border-left: none; border-bottom: none; border-top-right-radius: 8px; }
-        .bracket-bl { bottom: 10px; left: 10px; border-right: none; border-top: none; border-bottom-left-radius: 8px; }
-        .bracket-br { bottom: 10px; right: 10px; border-left: none; border-top: none; border-bottom-right-radius: 8px; }
+        .bracket-tl { top: 6px; left: 6px; border-right: none; border-bottom: none; border-top-left-radius: 6px; }
+        .bracket-tr { top: 6px; right: 6px; border-left: none; border-bottom: none; border-top-right-radius: 6px; }
+        .bracket-bl { bottom: 6px; left: 6px; border-right: none; border-top: none; border-bottom-left-radius: 6px; }
+        .bracket-br { bottom: 6px; right: 6px; border-left: none; border-top: none; border-bottom-right-radius: 6px; }
 
-        /* LIVE CONNECTED OWNER STATUS TOAST */
+        /* LIVE CONNECTED OWNER STATUS TOAST - PERFECTLY ALIGNED */
         .scan-status-toast {
-            margin-top: 1.25rem;
+            margin: 1.25rem auto 0 auto;
+            max-width: 580px;
+            width: 100%;
             background: #ffffff;
             border: 2px solid #a7f3d0;
             padding: 0.85rem 1.25rem;
             border-radius: var(--radius-lg);
-            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.15);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.12);
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -176,6 +183,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
             position: relative;
             z-index: 5;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-sizing: border-box;
         }
 
         .scan-status-toast.connected {
@@ -446,7 +454,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
         </div>
     </nav>
 
-    <!-- HERO SECTION WITH LIVE ANIMATED SCANNER -->
+    <!-- HERO SECTION WITH PERFECTLY ALIGNED ANIMATED SCANNER -->
     <section class="hero-section">
         <div style="max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 3rem; align-items: center;">
             <div>
@@ -488,7 +496,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                 </div>
             </div>
 
-            <!-- HERO ANIMATED SCANNER DEMO MOCKUP -->
+            <!-- HERO PERFECTLY ALIGNED SCANNER DEMO MOCKUP -->
             <div style="text-align: center;">
                 <div class="hero-scanner-container">
                     <div class="scanner-card-box">
