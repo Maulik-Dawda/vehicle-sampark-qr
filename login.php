@@ -4,9 +4,10 @@
 require_once __DIR__ . '/config/database.php';
 require_once __DIR__ . '/includes/functions.php';
 
-if (strpos($_SERVER['REQUEST_URI'] ?? '', 'login.php') !== false) {
-    header("HTTP/1.1 404 Not Found");
-    include __DIR__ . '/404.php';
+$reqPath = parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH);
+if (substr($reqPath, -4) === '.php') {
+    http_response_code(404);
+    require __DIR__ . '/404.php';
     exit;
 }
 

@@ -1,19 +1,12 @@
-# Vehicle Sampark Apache Rewrite Rules for Hostinger
+# Vehicle Sampark Clean Hostinger Rewrite Rules
 <IfModule mod_rewrite.c>
     RewriteEngine On
+    RewriteBase /
 
-    # Prevent infinite rewrite loops
-    RewriteCond %{ENV:REDIRECT_STATUS} 200
-    RewriteRule ^ - [L]
-
-    # Custom 404 Page
+    # Custom 404 Error Handler
     ErrorDocument 404 /404.php
 
-    # 1. SERVE 404 FOR DIRECT .php ADMIN FILE REQUESTS IN BROWSER
-    RewriteCond %{THE_REQUEST} \s/(login|dashboard|batches|profile|single_pdf|batch_pdf|api)\.php[\s\?] [NC]
-    RewriteRule ^ - [R=404,L]
-
-    # 2. ALLOWED INTERNAL CUSTOM ADMIN ROUTES
+    # Admin Custom Extensionless Clean Routes
     RewriteRule ^admin-qr-login/?$ login.php [L,QSA]
     RewriteRule ^admin-qr-dashboard/?$ dashboard.php [L,QSA]
     RewriteRule ^admin-qr-batches/?$ batches.php [L,QSA]
