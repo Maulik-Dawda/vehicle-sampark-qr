@@ -759,20 +759,12 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                 <a href="#faq" class="nav-link"><i class="fa-solid fa-circle-question"></i> FAQ</a>
                 <a href="#contact" class="nav-link"><i class="fa-solid fa-envelope"></i> Contact Us</a>
 
-                <!-- MULTI-LANGUAGE SELECTOR (ALL INDIAN LANGUAGES) -->
+                <!-- LANGUAGE SELECTOR (ENGLISH & HINDI) -->
                 <div class="lang-select-wrapper">
                     <i class="fa-solid fa-globe lang-select-icon"></i>
                     <select class="lang-select-box" id="langSelectBox" onchange="onLangSelectChange(this)" aria-label="Select Language">
-                        <option value="en">🇬🇧 English</option>
+                        <option value="en" selected>🇬🇧 English</option>
                         <option value="hi">🇮🇳 हिंदी (Hindi)</option>
-                        <option value="gu">🇮🇳 ગુજરાતી (Gujarati)</option>
-                        <option value="mr">🇮🇳 मराठी (Marathi)</option>
-                        <option value="bn">🇮🇳 বাংলা (Bengali)</option>
-                        <option value="ta">🇮🇳 தமிழ் (Tamil)</option>
-                        <option value="te">🇮🇳 తెలుగు (Telugu)</option>
-                        <option value="kn">🇮🇳 ಕನ್ನಡ (Kannada)</option>
-                        <option value="ml">🇮🇳 മലയാളം (Malayalam)</option>
-                        <option value="pa">🇮🇳 ਪੰਜਾਬੀ (Punjabi)</option>
                     </select>
                     <i class="fa-solid fa-chevron-down lang-select-arrow"></i>
                 </div>
@@ -1565,7 +1557,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
     function googleTranslateElementInit() {
         new google.translate.TranslateElement({
             pageLanguage: 'en',
-            includedLanguages: 'en,hi,gu,mr,bn,ta,te,kn,ml,pa',
+            includedLanguages: 'en,hi',
             layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
             autoDisplay: false
         }, 'google_translate_element');
