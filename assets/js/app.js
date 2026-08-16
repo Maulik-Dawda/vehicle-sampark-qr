@@ -366,15 +366,8 @@ function onLangSelectChange(selectElem) {
     // 2. Set Google Translate Cookie across hostinger domain
     setGoogleTranslateCookie(langCode);
 
-    // 3. Trigger Google Translate Widget or reload to apply full page translation
-    const googSelect = document.querySelector('.goog-te-combo');
-    if (googSelect) {
-        googSelect.value = langCode;
-        googSelect.dispatchEvent(new Event('change'));
-    } else {
-        // Reload page so Google Translate reads the googtrans cookie and translates 100% of text!
-        window.location.reload();
-    }
+    // 3. Trigger Google Translate Widget if available (smooth, no page reload)
+    applyGoogleTranslate(langCode);
 }
 
 function applyNativeTranslation(langCode) {
