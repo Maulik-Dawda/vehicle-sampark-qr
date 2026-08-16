@@ -313,6 +313,15 @@ const landingPageI18n = {
         trust_badge_lbl: 'Center Logo Tag Card',
         float_left: '<i class="fa-solid fa-lock" style="color: #10b981;"></i> 100% Phone Privacy',
         float_right: '<i class="fa-solid fa-bolt" style="color: #f97316;"></i> 3-Sec Connect',
+        hero_call_pill: '<i class="fa-solid fa-phone-volume"></i> Call Owner',
+        hero_wa_pill: '<i class="fa-brands fa-whatsapp"></i> WhatsApp Bot',
+        live_support: '<span style="width: 8px; height: 8px; border-radius: 50%; background: #10b981; display: inline-block; animation: pulseDot 1.5s infinite;"></span> Live 24/7 Support',
+
+        ticker1: '100% Privacy Guarded - No Mobile Numbers Revealed',
+        ticker2: 'Instant Call & 4-Option Emergency WhatsApp Bot Relay',
+        ticker3: 'Avoid Scratching, Vandalism & Unexpected Towing Fines',
+        ticker4: 'Integrated Doorstep Car Cleaning & Nearby Garage Support',
+        ticker5: 'Zero App Download - Scans with Any Phone Camera or Google Lens',
 
         how_tag: 'Scan To Call & WhatsApp',
         how_title: 'How Vehicle Sampark Protects You in 3 Easy Steps',
@@ -326,6 +335,11 @@ const landingPageI18n = {
         story_tag: 'Zero Personal Number Shared',
         story_title: 'How Vehicle Sampark Connects You Safely',
         story_sub: 'Bystanders connect with vehicle owners through our official company WhatsApp gateway — keeping your private phone number 100% hidden!',
+        scene1_badge: 'SCENE 1',
+        scene2_badge: 'SCENE 2',
+        scene3_badge: 'SCENE 3',
+        scene4_badge: 'SCENE 4',
+        scene1_alert: '🚫 Blocked Exit!',
         s1_title: 'Vehicle Wrongly Parked',
         s1_desc: 'A car blocks a driveway, gate, or another vehicle in a crowded parking area. The driver is away.',
         s2_title: 'Bystander Scans QR Tag',
@@ -356,11 +370,14 @@ const landingPageI18n = {
 
         why_tag: 'Privacy Protection Comparison',
         why_title: 'Vehicle Sampark vs Traditional Paper Stickers',
+        old_method_lbl: '❌ Traditional Method',
         old_title: 'Paper Mobile Number Sticker',
         old_f1: 'Personal phone number exposed to every stranger & spammer.',
         old_f2: 'No automated WhatsApp bot alerts or emergency classifications.',
         old_f3: 'Cannot update phone number without buying a new sticker.',
         old_f4: 'Paper fades, tears, or peels off easily in rain.',
+        new_method_lbl: '✅ Vehicle Sampark',
+        rec_badge: 'RECOMMENDED',
         new_title: 'Smart QR Privacy Tag',
         new_f1: '100% Phone Number Privacy — Zero stranger exposure.',
         new_f2: '4-Option Emergency WhatsApp Bot Relay & Direct Call line.',
@@ -394,8 +411,21 @@ const landingPageI18n = {
         form_vehicle: 'Vehicle Registration Number <span style="font-weight: 500; color: #94a3b8; font-size: 0.78rem;">(Optional)</span>',
         form_city: 'City & State <span class="required" style="color: #f43f5e;">*</span>',
         form_qty: 'Tag Quantity Needed',
+        form_opt1: '🚗 1 Tag (Personal Car/Bike)',
+        form_opt2: '👨‍👩‍👧‍👦 5 Tags (Family Fleet)',
+        form_opt3: '🏢 10 Tags (Small Fleet)',
+        form_opt4: '🚛 50+ Tags (Commercial Fleet / Business)',
         form_msg: 'Message / Additional Instructions',
-        form_btn: '<i class="fa-solid fa-paper-plane"></i> Submit Inquiry Now'
+        form_btn: '<i class="fa-solid fa-paper-plane"></i> Submit Inquiry Now',
+        form_safe_notice: '<i class="fa-solid fa-shield-check" style="color: #10b981;"></i> 100% Safe & Private. No spam, guaranteed.',
+        wa_widget_title: '<i class="fa-brands fa-whatsapp"></i> Instant Connect',
+        wa_widget_msg: 'Hi! Have a question or want to order smart vehicle tags? Chat with us directly on WhatsApp!',
+        footer_p: 'Smart Emergency Vehicle Safety & Privacy Tag System &bull; Built with ❤️ for Indian Roads &bull; &copy; 2026 Vehicle Sampark.',
+        footer_l1: 'How It Works',
+        footer_l2: 'Emergency Cases',
+        footer_l3: 'Why Vehicle Sampark',
+        footer_l4: 'FAQ',
+        footer_l5: 'Contact Us'
     },
     'hi': {
         announcement: '🚀 त्वरित 1-क्लिक व्हाट्सएप बॉट और कॉल रिले • 100% मोबाइल नंबर गोपनीयता सुरक्षा की गारंटी!',
@@ -739,6 +769,11 @@ function applyNativeTranslation(langCode) {
         if (elem && html) elem.innerHTML = html;
     };
 
+    const setAllHtml = (selector, html) => {
+        const elems = document.querySelectorAll(selector);
+        elems.forEach(elem => { if (elem && html) elem.innerHTML = html; });
+    };
+
     setHtml('.announcement-bar', data.announcement);
     setHtml('a[href="#how-it-works"]', data.nav_how);
     setHtml('a[href="#hazards"]', data.nav_hazards);
@@ -759,6 +794,17 @@ function applyNativeTranslation(langCode) {
     setHtml('.float-top-left', data.float_left);
     setHtml('.float-top-right', data.float_right);
 
+    // Hero Live Demo Toast & Action Pills
+    setHtml('#liveHeroPills span:nth-child(1)', data.hero_call_pill);
+    setHtml('#liveHeroPills span:nth-child(2)', data.hero_wa_pill);
+
+    // Ticker Marquee Items
+    setAllHtml('.ticker-item:nth-child(1), .ticker-item:nth-child(6)', '<i class="fa-solid fa-shield-halved"></i> ' + data.ticker1);
+    setAllHtml('.ticker-item:nth-child(2), .ticker-item:nth-child(7)', '<i class="fa-solid fa-bolt"></i> ' + data.ticker2);
+    setAllHtml('.ticker-item:nth-child(3), .ticker-item:nth-child(8)', '<i class="fa-solid fa-car-burst"></i> ' + data.ticker3);
+    setAllHtml('.ticker-item:nth-child(4), .ticker-item:nth-child(9)', '<i class="fa-solid fa-soap"></i> ' + data.ticker4);
+    setAllHtml('.ticker-item:nth-child(5), .ticker-item:nth-child(10)', '<i class="fa-solid fa-qrcode"></i> ' + data.ticker5);
+
     // How It Works Section
     setHtml('#how-it-works .section-tag', data.how_tag);
     setHtml('#how-it-works .section-title', data.how_title);
@@ -773,12 +819,17 @@ function applyNativeTranslation(langCode) {
     setHtml('.story-section .section-tag', data.story_tag);
     setHtml('.story-section .section-title', data.story_title);
     setHtml('.story-section .section-header p', data.story_sub);
+    setHtml('.story-card:nth-child(1) .story-badge-num', data.scene1_badge);
+    setHtml('.story-card:nth-child(1) .alert-bubble-cartoon', data.scene1_alert);
     setHtml('.story-card:nth-child(1) h3', data.s1_title);
     setHtml('.story-card:nth-child(1) p', data.s1_desc);
+    setHtml('.story-card:nth-child(2) .story-badge-num', data.scene2_badge);
     setHtml('.story-card:nth-child(2) h3', data.s2_title);
     setHtml('.story-card:nth-child(2) p', data.s2_desc);
+    setHtml('.story-card:nth-child(3) .story-badge-num', data.scene3_badge);
     setHtml('.story-card:nth-child(3) h3', data.s3_title);
     setHtml('.story-card:nth-child(3) p', data.s3_desc);
+    setHtml('.story-card:nth-child(4) .story-badge-num', data.scene4_badge);
     setHtml('.story-card:nth-child(4) h3', data.s4_title);
     setHtml('.story-card:nth-child(4) p', data.s4_desc);
 
@@ -805,11 +856,14 @@ function applyNativeTranslation(langCode) {
     // Why Us Comparison Section
     setHtml('#why-us .section-tag', data.why_tag);
     setHtml('#why-us .section-title', data.why_title);
+    setHtml('.compare-box-old > div', data.old_method_lbl);
     setHtml('.compare-box-old h3', data.old_title);
     setHtml('.compare-box-old li:nth-child(1) span', data.old_f1);
     setHtml('.compare-box-old li:nth-child(2) span', data.old_f2);
     setHtml('.compare-box-old li:nth-child(3) span', data.old_f3);
     setHtml('.compare-box-old li:nth-child(4) span', data.old_f4);
+    setHtml('.compare-box-new > div > span:first-child', data.new_method_lbl);
+    setHtml('.compare-box-new > div > span:last-child', data.rec_badge);
     setHtml('.compare-box-new h3', data.new_title);
     setHtml('.compare-box-new li:nth-child(1) span', data.new_f1);
     setHtml('.compare-box-new li:nth-child(2) span', data.new_f2);
@@ -835,6 +889,7 @@ function applyNativeTranslation(langCode) {
     setHtml('#contact .section-title', data.contact_title);
     setHtml('#contact .section-header p', data.contact_sub);
     setHtml('.content-card:nth-child(1) h3', data.channels_title);
+    setHtml('.content-card span[style*="background: #ecfdf5"]', data.live_support);
     setHtml('.contact-channel-box:nth-child(1) div div div:first-child', data.call_title);
     setHtml('.contact-channel-box:nth-child(1) div div div:nth-child(2)', data.wa_title);
     setHtml('.contact-channel-box:nth-child(1) div div div:last-child', data.wa_btn);
@@ -844,8 +899,31 @@ function applyNativeTranslation(langCode) {
     setHtml('#landingContactForm div:nth-child(3) label', data.form_vehicle);
     setHtml('#landingContactForm div:nth-child(4) label', data.form_city);
     setHtml('#landingContactForm div:nth-child(5) label', data.form_qty);
+    setHtml('#landingContactForm select[name="quantity"] option[value="1"]', data.form_opt1);
+    setHtml('#landingContactForm select[name="quantity"] option[value="5"]', data.form_opt2);
+    setHtml('#landingContactForm select[name="quantity"] option[value="10"]', data.form_opt3);
+    setHtml('#landingContactForm select[name="quantity"] option[value="50+"]', data.form_opt4);
     setHtml('#landingContactForm div:nth-child(6) label', data.form_msg);
     setHtml('#landingContactForm button[type="submit"]', data.form_btn);
+    setHtml('#landingContactForm + div', data.form_safe_notice);
+
+    // Floating WhatsApp Bubble Widget
+    setHtml('#waChatBubble div:first-child', data.wa_widget_title);
+    const bubbleElem = document.getElementById('waChatBubble');
+    if (bubbleElem && data.wa_widget_msg) {
+        // Keep close button and header intact
+        const closeBtnHTML = '<button class="wa-bubble-close" onclick="document.getElementById(\'waChatBubble\').style.display=\'none\'"><i class="fa-solid fa-xmark"></i></button>';
+        const headerHTML = '<div style="font-weight: 800; color: #047857; margin-bottom: 3px;">' + data.wa_widget_title + '</div>';
+        bubbleElem.innerHTML = closeBtnHTML + headerHTML + data.wa_widget_msg;
+    }
+
+    // Footer Section
+    setHtml('footer p', data.footer_p);
+    setHtml('footer a[href="#how-it-works"]', data.footer_l1);
+    setHtml('footer a[href="#hazards"]', data.footer_l2);
+    setHtml('footer a[href="#why-us"]', data.footer_l3);
+    setHtml('footer a[href="#faq"]', data.footer_l4);
+    setHtml('footer a[href="#contact"]', data.footer_l5);
 }
 
 function setGoogleTranslateCookie(langCode) {
