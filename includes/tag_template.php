@@ -23,7 +23,7 @@ function renderVehicleSamparkTagHTML($codeNumber, $formTitle = 'Vehicle Contact 
                         <table style="width: 100%;">
                             <tr>
                                 <td style="vertical-align: middle;">
-                                    <span class="tag-brand-title">VEHICLE SAMPARK</span>
+                                    <span class="tag-brand-title notranslate" translate="no">VEHICLE SAMPARK</span>
                                     <div class="tag-yellow-bar"></div>
                                 </td>
                                 ' . ($logoBase64 ? '<td style="text-align: right; vertical-align: middle;"><img src="' . $logoBase64 . '" class="tag-logo-thumb" style="height:32px; max-height:32px; width:auto; max-width:100px; object-fit:contain; border-radius:4px; display:block; margin-left:auto;"></td>' : '') . '

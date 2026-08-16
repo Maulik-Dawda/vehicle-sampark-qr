@@ -744,11 +744,11 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
     <!-- TOP NAVIGATION NAVBAR -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="index.php" class="nav-brand">
-                <img src="assets/images/logo.jpg" alt="Vehicle Sampark Logo" class="brand-logo-img" onerror="this.src='assets/images/logo-icon.svg'">
-                <div class="brand-text">
-                    <span class="brand-name">Vehicle <span>Sampark</span></span>
-                    <span class="brand-tag">Connecting Mobility</span>
+            <a href="index.php" class="nav-brand notranslate" translate="no">
+                <img src="assets/images/logo.jpg" alt="Vehicle Sampark Logo" class="brand-logo-img notranslate" translate="no" onerror="this.src='assets/images/logo-icon.svg'">
+                <div class="brand-text notranslate" translate="no">
+                    <span class="brand-name notranslate" translate="no">Vehicle <span class="notranslate" translate="no">Sampark</span></span>
+                    <span class="brand-tag notranslate" translate="no">Connecting Mobility</span>
                 </div>
             </a>
 
@@ -1425,10 +1425,10 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
     <footer style="background: #0f172a; color: #ffffff; padding: 3.5rem 1.5rem 2.5rem 1.5rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.08);">
         <div style="max-width: 1200px; margin: 0 auto;">
             <div style="margin-bottom: 1.25rem;">
-                <span style="font-family: var(--font-heading); font-size: 1.75rem; font-weight: 900; color: #ffffff;">
-                    Vehicle <span style="color: var(--primary);">Sampark</span>
+                <span class="notranslate" translate="no" style="font-family: var(--font-heading); font-size: 1.75rem; font-weight: 900; color: #ffffff;">
+                    Vehicle <span class="notranslate" translate="no" style="color: var(--primary);">Sampark</span>
                 </span>
-                <div style="font-size: 0.82rem; color: #10b981; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-top: 2px;">
+                <div class="notranslate" translate="no" style="font-size: 0.82rem; color: #10b981; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-top: 2px;">
                     Connecting Mobility
                 </div>
             </div>
