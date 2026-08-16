@@ -1429,4 +1429,104 @@ body {
     box-shadow: none !important;
 }
 
+/* ==========================================================================
+   MULTI-LANGUAGE TYPOGRAPHY & RESPONSIVE LAYOUT FIXES
+   ========================================================================== */
+.hero-title {
+    font-family: var(--font-heading), 'Noto Sans Devanagari', 'Noto Sans Gujarati', sans-serif;
+    font-size: clamp(2rem, 4.2vw, 3.1rem);
+    font-weight: 900;
+    color: #0f172a;
+    line-height: 1.35 !important;
+    letter-spacing: -0.4px;
+    margin-bottom: 1.25rem;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+.hero-subtitle {
+    font-size: 1.02rem;
+    color: var(--text-muted);
+    line-height: 1.7 !important;
+    margin-bottom: 2rem;
+    max-width: 660px;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+.hero-badge-animated {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: #ecfdf5;
+    border: 1px solid #a7f3d0;
+    color: #047857;
+    padding: 0.5rem 1.15rem;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+    max-width: 100%;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Contact Section & Form Layout Fixes */
+#contact .section-header {
+    word-break: break-word;
+}
+
+#landingContactForm {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+#landingContactForm .form-group {
+    margin-bottom: 1.25rem;
+}
+
+#landingContactForm label {
+    line-height: 1.4;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    display: block;
+}
+
+#landingContactForm .form-control,
+#landingContactForm select,
+#landingContactForm input,
+#landingContactForm textarea {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    font-family: inherit;
+}
+
+#landingContactForm select option {
+    font-size: 0.88rem;
+    padding: 8px;
+    word-break: break-word;
+}
+
+#btnContactSubmit {
+    white-space: normal !important;
+    height: auto !important;
+    min-height: 52px;
+    padding: 0.85rem 1.25rem !important;
+    line-height: 1.35 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    word-break: break-word;
+}
+
+.contact-channel-box,
+.email-support-card {
+    word-break: break-word;
+    overflow-wrap: break-word;
+    box-sizing: border-box;
+}
+
 

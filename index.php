@@ -791,7 +791,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
 
                 <!-- DYNAMIC ANIMATED HEADLINE WITH CYCLING TEXT -->
                 <h1 class="hero-title">
-                    Let Anyone Reach You With <br class="mobile-hide">
+                    <span id="heroTitleMain">Let Anyone Reach You With</span>
                     <span id="heroDynamicWord" class="gradient-text hero-dynamic-word">a Quick QR Scan ⚡</span>
                 </h1>
 
