@@ -1347,40 +1347,55 @@ a:hover {
 /* ==========================================================================
    MULTI-LANGUAGE SELECTOR & TRANSLATION ENGINE STYLES
    ========================================================================== */
+/* ==========================================================================
+   MULTI-LANGUAGE SELECTOR & TRANSLATION ENGINE STYLES
+   ========================================================================== */
 .lang-select-wrapper {
     position: relative;
     display: inline-flex;
     align-items: center;
-    background: #ffffff;
-    border: 1.5px solid var(--border-color);
-    border-radius: var(--radius-md);
-    padding: 0 0.75rem;
-    height: 38px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
-    transition: var(--transition);
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    border: 1.5px solid rgba(16, 185, 129, 0.38);
+    border-radius: 30px;
+    padding: 0 0.85rem 0 0.75rem;
+    height: 40px;
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
     vertical-align: middle;
     flex-shrink: 0;
 }
 
-.lang-select-wrapper:hover {
+.lang-select-wrapper:hover,
+.lang-select-wrapper:focus-within {
     border-color: #10b981;
-    background: #f0fdf4;
+    background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.25), inset 0 1px 0 rgba(255, 255, 255, 1);
+    transform: translateY(-1px);
 }
 
 .lang-select-icon {
     color: #10b981;
     font-size: 0.95rem;
-    margin-right: 0.4rem;
+    margin-right: 0.45rem;
     pointer-events: none;
+    transition: transform 0.3s ease;
+}
+
+.lang-select-wrapper:hover .lang-select-icon {
+    transform: rotate(20deg) scale(1.12);
 }
 
 .lang-select-arrow {
     font-size: 0.7rem;
-    opacity: 0.7;
-    margin-left: 0.4rem;
+    color: #10b981;
+    margin-left: 0.45rem;
     pointer-events: none;
-    color: var(--text-main);
+    transition: transform 0.25s ease;
+}
+
+.lang-select-wrapper:hover .lang-select-arrow {
+    transform: translateY(1px);
 }
 
 .lang-select-box {
@@ -1390,20 +1405,22 @@ a:hover {
     background: transparent;
     border: none;
     outline: none;
-    font-family: var(--font-body);
-    font-size: 0.82rem;
-    font-weight: 700;
-    color: var(--text-main);
+    font-family: var(--font-body), sans-serif;
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: #0f172a;
     cursor: pointer;
-    padding-right: 0.2rem;
+    padding-right: 0.15rem;
+    letter-spacing: 0.2px;
 }
 
 .lang-select-box option {
     background: #ffffff;
     color: #0f172a;
-    font-size: 0.9rem;
-    font-weight: 600;
-    padding: 8px;
+    font-size: 0.92rem;
+    font-weight: 700;
+    padding: 10px 14px;
+    line-height: 1.6;
 }
 
 /* Hide Google Translate top banner, tooltip popups, and branding */
