@@ -399,6 +399,12 @@ function applyNativeTranslation(langCode) {
     setHtml('.float-top-left', data.float_left);
     setHtml('.float-top-right', data.float_right);
     setHtml('#how-it-works .section-title', data.how_title);
+    setHtml('.step-card:nth-child(1) h3', data.step1_title);
+    setHtml('.step-card:nth-child(1) p', data.step1_desc);
+    setHtml('.step-card:nth-child(2) h3', data.step2_title);
+    setHtml('.step-card:nth-child(2) p', data.step2_desc);
+    setHtml('.step-card:nth-child(3) h3', data.step3_title);
+    setHtml('.step-card:nth-child(3) p', data.step3_desc);
 }
 
 function setGoogleTranslateCookie(langCode) {

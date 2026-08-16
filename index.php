@@ -1564,5 +1564,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
     }
     </script>
     <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <!-- MAIN APP & TRANSLATION ENGINE SCRIPT -->
+    <script src="assets/js/app.js?v=<?= time() ?>"></script>
 </body>
 </html>
