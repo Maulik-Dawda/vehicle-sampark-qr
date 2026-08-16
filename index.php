@@ -759,21 +759,56 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                 <a href="#faq" class="nav-link"><i class="fa-solid fa-circle-question"></i> FAQ</a>
                 <a href="#contact" class="nav-link"><i class="fa-solid fa-envelope"></i> Contact Us</a>
 
-                <!-- LANGUAGE SELECTOR (ENGLISH & 8 MAJOR INDIAN LANGUAGES) -->
-                <div class="lang-select-wrapper">
-                    <i class="fa-solid fa-globe lang-select-icon"></i>
-                    <select class="lang-select-box" id="langSelectBox" onchange="onLangSelectChange(this)" aria-label="Select Language">
-                        <option value="en" selected>🇬🇧 English</option>
-                        <option value="hi">🇮🇳 हिंदी (Hindi)</option>
-                        <option value="gu">🇮🇳 ગુજરાતી (Gujarati)</option>
-                        <option value="mr">🇮🇳 मराठी (Marathi)</option>
-                        <option value="ta">🇮🇳 தமிழ் (Tamil)</option>
-                        <option value="bn">🇮🇳 বাংলা (Bengali)</option>
-                        <option value="ml">🇮🇳 മലയാളം (Malayalam)</option>
-                        <option value="kn">🇮🇳 ಕನ್ನಡ (Kannada)</option>
-                        <option value="pa">🇮🇳 ਪੰਜਾਬੀ (Punjabi)</option>
+                <!-- CUSTOM MULTI-LANGUAGE DROPDOWN COMPONENT (100% STYLED & NOTRANSLATE) -->
+                <div class="custom-lang-dropdown notranslate" translate="no" id="customLangDropdown">
+                    <button type="button" class="custom-lang-btn" id="customLangBtn" onclick="toggleLangDropdown(event)" aria-expanded="false" aria-haspopup="true">
+                        <i class="fa-solid fa-globe lang-globe-icon"></i>
+                        <span class="custom-lang-current" id="customLangCurrent">🇬🇧 English</span>
+                        <i class="fa-solid fa-chevron-down lang-arrow-icon"></i>
+                    </button>
+
+                    <div class="custom-lang-menu" id="customLangMenu">
+                        <div class="lang-menu-item active" data-lang="en" onclick="selectCustomLang('en')">
+                            <span class="lang-flag">🇬🇧</span> <span class="lang-name">English</span> <i class="fa-solid fa-check lang-check"></i>
+                        </div>
+                        <div class="lang-menu-item" data-lang="hi" onclick="selectCustomLang('hi')">
+                            <span class="lang-flag">🇮🇳</span> <span class="lang-name">हिंदी (Hindi)</span> <i class="fa-solid fa-check lang-check"></i>
+                        </div>
+                        <div class="lang-menu-item" data-lang="gu" onclick="selectCustomLang('gu')">
+                            <span class="lang-flag">🇮🇳</span> <span class="lang-name">ગુજરાતી (Gujarati)</span> <i class="fa-solid fa-check lang-check"></i>
+                        </div>
+                        <div class="lang-menu-item" data-lang="mr" onclick="selectCustomLang('mr')">
+                            <span class="lang-flag">🇮🇳</span> <span class="lang-name">मराठी (Marathi)</span> <i class="fa-solid fa-check lang-check"></i>
+                        </div>
+                        <div class="lang-menu-item" data-lang="ta" onclick="selectCustomLang('ta')">
+                            <span class="lang-flag">🇮🇳</span> <span class="lang-name">தமிழ் (Tamil)</span> <i class="fa-solid fa-check lang-check"></i>
+                        </div>
+                        <div class="lang-menu-item" data-lang="bn" onclick="selectCustomLang('bn')">
+                            <span class="lang-flag">🇮🇳</span> <span class="lang-name">বাংলা (Bengali)</span> <i class="fa-solid fa-check lang-check"></i>
+                        </div>
+                        <div class="lang-menu-item" data-lang="ml" onclick="selectCustomLang('ml')">
+                            <span class="lang-flag">🇮🇳</span> <span class="lang-name">മലയാളം (Malayalam)</span> <i class="fa-solid fa-check lang-check"></i>
+                        </div>
+                        <div class="lang-menu-item" data-lang="kn" onclick="selectCustomLang('kn')">
+                            <span class="lang-flag">🇮🇳</span> <span class="lang-name">ಕನ್ನಡ (Kannada)</span> <i class="fa-solid fa-check lang-check"></i>
+                        </div>
+                        <div class="lang-menu-item" data-lang="pa" onclick="selectCustomLang('pa')">
+                            <span class="lang-flag">🇮🇳</span> <span class="lang-name">ਪੰਜਾਬੀ (Punjabi)</span> <i class="fa-solid fa-check lang-check"></i>
+                        </div>
+                    </div>
+
+                    <!-- Hidden native select for translation engine handler -->
+                    <select class="lang-select-box" id="langSelectBox" onchange="onLangSelectChange(this)" style="display:none !important;" aria-label="Select Language">
+                        <option value="en" selected>English</option>
+                        <option value="hi">Hindi</option>
+                        <option value="gu">Gujarati</option>
+                        <option value="mr">Marathi</option>
+                        <option value="ta">Tamil</option>
+                        <option value="bn">Bengali</option>
+                        <option value="ml">Malayalam</option>
+                        <option value="kn">Kannada</option>
+                        <option value="pa">Punjabi</option>
                     </select>
-                    <i class="fa-solid fa-chevron-down lang-select-arrow"></i>
                 </div>
             </div>
         </div>

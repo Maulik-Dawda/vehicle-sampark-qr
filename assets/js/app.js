@@ -1412,7 +1412,63 @@ const landingPageI18n = {
 };
 
 /**
- * Multi-Language Selection Engine (English & Hindi)
+ * Custom Multi-Language Dropdown Engine
+ */
+function toggleLangDropdown(event) {
+    if (event) event.stopPropagation();
+    const dropdown = document.getElementById('customLangDropdown');
+    if (!dropdown) return;
+    dropdown.classList.toggle('open');
+}
+
+document.addEventListener('click', function(e) {
+    const dropdown = document.getElementById('customLangDropdown');
+    if (dropdown && !dropdown.contains(e.target)) {
+        dropdown.classList.remove('open');
+    }
+});
+
+function selectCustomLang(langCode, triggerTranslation = true) {
+    const langLabels = {
+        'en': '🇬🇧 English',
+        'hi': '🇮🇳 हिंदी (Hindi)',
+        'gu': '🇮🇳 ગુજરાતી (Gujarati)',
+        'mr': '🇮🇳 मराठी (Marathi)',
+        'ta': '🇮🇳 தமிழ் (Tamil)',
+        'bn': '🇮🇳 বাংলা (Bengali)',
+        'ml': '🇮🇳 മലയാളം (Malayalam)',
+        'kn': '🇮🇳 ಕನ್ನಡ (Kannada)',
+        'pa': '🇮🇳 ਪੰਜਾਬੀ (Punjabi)'
+    };
+
+    const currentElem = document.getElementById('customLangCurrent');
+    if (currentElem && langLabels[langCode]) {
+        currentElem.innerHTML = langLabels[langCode];
+    }
+
+    const items = document.querySelectorAll('.lang-menu-item');
+    items.forEach(item => {
+        if (item.getAttribute('data-lang') === langCode) {
+            item.classList.add('active');
+        } else {
+            item.classList.remove('active');
+        }
+    });
+
+    const dropdown = document.getElementById('customLangDropdown');
+    if (dropdown) dropdown.classList.remove('open');
+
+    const selectElem = document.getElementById('langSelectBox');
+    if (selectElem) {
+        selectElem.value = langCode;
+        if (triggerTranslation) {
+            onLangSelectChange(selectElem);
+        }
+    }
+}
+
+/**
+ * Multi-Language Selection Engine (English & 8 Indian Languages)
  */
 function onLangSelectChange(selectElem) {
     if (!selectElem) return;
@@ -1627,10 +1683,7 @@ function applyGoogleTranslate(langCode) {
 document.addEventListener('DOMContentLoaded', function () {
     const savedCode = localStorage.getItem('selectedLangCode');
     if (savedCode) {
-        const selectElem = document.getElementById('langSelectBox');
-        if (selectElem) {
-            selectElem.value = savedCode;
-        }
+        selectCustomLang(savedCode, false);
         applyNativeTranslation(savedCode);
         if (savedCode !== 'en') {
             setGoogleTranslateCookie(savedCode);
