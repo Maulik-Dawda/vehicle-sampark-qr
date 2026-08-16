@@ -759,12 +759,14 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                 <a href="#faq" class="nav-link"><i class="fa-solid fa-circle-question"></i> FAQ</a>
                 <a href="#contact" class="nav-link"><i class="fa-solid fa-envelope"></i> Contact Us</a>
 
-                <!-- LANGUAGE SELECTOR (ENGLISH & HINDI) -->
+                <!-- LANGUAGE SELECTOR (ENGLISH, HINDI, GUJARATI, MARATHI) -->
                 <div class="lang-select-wrapper">
                     <i class="fa-solid fa-globe lang-select-icon"></i>
                     <select class="lang-select-box" id="langSelectBox" onchange="onLangSelectChange(this)" aria-label="Select Language">
                         <option value="en" selected>🇬🇧 English</option>
                         <option value="hi">🇮🇳 हिंदी (Hindi)</option>
+                        <option value="gu">🇮🇳 ગુજરાતી (Gujarati)</option>
+                        <option value="mr">🇮🇳 मराठी (Marathi)</option>
                     </select>
                     <i class="fa-solid fa-chevron-down lang-select-arrow"></i>
                 </div>
@@ -1557,7 +1559,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
     function googleTranslateElementInit() {
         new google.translate.TranslateElement({
             pageLanguage: 'en',
-            includedLanguages: 'en,hi',
+            includedLanguages: 'en,hi,gu,mr',
             layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
             autoDisplay: false
         }, 'google_translate_element');
