@@ -301,6 +301,7 @@ const landingPageI18n = {
         nav_faq: '<i class="fa-solid fa-circle-question"></i> FAQ',
         nav_contact: '<i class="fa-solid fa-envelope"></i> Contact Us',
         hero_badge: '<span class="live-dot-pulse"></span> <i class="fa-solid fa-shield-halved" style="color: #10b981;"></i> Protect Your Vehicle & Personal Privacy',
+        hero_title: 'Let Anyone Reach You With <br class="mobile-hide"><span id="heroDynamicWord" class="gradient-text hero-dynamic-word">a Quick QR Scan ⚡</span>',
         hero_sub: 'A simple scan lets anyone contact you instantly. Get real-time WhatsApp alerts, 4-option emergency bot reports, and direct calls if your vehicle needs attention — without revealing your personal phone number.',
         hero_btn_tag: '<i class="fa-solid fa-phone-volume"></i> Get Smart QR Tag Now',
         hero_btn_wa: '<i class="fa-brands fa-whatsapp" style="font-size: 1.3rem;"></i> Chat on WhatsApp',
@@ -309,7 +310,16 @@ const landingPageI18n = {
         trust_relay_val: 'Instant Relay',
         trust_relay_lbl: 'Call & WhatsApp Bot',
         trust_badge_val: 'Smart Badge',
-        trust_badge_lbl: 'Center Logo Tag Card'
+        trust_badge_lbl: 'Center Logo Tag Card',
+        float_left: '<i class="fa-solid fa-lock" style="color: #10b981;"></i> 100% Phone Privacy',
+        float_right: '<i class="fa-solid fa-bolt" style="color: #f97316;"></i> 3-Sec Connect',
+        how_title: 'How Vehicle Sampark Protects You in 3 Easy Steps',
+        step1_title: '1. Scan the QR Code',
+        step1_desc: 'Anyone can scan the Vehicle Sampark sticker on your windshield using any smartphone camera — zero app download required.',
+        step2_title: '2. Connect Instantly',
+        step2_desc: 'Call the car owner directly or select WhatsApp emergency bot options without exposing personal phone numbers.',
+        step3_title: '3. Resolve the Issue',
+        step3_desc: 'Coordinate moving the car, wrong parking, towing, or emergency situations quickly, safely, and peacefully.'
     },
     'hi': {
         announcement: '🚀 त्वरित 1-क्लिक व्हाट्सएप बॉट और कॉल रिले • 100% मोबाइल नंबर गोपनीयता सुरक्षा की गारंटी!',
@@ -319,6 +329,7 @@ const landingPageI18n = {
         nav_faq: '<i class="fa-solid fa-circle-question"></i> अक्सर पूछे जाने वाले प्रश्न',
         nav_contact: '<i class="fa-solid fa-envelope"></i> संपर्क करें',
         hero_badge: '<span class="live-dot-pulse"></span> <i class="fa-solid fa-shield-halved" style="color: #10b981;"></i> अपने वाहन और व्यक्तिगत गोपनीयता की रक्षा करें',
+        hero_title: 'स्मार्ट QR स्कैन से <br class="mobile-hide"><span id="heroDynamicWord" class="gradient-text hero-dynamic-word">कोई भी आपसे तुरंत संपर्क कर सकता है ⚡</span>',
         hero_sub: 'एक साधारण स्कैन किसी को भी आपसे तुरंत संपर्क करने देता है। वास्तविक समय में व्हाट्सएप अलर्ट, 4-विकल्प आपातकालीन बॉट रिपोर्ट और सीधे कॉल प्राप्त करें — अपना फोन नंबर उजागर किए बिना।',
         hero_btn_tag: '<i class="fa-solid fa-phone-volume"></i> स्मार्ट क्यूआर टैग प्राप्त करें',
         hero_btn_wa: '<i class="fa-brands fa-whatsapp" style="font-size: 1.3rem;"></i> व्हाट्सएप पर चैट करें',
@@ -327,7 +338,16 @@ const landingPageI18n = {
         trust_relay_val: 'त्वरित संपर्क',
         trust_relay_lbl: 'कॉल और व्हाट्सएप बॉट',
         trust_badge_val: 'स्मार्ट बैज',
-        trust_badge_lbl: 'सेंटर लोगो टैग कार्ड'
+        trust_badge_lbl: 'सेंटर लोगो टैग कार्ड',
+        float_left: '<i class="fa-solid fa-lock" style="color: #10b981;"></i> 100% फ़ोन गोपनीयता',
+        float_right: '<i class="fa-solid fa-bolt" style="color: #f97316;"></i> 3-सेकंड कनेक्ट',
+        how_title: 'वाहन संपर्क 3 आसान चरणों में आपकी रक्षा करता है',
+        step1_title: '1. QR कोड स्कैन करें',
+        step1_desc: 'कोई भी व्यक्ति किसी भी स्मार्टफोन कैमरे से आपकी कार पर लगे क्यूआर स्टिकर को स्कैन कर सकता है — कोई ऐप डाउनलोड करने की आवश्यकता नहीं है।',
+        step2_title: '2. तुरंत संपर्क करें',
+        step2_desc: 'अपना फोन नंबर दिखाए बिना वाहन मालिक को सीधे कॉल करें या व्हाट्सएप आपातकालीन बॉट विकल्प चुनें।',
+        step3_title: '3. समस्या का समाधान करें',
+        step3_desc: 'गलत पार्किंग, कार हटाने, टोइंग या आपातकालीन स्थितियों में जल्दी और सुरक्षित रूप से संपर्क करें।'
     }
 };
 
@@ -340,14 +360,21 @@ function onLangSelectChange(selectElem) {
 
     localStorage.setItem('selectedLangCode', langCode);
 
-    // 1. Native DOM Text Swapping (Instant 0ms translation)
+    // 1. Native DOM Text Swapping (Instant 0ms translation for key elements)
     applyNativeTranslation(langCode);
 
-    // 2. Set Google Translate Cookie
+    // 2. Set Google Translate Cookie across hostinger domain
     setGoogleTranslateCookie(langCode);
 
-    // 3. Trigger Google Translate Widget
-    applyGoogleTranslate(langCode);
+    // 3. Trigger Google Translate Widget or reload to apply full page translation
+    const googSelect = document.querySelector('.goog-te-combo');
+    if (googSelect) {
+        googSelect.value = langCode;
+        googSelect.dispatchEvent(new Event('change'));
+    } else {
+        // Reload page so Google Translate reads the googtrans cookie and translates 100% of text!
+        window.location.reload();
+    }
 }
 
 function applyNativeTranslation(langCode) {
@@ -366,6 +393,7 @@ function applyNativeTranslation(langCode) {
     setHtml('a[href="#faq"]', data.nav_faq);
     setHtml('a[href="#contact"]', data.nav_contact);
     setHtml('.hero-badge-animated', data.hero_badge);
+    setHtml('.hero-title', data.hero_title);
     setHtml('.hero-subtitle', data.hero_sub);
     setHtml('a[href="#contact"].btn-primary', data.hero_btn_tag);
     setHtml('a[href*="wa.me"].btn-secondary', data.hero_btn_wa);
@@ -375,14 +403,28 @@ function applyNativeTranslation(langCode) {
     setHtml('.trust-item:nth-child(2) .trust-lbl', data.trust_relay_lbl);
     setHtml('.color-slate', data.trust_badge_val);
     setHtml('.trust-item:nth-child(3) .trust-lbl', data.trust_badge_lbl);
+    setHtml('.float-top-left', data.float_left);
+    setHtml('.float-top-right', data.float_right);
+    setHtml('#how-it-works .section-title', data.how_title);
 }
 
 function setGoogleTranslateCookie(langCode) {
-    const cookieVal = '/en/' + langCode;
+    const cookieVal = (langCode === 'en') ? '' : '/en/' + langCode;
     const host = window.location.hostname;
-    document.cookie = 'googtrans=' + cookieVal + '; path=/;';
-    document.cookie = 'googtrans=' + cookieVal + '; path=/; domain=' + host + ';';
-    document.cookie = 'googtrans=' + cookieVal + '; path=/; domain=.' + host + ';';
+    
+    // Delete old cookie if switching to English
+    const expires = (langCode === 'en') ? '; expires=Thu, 01 Jan 1970 00:00:00 UTC' : '';
+
+    document.cookie = 'googtrans=' + cookieVal + '; path=/' + expires + ';';
+    document.cookie = 'googtrans=' + cookieVal + '; path=/; domain=' + host + expires + ';';
+    
+    // Extract root domain (e.g. hostingersite.com)
+    const domainParts = host.split('.');
+    if (domainParts.length >= 2) {
+        const rootDomain = domainParts.slice(-2).join('.');
+        document.cookie = 'googtrans=' + cookieVal + '; path=/; domain=.' + rootDomain + expires + ';';
+        document.cookie = 'googtrans=' + cookieVal + '; path=/; domain=' + rootDomain + expires + ';';
+    }
 }
 
 function applyGoogleTranslate(langCode) {
@@ -390,14 +432,6 @@ function applyGoogleTranslate(langCode) {
     if (selectElem) {
         selectElem.value = langCode;
         selectElem.dispatchEvent(new Event('change'));
-    } else {
-        setTimeout(() => {
-            const retrySelect = document.querySelector('.goog-te-combo');
-            if (retrySelect) {
-                retrySelect.value = langCode;
-                retrySelect.dispatchEvent(new Event('change'));
-            }
-        }, 300);
     }
 }
 
@@ -410,8 +444,10 @@ document.addEventListener('DOMContentLoaded', function () {
             selectElem.value = savedCode;
         }
         applyNativeTranslation(savedCode);
-        setGoogleTranslateCookie(savedCode);
-        setTimeout(() => applyGoogleTranslate(savedCode), 500);
+        if (savedCode !== 'en') {
+            setGoogleTranslateCookie(savedCode);
+            setTimeout(() => applyGoogleTranslate(savedCode), 500);
+        }
     }
 });
 
