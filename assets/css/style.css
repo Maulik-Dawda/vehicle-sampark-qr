@@ -1473,27 +1473,34 @@ a:hover {
     opacity: 1;
 }
 
-/* Hide Google Translate top banner, tooltip popups, and branding */
+/* Hide Google Translate top banner, floating top-left icons, tooltip popups, and branding */
 #google_translate_element,
 .goog-te-banner-frame,
 .skiptranslate,
-iframe.goog-te-banner-frame {
+iframe.goog-te-banner-frame,
+iframe.skiptranslate,
+#goog-gt-tt,
+.goog-te-balloon-frame,
+.goog-tooltip,
+.goog-tooltip:hover,
+.goog-text-highlight,
+.VIpgJd-ZGain-lh-st-bld,
+.VIpgJd-yLiMtf-Oadl-s,
+.VIpgJd-ZGain-StB6qf,
+.VIpgJd-jT2Vfd-B1bfHf,
+.VIpgJd-yLiMtf-LgZzc-wT6PTe,
+.VIpgJd-ZGain-lh-st-bld-LgZzc-wT6PTe,
+[id^="goog-gt-"],
+div[class*="VIpgJd-"] {
     display: none !important;
     visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
 }
 
 body {
     top: 0px !important;
     position: relative !important;
-}
-
-.goog-tooltip, .goog-tooltip:hover {
-    display: none !important;
-}
-
-.goog-text-highlight {
-    background-color: transparent !important;
-    box-shadow: none !important;
 }
 
 /* ==========================================================================

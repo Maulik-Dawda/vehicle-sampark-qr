@@ -1687,6 +1687,19 @@ function applyGoogleTranslate(langCode) {
     }
 }
 
+// Continuously suppress Google Translate floating top-left widgets & banners
+setInterval(function() {
+    const elements = document.querySelectorAll('.skiptranslate, iframe.skiptranslate, #goog-gt-tt, div[class*="VIpgJd-"], [id^="goog-gt-"]');
+    elements.forEach(function(el) {
+        if (el && el.id !== 'customLangDropdown' && !el.closest('#customLangDropdown')) {
+            el.style.setProperty('display', 'none', 'important');
+            el.style.setProperty('visibility', 'hidden', 'important');
+            el.style.setProperty('opacity', '0', 'important');
+            el.style.setProperty('pointer-events', 'none', 'important');
+        }
+    });
+}, 250);
+
 // Auto-restore saved language preference on load
 document.addEventListener('DOMContentLoaded', function () {
     const savedCode = localStorage.getItem('selectedLangCode');
