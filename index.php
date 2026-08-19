@@ -748,7 +748,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                 <img src="assets/images/logo.jpg" alt="Vehicle Sampark Logo" class="brand-logo-img notranslate" translate="no" onerror="this.src='assets/images/logo-icon.svg'">
                 <div class="brand-text notranslate" translate="no">
                     <span class="brand-name notranslate" translate="no">Vehicle <span class="notranslate" translate="no">Sampark</span></span>
-                    <span class="brand-tag notranslate" translate="no">Connecting Mobility</span>
+                    <span class="brand-tag notranslate" translate="no">Always Within Reach.</span>
                 </div>
             </a>
 
@@ -1471,7 +1471,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                     Vehicle <span class="notranslate" translate="no" style="color: var(--primary);">Sampark</span>
                 </span>
                 <div class="notranslate" translate="no" style="font-size: 0.82rem; color: #10b981; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-top: 2px;">
-                    Connecting Mobility
+                    Vehicle Sampark – Always Within Reach.
                 </div>
             </div>
             <p style="color: #94a3b8; font-size: 0.92rem; margin-bottom: 1.75rem; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.6;">

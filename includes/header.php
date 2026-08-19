@@ -34,7 +34,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                 <img src="assets/images/logo.jpg" alt="Vehicle Sampark Logo" class="brand-logo-img" onerror="this.src='assets/images/logo-icon.svg'">
                 <div class="brand-text">
                     <span class="brand-name">Vehicle <span>Sampark</span></span>
-                    <span class="brand-tag">Connecting Mobility</span>
+                    <span class="brand-tag">Always Within Reach.</span>
                 </div>
             </a>
 

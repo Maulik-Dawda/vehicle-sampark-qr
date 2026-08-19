@@ -1473,6 +1473,7 @@ function selectCustomLang(langCode, triggerTranslation = true) {
 function onLangSelectChange(selectElem) {
     if (!selectElem) return;
     const langCode = selectElem.value;
+    const previousLang = localStorage.getItem('selectedLangCode');
 
     localStorage.setItem('selectedLangCode', langCode);
 
@@ -1482,8 +1483,15 @@ function onLangSelectChange(selectElem) {
     // 2. Set Google Translate Cookie across hostinger domain
     setGoogleTranslateCookie(langCode);
 
-    // 3. Trigger Google Translate Widget if available (smooth, no page reload)
+    // 3. Trigger Google Translate Widget if available (smooth)
     applyGoogleTranslate(langCode);
+
+    // 4. Refresh page once when language is selected
+    if (previousLang !== langCode) {
+        setTimeout(function() {
+            window.location.reload();
+        }, 100);
+    }
 }
 
 function applyNativeTranslation(langCode) {

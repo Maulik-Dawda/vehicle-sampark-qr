@@ -94,7 +94,7 @@ $pageTitle = '404 - Page Not Found | Vehicle Sampark';
         </div>
 
         <div style="margin-top: 2.25rem; padding-top: 1.25rem; border-top: 1px solid #f1f5f9; font-size: 0.82rem; color: #94a3b8;">
-            Vehicle <strong style="color: #10b981;">Sampark</strong> &bull; Connecting Mobility Security
+            Vehicle <strong style="color: #10b981;">Sampark</strong> &bull; Always Within Reach.
         </div>
     </div>
 

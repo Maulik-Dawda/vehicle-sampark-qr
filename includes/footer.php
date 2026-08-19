@@ -1,7 +1,7 @@
     </main>
     <footer class="footer">
         <div class="footer-container" style="text-align: center; padding: 1.5rem; border-top: 1px solid var(--border-color); font-size: 0.88rem; color: var(--text-muted);">
-            <p>&copy; <?= date('Y') ?> <strong style="color: var(--primary);">Vehicle Sampark</strong> &bull; Connecting Mobility &bull; Smart Vehicle QR System</p>
+            <p>&copy; <?= date('Y') ?> <strong style="color: var(--primary);">Vehicle Sampark</strong> &bull; Always Within Reach. &bull; Smart Vehicle QR System</p>
         </div>
     </footer>
 
