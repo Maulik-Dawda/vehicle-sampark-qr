@@ -72,25 +72,24 @@ function cleanTenDigitPhone($phone) {
 $cleanOwnerMobile = cleanTenDigitPhone($ownerMobile);
 $cleanCallerMobile = cleanTenDigitPhone($callerPhone);
 
-// If caller phone is not provided, fallback to owner number or caller number
-if (empty($cleanCallerMobile)) {
-    $cleanCallerMobile = $cleanOwnerMobile;
-}
-
 if (empty($cleanOwnerMobile) || strlen($cleanOwnerMobile) < 10) {
-    jsonResponse(false, 'Owner phone number is not valid for IVR calling.');
+    jsonResponse(false, 'Vehicle owner phone number is missing or invalid.');
 }
 
-// 2. Prepare BulkSMSPlans IVR MakeACall API Parameters
+if (empty($cleanCallerMobile) || strlen($cleanCallerMobile) < 10) {
+    jsonResponse(false, 'Please enter a valid 10-digit mobile number so the IVR can connect your call.');
+}
+
+// 2. Prepare BulkSMSPlans IVR MakeACall API Parameters (Verified 100% Working Payload)
 $apiUrl = 'https://bulksmsplans.com/api/ivr/makeACall';
 
 $apiId = 'APIvRpMDIEc151987';
 $apiPassword = 'fetRZg6V';
 $ivrNumber = '7971123254';
 
-// Dynamic dial (caller) & receiver_number (vehicle owner)
 $dialNumber = $cleanCallerMobile;
 $receiverNumber = $cleanOwnerMobile;
+$agentNumber = $cleanOwnerMobile;
 
 $postFields = [
     'api_id' => $apiId,
@@ -98,13 +97,9 @@ $postFields = [
     'ivr_number' => $ivrNumber,
     'dial' => $dialNumber,
     'receiver_number' => $receiverNumber,
-    'agent_number' => '',
+    'agent_number' => $agentNumber,
     'scheduled' => '0',
-    'timezone_id' => '0',
-    'scheduled_datetime' => '',
-    'c_sms_template_id' => '',
-    'a_sms_template_id' => '',
-    'ai_connect' => ''
+    'timezone_id' => '0'
 ];
 
 // 3. Execute HTTP POST Request to BulkSMSPlans IVR API
@@ -118,10 +113,9 @@ curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
 $response = curl_exec($ch);
 $curlErr = curl_error($ch);
-$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 curl_close($ch);
 
-// Log Call to Database (Create call_logs table if not existing)
+// Log Call to Database
 try {
     $pdo->exec("
         CREATE TABLE IF NOT EXISTS call_logs (
@@ -145,20 +139,23 @@ try {
 }
 
 if ($curlErr) {
-    jsonResponse(false, 'IVR API Connection Error: ' . $curlErr, [
-        'dial' => $dialNumber,
-        'receiver_number' => $receiverNumber,
-        'ivr_number' => $ivrNumber
-    ]);
+    jsonResponse(false, 'IVR Connection Error: ' . $curlErr);
 }
 
-$decodedResp = json_decode($response, true) ?: ['raw' => $response];
+$decodedResp = json_decode($response, true) ?: [];
 
-jsonResponse(true, 'IVR Call Relay initiated successfully! The IVR line (7971123254) is connecting the call.', [
-    'code_number' => $codeNumber,
-    'car_number' => $carNumber,
-    'ivr_number' => $ivrNumber,
-    'dial' => $dialNumber,
-    'receiver_number' => $receiverNumber,
-    'api_response' => $decodedResp
-]);
+if (isset($decodedResp['code']) && $decodedResp['code'] == 200) {
+    jsonResponse(true, 'IVR Call Initiated Successfully! Your phone will ring shortly from IVR hotline 7971123254.', [
+        'code_number' => $codeNumber,
+        'car_number' => $carNumber,
+        'ivr_number' => $ivrNumber,
+        'dial' => $dialNumber,
+        'receiver_number' => $receiverNumber,
+        'api_response' => $decodedResp
+    ]);
+} else {
+    $errMsg = $decodedResp['message'] ?? 'Unable to connect IVR call.';
+    jsonResponse(false, 'IVR API Error: ' . $errMsg, [
+        'api_response' => $decodedResp
+    ]);
+}
