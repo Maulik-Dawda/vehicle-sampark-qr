@@ -131,8 +131,6 @@ if (!$error && $qrData['status'] === 'submitted') {
     }
 }
 
-$cleanPhoneTel = preg_replace('/[^\d+]/', '', $mobileNumber);
-
 include __DIR__ . '/includes/header.php';
 ?>
 
@@ -165,7 +163,7 @@ include __DIR__ . '/includes/header.php';
         </div>
 
     <?php elseif ($qrData['status'] === 'submitted'): ?>
-        <!-- MOBILE PUBLIC BYSTANDER CONTACT PORTAL -->
+        <!-- MOBILE PUBLIC BYSTANDER CONTACT PORTAL (1-TAP DIRECT CALL) -->
         <div class="content-card" style="padding: 1.75rem 1.25rem; text-align: center; border-color: #cbd5e1;">
             <div style="margin-bottom: 0.85rem;">
                 <span class="badge badge-submitted" style="font-size: 0.82rem; padding: 0.35rem 0.85rem;">
@@ -177,7 +175,7 @@ include __DIR__ . '/includes/header.php';
                 <img src="assets/images/logo.jpg" alt="Vehicle Sampark Logo" style="height: 52px; border-radius: var(--radius-sm);" onerror="this.src='assets/images/logo-icon.svg'">
             </div>
 
-            <h1 style="font-size: 1.6rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.3rem;">Contact Vehicle Owner</h1>
+            <h1 style="font-size: 1.65rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.3rem;">Contact Vehicle Owner</h1>
             
             <div style="background: #f8fafc; padding: 0.75rem 1rem; border-radius: var(--radius-md); border: 1px solid #e2e8f0; display: inline-block; margin-bottom: 1.25rem; width: 100%;">
                 <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.2rem;">
@@ -190,43 +188,23 @@ include __DIR__ . '/includes/header.php';
                 <?php endif; ?>
             </div>
             
-            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.25rem;">
-                Need to alert the vehicle owner about parking, emergency, or moving the car? Connect instantly via our secure IVR Call Relay:
+            <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 1.5rem; line-height: 1.5;">
+                Need to alert the vehicle owner about wrong parking, emergency, or moving the car? Tap below to call instantly:
             </p>
 
-            <!-- INTERACTIVE IVR CALL RELAY CARD -->
-            <div class="ivr-call-box" style="background: #f0fdf4; border: 1.5px solid #bbf7d0; padding: 1.25rem; border-radius: var(--radius-lg); margin-bottom: 1.25rem; text-align: left;">
-                <div style="font-weight: 800; color: #047857; font-size: 1.02rem; margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.5rem;">
-                    <i class="fa-solid fa-headset" style="font-size: 1.2rem; color: #10b981;"></i> Secure IVR Call Relay (7971123254)
-                </div>
-                <p style="font-size: 0.85rem; color: #334155; margin-bottom: 0.85rem; line-height: 1.45;">
-                    Enter your mobile number below to connect with the vehicle owner via our IVR gateway. Your real phone number stays 100% private.
-                </p>
-
-                <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-                    <div>
-                        <label style="font-size: 0.8rem; font-weight: 700; color: #0f172a; margin-bottom: 0.25rem; display: block;">Your Phone Number (Caller Number):</label>
-                        <input type="tel" id="callerPhoneInput" class="form-control" placeholder="e.g. 9876543210" style="font-size: 0.95rem; font-weight: 600;">
-                    </div>
-
-                    <button type="button" id="btnInitiateIvr" onclick="triggerIvrCall('<?= htmlspecialchars($codeNumber) ?>')" class="btn btn-primary btn-glow" style="width: 100%; padding: 0.9rem; font-size: 1rem; background: linear-gradient(135deg, #10b981, #059669); font-weight: 800; border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 0.5rem; border: none; cursor: pointer;">
-                        <i class="fa-solid fa-phone-volume"></i> Initiate Secure IVR Call
-                    </button>
-                </div>
-
-                <div id="ivrCallStatus" style="display: none; margin-top: 0.85rem; padding: 0.75rem; border-radius: 8px; font-size: 0.88rem; font-weight: 600; text-align: center;"></div>
-            </div>
-
-            <!-- DIRECT HOTLINE CALL LINK -->
+            <!-- DIRECT 1-TAP CALL BUTTON (NO INPUT NEEDED) -->
             <div style="margin-bottom: 1.25rem;">
-                <a href="tel:7971123254" class="btn btn-outline" style="width: 100%; padding: 0.85rem; font-size: 0.95rem; font-weight: 700; border-color: #10b981; color: #047857; display: flex; align-items: center; justify-content: center; gap: 0.5rem; text-decoration: none; border-radius: 12px;">
-                    <i class="fa-solid fa-phone"></i> Call IVR Hotline (7971123254)
+                <a href="tel:7971123254" onclick="triggerDirectIvrCall('<?= htmlspecialchars($codeNumber) ?>')" class="btn btn-primary btn-glow" style="width: 100%; padding: 1.1rem; font-size: 1.12rem; background: linear-gradient(135deg, #10b981, #059669); border-radius: var(--radius-lg); font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 0.65rem; text-decoration: none; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.35);">
+                    <i class="fa-solid fa-phone-volume" style="font-size: 1.35rem;"></i> Call Vehicle Owner Directly
                 </a>
             </div>
 
-            <div style="background: #f8fafc; padding: 0.75rem; border-radius: var(--radius-md); border: 1px solid #e2e8f0;">
-                <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">
-                    <i class="fa-solid fa-lock" style="color: var(--primary);"></i> Powered by <strong>Vehicle Sampark</strong>. BulkSMSPlans IVR Call Relay (7971123254).
+            <!-- LIVE STATUS FEEDBACK BOX -->
+            <div id="ivrCallStatus" style="display: none; margin-bottom: 1.25rem; padding: 0.85rem; border-radius: 12px; font-size: 0.88rem; font-weight: 600; text-align: center;"></div>
+
+            <div style="background: #f8fafc; padding: 0.85rem; border-radius: var(--radius-md); border: 1px solid #e2e8f0; text-align: center;">
+                <p style="font-size: 0.82rem; color: var(--text-muted); margin: 0; line-height: 1.45;">
+                    <i class="fa-solid fa-lock" style="color: var(--primary);"></i> <strong>100% Number Masking Guaranteed:</strong> Call connected securely via IVR Hotline (7971123254). Your personal phone number is never shared.
                 </p>
             </div>
         </div>
@@ -289,34 +267,19 @@ include __DIR__ . '/includes/header.php';
 </div>
 
 <script>
-function triggerIvrCall(codeNumber) {
-    const callerInput = document.getElementById('callerPhoneInput');
+function triggerDirectIvrCall(codeNumber) {
     const statusBox = document.getElementById('ivrCallStatus');
-    const btn = document.getElementById('btnInitiateIvr');
 
-    const callerPhone = callerInput ? callerInput.value.trim() : '';
-
-    if (!callerPhone || callerPhone.length < 10) {
+    if (statusBox) {
         statusBox.style.display = 'block';
-        statusBox.style.background = '#fef2f2';
-        statusBox.style.border = '1px solid #fca5a5';
-        statusBox.style.color = '#991b1b';
-        statusBox.innerHTML = '⚠️ Please enter a valid 10-digit mobile number to connect the IVR call.';
-        return;
+        statusBox.style.background = '#ecfdf5';
+        statusBox.style.border = '1px solid #a7f3d0';
+        statusBox.style.color = '#065f46';
+        statusBox.innerHTML = '📞 <strong>Connecting Call...</strong><br>Relaying call via IVR 7971123254 directly to vehicle owner.';
     }
-
-    btn.disabled = true;
-    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Connecting IVR Call...';
-
-    statusBox.style.display = 'block';
-    statusBox.style.background = '#eff6ff';
-    statusBox.style.border = '1px solid #bfdbfe';
-    statusBox.style.color = '#1e40af';
-    statusBox.innerHTML = '🔄 Initiating IVR Call Relay via 7971123254... Please wait.';
 
     const formData = new URLSearchParams();
     formData.append('code', codeNumber);
-    formData.append('caller_phone', callerPhone);
 
     fetch('api/make_call.php', {
         method: 'POST',
@@ -324,31 +287,6 @@ function triggerIvrCall(codeNumber) {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
         body: formData.toString()
-    })
-    .then(response => response.json())
-    .then(data => {
-        btn.disabled = false;
-        btn.innerHTML = '<i class="fa-solid fa-phone-volume"></i> Initiate Secure IVR Call';
-
-        if (data.success) {
-            statusBox.style.background = '#ecfdf5';
-            statusBox.style.border = '1px solid #a7f3d0';
-            statusBox.style.color = '#065f46';
-            statusBox.innerHTML = `✅ <strong>IVR Call Initiated!</strong><br>${data.message}<br><small style="font-weight: normal; color: #047857;">Connecting dial: ${data.data.dial} & receiver owner: ${data.data.receiver_number} via IVR 7971123254.</small>`;
-        } else {
-            statusBox.style.background = '#fef2f2';
-            statusBox.style.border = '1px solid #fca5a5';
-            statusBox.style.color = '#991b1b';
-            statusBox.innerHTML = `❌ <strong>Call Connection Error:</strong> ${data.message}`;
-        }
-    })
-    .catch(err => {
-        btn.disabled = false;
-        btn.innerHTML = '<i class="fa-solid fa-phone-volume"></i> Initiate Secure IVR Call';
-        statusBox.style.background = '#fef2f2';
-        statusBox.style.border = '1px solid #fca5a5';
-        statusBox.style.color = '#991b1b';
-        statusBox.innerHTML = '❌ <strong>Network Error:</strong> Unable to connect to IVR server. You can also call IVR Hotline 7971123254 directly.';
     });
 }
 </script>
