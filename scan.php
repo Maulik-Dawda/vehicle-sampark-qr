@@ -36,14 +36,14 @@ if (empty($codeNumber)) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$error && $qrData['status'] === 'pending') {
     $fullName = sanitize($_POST['full_name'] ?? '');
     $mobileNumber = sanitize($_POST['mobile_number'] ?? '');
-    $whatsappNumber = sanitize($_POST['whatsapp_number'] ?? '');
     $emergencyMobileNumber = sanitize($_POST['emergency_mobile_number'] ?? '');
+    $whatsappNumber = sanitize($_POST['whatsapp_number'] ?? $mobileNumber);
     $carNumber = strtoupper(trim(sanitize($_POST['car_number'] ?? '')));
     $carName = sanitize($_POST['car_name'] ?? '');
     $carModel = sanitize($_POST['car_model'] ?? '');
 
     // Input Validations
-    if (empty($fullName) || empty($mobileNumber) || empty($whatsappNumber) || empty($emergencyMobileNumber) || empty($carNumber) || empty($carName) || empty($carModel)) {
+    if (empty($fullName) || empty($mobileNumber) || empty($emergencyMobileNumber) || empty($carNumber) || empty($carName) || empty($carModel)) {
         $error = 'Please fill out all required vehicle owner registration fields.';
     } elseif (!preg_match('/^[A-Za-z0-9\s\-]{4,15}$/', $carNumber)) {
         $error = 'Invalid Car Number format. Example of valid format: GJ-03-NL-0104 or MH-01-AB-1234.';
@@ -90,10 +90,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$error && $qrData['status'] === 'p
     }
 }
 
-// Extract Owner Phone, WhatsApp, and Car Details for Mobile Contact Portal
+// Extract Owner Phone and Car Details for Mobile Contact Portal
 $ownerName = '';
 $mobileNumber = '';
-$whatsappNumber = '';
 $carName = '';
 $carNumber = '';
 $carModel = '';
@@ -113,9 +112,7 @@ if (!$error && $qrData['status'] === 'submitted') {
             if (empty($ownerName) && (str_contains($lblLower, 'name') || str_contains($lblLower, 'owner'))) {
                 $ownerName = $valStr;
             }
-            if (str_contains($lblLower, 'whatsapp')) {
-                $whatsappNumber = $valStr;
-            } elseif (empty($mobileNumber) && (str_contains($lblLower, 'mobile') || str_contains($lblLower, 'phone') || str_contains($lblLower, 'contact') || str_contains($lblLower, 'number'))) {
+            if (empty($mobileNumber) && (str_contains($lblLower, 'mobile') || str_contains($lblLower, 'phone') || str_contains($lblLower, 'contact') || str_contains($lblLower, 'number'))) {
                 $mobileNumber = $valStr;
             }
 
@@ -131,15 +128,10 @@ if (!$error && $qrData['status'] === 'submitted') {
         }
 
         if (empty($mobileNumber)) $mobileNumber = reset($respData) ?: '';
-        if (empty($whatsappNumber)) $whatsappNumber = $mobileNumber;
     }
 }
 
 $cleanPhoneTel = preg_replace('/[^\d+]/', '', $mobileNumber);
-
-// Vehicle Sampark Company Official WhatsApp Bot Number
-$companyBotWhatsapp = '919876543210'; 
-$waBotMessage = "Hi Vehicle Sampark! I am scanning QR code " . $codeNumber . ($carNumber ? " for vehicle plate " . $carNumber : "") . ". I would like to report an emergency issue or contact the vehicle owner.";
 
 include __DIR__ . '/includes/header.php';
 ?>
@@ -192,47 +184,56 @@ include __DIR__ . '/includes/header.php';
                     Serial Tag: <strong style="color: var(--primary); font-family: monospace; font-size: 0.92rem;"><?= htmlspecialchars($codeNumber) ?></strong>
                 </div>
                 <?php if ($carNumber || $carName): ?>
-                    <div style="font-size: 1rem; font-weight: 800; color: var(--accent-orange);">
+                    <div style="font-size: 1.05rem; font-weight: 800; color: var(--accent-orange);">
                         <i class="fa-solid fa-car-side"></i> <?= htmlspecialchars(trim("$carName $carModel $carNumber")) ?>
                     </div>
                 <?php endif; ?>
             </div>
             
-            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">
-                Need to alert the vehicle owner about wrong parking, emergency, or moving the car? Tap below to connect instantly:
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.25rem;">
+                Need to alert the vehicle owner about parking, emergency, or moving the car? Connect instantly via our secure IVR Call Relay:
             </p>
 
-            <!-- DIRECT MOBILE CALL BUTTON -->
-            <div style="margin-bottom: 1rem;">
-                <a href="tel:<?= htmlspecialchars($cleanPhoneTel) ?>" class="btn btn-primary btn-glow" style="width: 100%; padding: 1rem; font-size: 1.05rem; background: linear-gradient(135deg, #10b981, #059669); border-radius: var(--radius-lg); font-weight: 700;">
-                    <i class="fa-solid fa-phone-volume" style="font-size: 1.2rem;"></i> Call Vehicle Owner Directly
-                </a>
+            <!-- INTERACTIVE IVR CALL RELAY CARD -->
+            <div class="ivr-call-box" style="background: #f0fdf4; border: 1.5px solid #bbf7d0; padding: 1.25rem; border-radius: var(--radius-lg); margin-bottom: 1.25rem; text-align: left;">
+                <div style="font-weight: 800; color: #047857; font-size: 1.02rem; margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fa-solid fa-headset" style="font-size: 1.2rem; color: #10b981;"></i> Secure IVR Call Relay (7971123254)
+                </div>
+                <p style="font-size: 0.85rem; color: #334155; margin-bottom: 0.85rem; line-height: 1.45;">
+                    Enter your mobile number below to connect with the vehicle owner via our IVR gateway. Your real phone number stays 100% private.
+                </p>
+
+                <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                    <div>
+                        <label style="font-size: 0.8rem; font-weight: 700; color: #0f172a; margin-bottom: 0.25rem; display: block;">Your Phone Number (Caller Number):</label>
+                        <input type="tel" id="callerPhoneInput" class="form-control" placeholder="e.g. 9876543210" style="font-size: 0.95rem; font-weight: 600;">
+                    </div>
+
+                    <button type="button" id="btnInitiateIvr" onclick="triggerIvrCall('<?= htmlspecialchars($codeNumber) ?>')" class="btn btn-primary btn-glow" style="width: 100%; padding: 0.9rem; font-size: 1rem; background: linear-gradient(135deg, #10b981, #059669); font-weight: 800; border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 0.5rem; border: none; cursor: pointer;">
+                        <i class="fa-solid fa-phone-volume"></i> Initiate Secure IVR Call
+                    </button>
+                </div>
+
+                <div id="ivrCallStatus" style="display: none; margin-top: 0.85rem; padding: 0.75rem; border-radius: 8px; font-size: 0.88rem; font-weight: 600; text-align: center;"></div>
             </div>
 
-            <!-- DIRECT WHATSAPP BOT BUTTON -->
-            <div style="margin-bottom: 1rem;">
-                <a href="https://wa.me/<?= htmlspecialchars($companyBotWhatsapp) ?>?text=<?= urlencode($waBotMessage) ?>" target="_blank" class="btn btn-primary" style="width: 100%; padding: 1rem; font-size: 1.05rem; background: linear-gradient(135deg, #f97316, #ea580c); border-radius: var(--radius-lg); font-weight: 700;">
-                    <i class="fa-brands fa-whatsapp" style="font-size: 1.35rem;"></i> Chat on WhatsApp (Vehicle Sampark Bot)
+            <!-- DIRECT HOTLINE CALL LINK -->
+            <div style="margin-bottom: 1.25rem;">
+                <a href="tel:7971123254" class="btn btn-outline" style="width: 100%; padding: 0.85rem; font-size: 0.95rem; font-weight: 700; border-color: #10b981; color: #047857; display: flex; align-items: center; justify-content: center; gap: 0.5rem; text-decoration: none; border-radius: 12px;">
+                    <i class="fa-solid fa-phone"></i> Call IVR Hotline (7971123254)
                 </a>
-            </div>
-
-            <!-- INTERACTIVE BOT SIMULATION BUTTON -->
-            <div style="margin-bottom: 1.5rem;">
-                <button type="button" class="btn btn-secondary" onclick="openWhatsAppBotSimulator('<?= htmlspecialchars($codeNumber) ?>', '<?= htmlspecialchars($carNumber) ?>')" style="width: 100%; padding: 0.75rem; font-size: 0.92rem; font-weight: 600;">
-                    <i class="fa-solid fa-robot" style="color: var(--primary);"></i> Test Interactive WhatsApp Bot Flow
-                </button>
             </div>
 
             <div style="background: #f8fafc; padding: 0.75rem; border-radius: var(--radius-md); border: 1px solid #e2e8f0;">
                 <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">
-                    <i class="fa-solid fa-lock" style="color: var(--primary);"></i> Powered by <strong>Vehicle Sampark</strong>. Official WhatsApp Bot API Integration.
+                    <i class="fa-solid fa-lock" style="color: var(--primary);"></i> Powered by <strong>Vehicle Sampark</strong>. BulkSMSPlans IVR Call Relay (7971123254).
                 </p>
             </div>
         </div>
 
     <?php else: ?>
         <!-- ==========================================================================
-             FIXED 7 VEHICLE OWNER REGISTRATION FORM
+             VEHICLE OWNER REGISTRATION FORM
              ========================================================================== -->
         <div class="content-card" style="padding: 1.75rem 1.25rem;">
             <div style="text-align: center; margin-bottom: 1.5rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-color);">
@@ -241,7 +242,7 @@ include __DIR__ . '/includes/header.php';
                 </div>
                 <h1 style="font-size: 1.6rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.3rem;">Vehicle Owner Registration</h1>
                 <p style="color: var(--text-muted); font-size: 0.88rem;">
-                    Fill out your vehicle details to register this QR Tag. Once registered, public scanners can call or WhatsApp you directly.
+                    Fill out your vehicle details to register this QR Tag. Once registered, public scanners can call you securely via IVR relay.
                 </p>
             </div>
 
@@ -253,17 +254,12 @@ include __DIR__ . '/includes/header.php';
 
                 <div class="form-group">
                     <label class="form-label">Mobile Number <span class="required">*</span></label>
-                    <input type="tel" name="mobile_number" class="form-control" placeholder="+91 98765 43210" required>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">WhatsApp Number <span class="required">*</span></label>
-                    <input type="tel" name="whatsapp_number" class="form-control" placeholder="+91 98765 43210" required>
+                    <input type="tel" name="mobile_number" class="form-control" placeholder="e.g. 98765 43210" required>
                 </div>
 
                 <div class="form-group">
                     <label class="form-label">Emergency Mobile Number <span class="required">*</span></label>
-                    <input type="tel" name="emergency_mobile_number" class="form-control" placeholder="+91 98765 43210" required>
+                    <input type="tel" name="emergency_mobile_number" class="form-control" placeholder="e.g. 98765 43210" required>
                 </div>
 
                 <div class="form-group">
@@ -292,125 +288,68 @@ include __DIR__ . '/includes/header.php';
     <?php endif; ?>
 </div>
 
-<!-- WhatsApp Bot Simulator Modal -->
-<div class="modal-backdrop" id="botSimulatorModal">
-    <div class="modal-card" style="max-width: 480px; height: 600px;">
-        <div class="modal-header" style="background: #075e54; color: #ffffff;">
-            <h3 style="color: #ffffff;"><i class="fa-brands fa-whatsapp" style="font-size: 1.4rem;"></i> Vehicle Sampark WhatsApp Bot</h3>
-            <button type="button" class="modal-close" style="color: #ffffff;"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-        <div class="modal-body" id="botChatContainer" style="background: #e5ddd5; display: flex; flex-direction: column; gap: 0.75rem; padding: 1rem;">
-            <!-- Dynamic WhatsApp Chat Bubbles render here -->
-        </div>
-    </div>
-</div>
-
 <script>
-function openWhatsAppBotSimulator(code, carNum) {
-    const modal = document.getElementById('botSimulatorModal');
-    const chatBox = document.getElementById('botChatContainer');
-    modal.classList.add('show');
+function triggerIvrCall(codeNumber) {
+    const callerInput = document.getElementById('callerPhoneInput');
+    const statusBox = document.getElementById('ivrCallStatus');
+    const btn = document.getElementById('btnInitiateIvr');
 
-    chatBox.innerHTML = `
-        <div style="align-self: flex-start; background: #ffffff; padding: 0.75rem; border-radius: 8px; max-width: 85%; font-size: 0.88rem; box-shadow: 0 1px 2px rgba(0,0,0,0.15);">
-            👋 <strong>Vehicle Sampark Bot:</strong> Welcome! You scanned vehicle tag <strong>${code}</strong>.<br><br>
-            Please confirm the vehicle plate number: <strong>${carNum || 'GJ-03-NL-0104'}</strong>
-            <div style="margin-top: 0.75rem; display: flex; gap: 0.5rem;">
-                <button type="button" class="btn btn-primary btn-sm" onclick="botConfirmPlate(true, '${code}', '${carNum}')">✅ Yes, Correct</button>
-                <button type="button" class="btn btn-secondary btn-sm" onclick="botConfirmPlate(false, '${code}', '${carNum}')">❌ No / Enter Other</button>
-            </div>
-        </div>
-    `;
-}
+    const callerPhone = callerInput ? callerInput.value.trim() : '';
 
-function botConfirmPlate(confirmed, code, carNum) {
-    const chatBox = document.getElementById('botChatContainer');
-    
-    if (confirmed) {
-        chatBox.innerHTML += `
-            <div style="align-self: flex-end; background: #dcf8c6; padding: 0.65rem 0.85rem; border-radius: 8px; font-size: 0.88rem;">
-                ✅ Yes, Correct (${carNum})
-            </div>
-        `;
-        showBotIssuesList(code, carNum);
-    } else {
-        chatBox.innerHTML += `
-            <div style="align-self: flex-end; background: #dcf8c6; padding: 0.65rem 0.85rem; border-radius: 8px; font-size: 0.88rem;">
-                ❌ No, let me type plate number
-            </div>
-            <div style="align-self: flex-start; background: #ffffff; padding: 0.75rem; border-radius: 8px; max-width: 85%; font-size: 0.88rem;">
-                🤖 Please enter the vehicle plate number below (e.g. GJ-03-NL-0104) to check database:
-                <div style="display: flex; gap: 0.4rem; margin-top: 0.5rem;">
-                    <input type="text" id="botCustomPlateInput" class="form-control form-control-sm" placeholder="e.g. GJ-03-NL-0104" style="text-transform: uppercase;">
-                    <button type="button" class="btn btn-primary btn-sm" onclick="botLookupCustomPlate()">Search</button>
-                </div>
-            </div>
-        `;
-        chatBox.scrollTop = chatBox.scrollHeight;
+    if (!callerPhone || callerPhone.length < 10) {
+        statusBox.style.display = 'block';
+        statusBox.style.background = '#fef2f2';
+        statusBox.style.border = '1px solid #fca5a5';
+        statusBox.style.color = '#991b1b';
+        statusBox.innerHTML = '⚠️ Please enter a valid 10-digit mobile number to connect the IVR call.';
+        return;
     }
-}
 
-function botLookupCustomPlate() {
-    const chatBox = document.getElementById('botChatContainer');
-    const inputVal = document.getElementById('botCustomPlateInput').value;
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Connecting IVR Call...';
 
-    if (!inputVal) return;
+    statusBox.style.display = 'block';
+    statusBox.style.background = '#eff6ff';
+    statusBox.style.border = '1px solid #bfdbfe';
+    statusBox.style.color = '#1e40af';
+    statusBox.innerHTML = '🔄 Initiating IVR Call Relay via 7971123254... Please wait.';
 
-    chatBox.innerHTML += `
-        <div style="align-self: flex-end; background: #dcf8c6; padding: 0.65rem 0.85rem; border-radius: 8px; font-size: 0.88rem;">
-            Searching plate: ${inputVal}
-        </div>
-    `;
+    const formData = new URLSearchParams();
+    formData.append('code', codeNumber);
+    formData.append('caller_phone', callerPhone);
 
-    fetch(`api/whatsapp_bot.php?action=lookup_custom_plate&car_number=${encodeURIComponent(inputVal)}`)
-        .then(res => res.json())
-        .then(data => {
-            if (data.success) {
-                showBotIssuesList(data.data.code_number, data.data.car_number);
-            } else {
-                chatBox.innerHTML += `
-                    <div style="align-self: flex-start; background: #ffebee; border: 1px solid #ffcdd2; color: #c62828; padding: 0.75rem; border-radius: 8px; max-width: 85%; font-size: 0.88rem;">
-                        ⚠️ <strong>Vehicle Sampark Bot:</strong> ${data.message}
-                    </div>
-                `;
-                chatBox.scrollTop = chatBox.scrollHeight;
-            }
-        });
-}
+    fetch('api/make_call.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: formData.toString()
+    })
+    .then(response => response.json())
+    .then(data => {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-phone-volume"></i> Initiate Secure IVR Call';
 
-function showBotIssuesList(code, carNum) {
-    const chatBox = document.getElementById('botChatContainer');
-    chatBox.innerHTML += `
-        <div style="align-self: flex-start; background: #ffffff; padding: 0.75rem; border-radius: 8px; max-width: 85%; font-size: 0.88rem;">
-            🚨 <strong>Select the Emergency Issue to notify owner:</strong>
-            <div style="display: flex; flex-direction: column; gap: 0.4rem; margin-top: 0.6rem;">
-                <button type="button" class="btn btn-outline btn-sm" onclick="botSelectIssue('1', '${code}', '${carNum}')">1. 🚫 Vehicle Wrong Parked</button>
-                <button type="button" class="btn btn-outline btn-sm" onclick="botSelectIssue('2', '${code}', '${carNum}')">2. 🚨 Vehicle Accident / Emergency</button>
-                <button type="button" class="btn btn-outline btn-sm" onclick="botSelectIssue('3', '${code}', '${carNum}')">3. ⚠️ Lights On / Window Open</button>
-                <button type="button" class="btn btn-outline btn-sm" onclick="botSelectIssue('4', '${code}', '${carNum}')">4. 📞 Towing / Obstruction Notice</button>
-            </div>
-        </div>
-    `;
-    chatBox.scrollTop = chatBox.scrollHeight;
-}
-
-function botSelectIssue(issueKey, code, carNum) {
-    const chatBox = document.getElementById('botChatContainer');
-    
-    fetch(`api/whatsapp_bot.php?action=submit_issue&code=${encodeURIComponent(code)}&car_number=${encodeURIComponent(carNum)}&issue=${issueKey}`)
-        .then(res => res.json())
-        .then(data => {
-            if (data.success) {
-                chatBox.innerHTML += `
-                    <div style="align-self: flex-start; background: #e8f5e9; border: 1px solid #c8e6c9; padding: 0.75rem; border-radius: 8px; max-width: 85%; font-size: 0.88rem; color: #1b5e20;">
-                        ✅ <strong>Bystander Message:</strong> ${data.data.bystander_message}<br><br>
-                        📲 <strong>Owner Alert Relayed:</strong><br>
-                        <em>"${data.data.owner_relay_alert}"</em>
-                    </div>
-                `;
-                chatBox.scrollTop = chatBox.scrollHeight;
-            }
-        });
+        if (data.success) {
+            statusBox.style.background = '#ecfdf5';
+            statusBox.style.border = '1px solid #a7f3d0';
+            statusBox.style.color = '#065f46';
+            statusBox.innerHTML = `✅ <strong>IVR Call Initiated!</strong><br>${data.message}<br><small style="font-weight: normal; color: #047857;">Connecting dial: ${data.data.dial} & receiver owner: ${data.data.receiver_number} via IVR 7971123254.</small>`;
+        } else {
+            statusBox.style.background = '#fef2f2';
+            statusBox.style.border = '1px solid #fca5a5';
+            statusBox.style.color = '#991b1b';
+            statusBox.innerHTML = `❌ <strong>Call Connection Error:</strong> ${data.message}`;
+        }
+    })
+    .catch(err => {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-phone-volume"></i> Initiate Secure IVR Call';
+        statusBox.style.background = '#fef2f2';
+        statusBox.style.border = '1px solid #fca5a5';
+        statusBox.style.color = '#991b1b';
+        statusBox.innerHTML = '❌ <strong>Network Error:</strong> Unable to connect to IVR server. You can also call IVR Hotline 7971123254 directly.';
+    });
 }
 </script>
 

@@ -738,7 +738,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
 
     <!-- TOP ANNOUNCEMENT BAR -->
     <div class="announcement-bar">
-        🚀 Instant 1-Click WhatsApp Bot & Call Relay &bull; 100% Mobile Number Privacy Protection Guaranteed!
+        🚀 Instant 1-Click IVR Call Relay &bull; 100% Mobile Number Privacy Protection Guaranteed!
     </div>
 
     <!-- TOP NAVIGATION NAVBAR -->
@@ -814,19 +814,14 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
         </div>
     </nav>
 
-    <!-- HERO SECTION WITH DYNAMIC MOVING VISUALS -->
-    <section class="hero-section" style="position: relative; overflow: hidden; padding: 4.5rem 1.5rem;">
-        <!-- DYNAMIC AMBIENT GLOW MESH ORBS -->
-        <div class="hero-orb hero-orb-1"></div>
-        <div class="hero-orb hero-orb-2"></div>
-        <div class="hero-orb hero-orb-3"></div>
-
-        <div style="max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 3.5rem; align-items: center; position: relative; z-index: 2;">
-            <div>
-                <!-- LIVE ANIMATED PRIVACY BADGE -->
-                <div class="hero-badge hero-badge-animated">
-                    <span class="live-dot-pulse"></span>
-                    <i class="fa-solid fa-shield-halved" style="color: #10b981;"></i> Protect Your Vehicle & Personal Privacy
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+        <div class="hero-container">
+            <div class="hero-content">
+                <!-- HERO ANIMATED BADGE -->
+                <div class="hero-badge-animated">
+                    <span class="badge-dot-live"></span>
+                    <span>100% Secure IVR Number Masking &bull; Powered by BulkSMSPlans</span>
                 </div>
 
                 <!-- DYNAMIC ANIMATED HEADLINE WITH CYCLING TEXT -->
@@ -836,15 +831,15 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                 </h1>
 
                 <p class="hero-subtitle">
-                    A simple scan lets anyone contact you instantly. Get real-time WhatsApp alerts, 4-option emergency bot reports, and direct calls if your vehicle needs attention — without revealing your personal phone number.
+                    A simple scan lets anyone contact you instantly. Connect via secure IVR Call Relay (7971123254) if your vehicle needs attention — without revealing your personal phone number.
                 </p>
 
                 <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
                     <a href="#contact" class="btn btn-primary btn-glow btn-hero-pulse" style="padding: 1.1rem 2rem; font-size: 1.05rem; border-radius: var(--radius-lg); font-weight: 700;">
                         <i class="fa-solid fa-phone-volume"></i> Get Smart QR Tag Now
                     </a>
-                    <a href="https://wa.me/919876543210?text=Hi%20Vehicle%20Sampark!%20I%20want%20to%20get%20smart%20vehicle%20QR%20tags" target="_blank" class="btn btn-secondary" style="padding: 1.1rem 2rem; font-size: 1.05rem; color: #ea580c; border-color: #ffedd5; border-radius: var(--radius-lg); font-weight: 700;">
-                        <i class="fa-brands fa-whatsapp" style="font-size: 1.3rem;"></i> Chat on WhatsApp
+                    <a href="tel:7971123254" class="btn btn-secondary" style="padding: 1.1rem 2rem; font-size: 1.05rem; color: #047857; border-color: #a7f3d0; border-radius: var(--radius-lg); font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
+                        <i class="fa-solid fa-headset" style="font-size: 1.2rem; color: #10b981;"></i> IVR Line 7971123254
                     </a>
                 </div>
 
@@ -856,7 +851,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                     </div>
                     <div class="trust-item">
                         <div class="trust-val color-orange">Instant Relay</div>
-                        <div class="trust-lbl">Call & WhatsApp Bot</div>
+                        <div class="trust-lbl">Call & IVR Masking</div>
                     </div>
                     <div class="trust-item">
                         <div class="trust-val color-slate">Smart Badge</div>
@@ -905,8 +900,8 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                             <span class="badge badge-submitted" style="background: #10b981; color: #ffffff; padding: 4px 10px;">
                                 <i class="fa-solid fa-phone-volume"></i> Call Owner
                             </span>
-                            <span class="badge" style="background: #f97316; color: #ffffff; padding: 4px 10px;">
-                                <i class="fa-brands fa-whatsapp"></i> WhatsApp Bot
+                            <span class="badge" style="background: #059669; color: #ffffff; padding: 4px 10px;">
+                                <i class="fa-solid fa-headset"></i> IVR 7971123254
                             </span>
                         </div>
                     </div>
@@ -919,14 +914,14 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
     <div class="ticker-wrap">
         <div class="ticker-move">
             <div class="ticker-item"><i class="fa-solid fa-shield-halved"></i> 100% Privacy Guarded - No Mobile Numbers Revealed</div>
-            <div class="ticker-item"><i class="fa-solid fa-bolt"></i> Instant Call & 4-Option Emergency WhatsApp Bot Relay</div>
+            <div class="ticker-item"><i class="fa-solid fa-bolt"></i> Instant Call & Secure IVR Relay (7971123254)</div>
             <div class="ticker-item"><i class="fa-solid fa-car-burst"></i> Avoid Scratching, Vandalism & Unexpected Towing Fines</div>
             <div class="ticker-item"><i class="fa-solid fa-soap"></i> Integrated Doorstep Car Cleaning & Nearby Garage Support</div>
             <div class="ticker-item"><i class="fa-solid fa-qrcode"></i> Zero App Download - Scans with Any Phone Camera or Google Lens</div>
 
             <!-- Duplicate for Seamless Infinite Loop -->
             <div class="ticker-item"><i class="fa-solid fa-shield-halved"></i> 100% Privacy Guarded - No Mobile Numbers Revealed</div>
-            <div class="ticker-item"><i class="fa-solid fa-bolt"></i> Instant Call & 4-Option Emergency WhatsApp Bot Relay</div>
+            <div class="ticker-item"><i class="fa-solid fa-bolt"></i> Instant Call & Secure IVR Relay (7971123254)</div>
             <div class="ticker-item"><i class="fa-solid fa-car-burst"></i> Avoid Scratching, Vandalism & Unexpected Towing Fines</div>
             <div class="ticker-item"><i class="fa-solid fa-soap"></i> Integrated Doorstep Car Cleaning & Nearby Garage Support</div>
             <div class="ticker-item"><i class="fa-solid fa-qrcode"></i> Zero App Download - Scans with Any Phone Camera or Google Lens</div>
@@ -937,7 +932,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
     <section id="how-it-works" style="padding: 5.5rem 1.5rem; background: #ffffff;">
         <div style="max-width: 1200px; margin: 0 auto;">
             <div class="section-header">
-                <span class="section-tag">Scan To Call & WhatsApp</span>
+                <span class="section-tag">Scan To Call via IVR</span>
                 <h2 class="section-title">How Vehicle Sampark Protects You in 3 Easy Steps</h2>
             </div>
 
@@ -958,7 +953,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                     </div>
                     <h3 style="font-size: 1.25rem; font-weight: 800; color: #0f172a; margin-bottom: 0.5rem;">2. Connect Instantly</h3>
                     <p style="color: var(--text-muted); font-size: 0.92rem; line-height: 1.65;">
-                        Call the car owner directly or select WhatsApp emergency bot options without exposing personal phone numbers.
+                        Connect with the car owner via secure IVR Call Relay (7971123254) without exposing personal phone numbers.
                     </p>
                 </div>
 
@@ -979,10 +974,10 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
     <section class="story-section">
         <div style="max-width: 1200px; margin: 0 auto;">
             <div class="section-header" style="margin-bottom: 3.5rem;">
-                <span class="section-tag" style="color: #f97316;">Zero Personal Number Shared</span>
+                <span class="section-tag" style="color: #f97316;">100% IVR Number Privacy Masking</span>
                 <h2 class="section-title" style="color: #ffffff;">How Vehicle Sampark Connects You Safely</h2>
                 <p style="color: #94a3b8; font-size: 1.02rem; margin-top: 0.5rem;">
-                    Bystanders connect with vehicle owners through our official company WhatsApp gateway — keeping your private phone number 100% hidden!
+                    Bystanders connect with vehicle owners through our official IVR gateway (7971123254) — keeping your private phone number 100% hidden!
                 </p>
             </div>
 
@@ -1017,18 +1012,18 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                     </p>
                 </div>
 
-                <!-- SCENE 3: COMPANY WHATSAPP BOT GATEWAY -->
+                <!-- SCENE 3: COMPANY IVR GATEWAY -->
                 <div class="story-card scene-card-visual">
                     <div class="story-badge-num">SCENE 3</div>
                     <div class="cartoon-scene-box">
                         <div class="bot-shield-container">
-                            <i class="fa-brands fa-whatsapp"></i>
+                            <i class="fa-solid fa-headset" style="color: #10b981;"></i>
                             <div class="privacy-lock-icon"><i class="fa-solid fa-shield-halved"></i></div>
                         </div>
                     </div>
-                    <h3 style="font-size: 1.2rem; font-weight: 800; color: #ffffff; margin-bottom: 0.5rem;">Company WhatsApp Masking</h3>
+                    <h3 style="font-size: 1.2rem; font-weight: 800; color: #ffffff; margin-bottom: 0.5rem;">Company IVR Masking</h3>
                     <p style="color: #94a3b8; font-size: 0.88rem; line-height: 1.6;">
-                        Connected via Vehicle Sampark's official WhatsApp Bot line. <strong style="color: #10b981;">No personal phone number is ever exposed to the bystander.</strong>
+                        Connected via Vehicle Sampark's official IVR 7971123254 line. <strong style="color: #10b981;">No personal phone number is ever exposed to the bystander.</strong>
                     </p>
                 </div>
 
@@ -1041,9 +1036,9 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                             <div class="success-checkmark-cartoon"><i class="fa-solid fa-check"></i></div>
                         </div>
                     </div>
-                    <h3 style="font-size: 1.2rem; font-weight: 800; color: #ffffff; margin-bottom: 0.5rem;">Anonymous Alert & Solved!</h3>
+                    <h3 style="font-size: 1.2rem; font-weight: 800; color: #ffffff; margin-bottom: 0.5rem;">Anonymous Call & Solved!</h3>
                     <p style="color: #94a3b8; font-size: 0.88rem; line-height: 1.6;">
-                        The owner receives an urgent WhatsApp alert, moves their vehicle peacefully, and both parties stay 100% private & safe!
+                        The owner receives an IVR call alert, moves their vehicle peacefully, and both parties stay 100% private & safe!
                     </p>
                 </div>
             </div>
@@ -1181,7 +1176,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                         </li>
                         <li style="display: flex; align-items: flex-start; gap: 0.65rem; color: #064e3b; font-size: 0.92rem; font-weight: 700;">
                             <i class="fa-solid fa-check" style="color: #10b981; font-size: 1.1rem; margin-top: 2px;"></i>
-                            <span>4-Option Emergency WhatsApp Bot Relay & Direct Call line.</span>
+                            <span>Secure IVR Call Masking & Direct Relay via 7971123254.</span>
                         </li>
                         <li style="display: flex; align-items: flex-start; gap: 0.65rem; color: #064e3b; font-size: 0.92rem; font-weight: 700;">
                             <i class="fa-solid fa-check" style="color: #10b981; font-size: 1.1rem; margin-top: 2px;"></i>
@@ -1211,7 +1206,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                     <i class="fa-solid fa-chevron-down faq-icon"></i>
                 </div>
                 <div class="faq-answer">
-                    When someone scans your Vehicle Sampark tag, they see direct "Call Owner" or "Chat on WhatsApp" buttons. The call and WhatsApp messages are routed through our secure platform, so your real phone number and identity are never exposed on the physical sticker.
+                    When someone scans your Vehicle Sampark tag, they see direct "Call Owner via IVR" options. Calls are routed through our BulkSMSPlans IVR gateway (7971123254), so your real phone number and identity are never exposed on the physical sticker.
                 </div>
             </div>
 
@@ -1241,17 +1236,17 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                     <i class="fa-solid fa-chevron-down faq-icon"></i>
                 </div>
                 <div class="faq-answer">
-                    Yes! You can update your mobile number, WhatsApp number, or car details anytime without replacing your physical tag sticker.
+                    Yes! You can update your mobile number or car details anytime online without replacing your physical tag sticker.
                 </div>
             </div>
 
             <div class="faq-item faq-card-modern">
                 <div class="faq-question" onclick="toggleFaq(this)">
-                    <span>How does the 4-Option Emergency WhatsApp Bot work?</span>
+                    <span>How does the IVR Call Relay (7971123254) work?</span>
                     <i class="fa-solid fa-chevron-down faq-icon"></i>
                 </div>
                 <div class="faq-answer">
-                    When a bystander clicks "Chat on WhatsApp", our bot asks them to confirm the vehicle number and select from 4 emergency issues (Wrong Parked, Accident, Lights On/Window Open, Towing Notice). Once selected, an urgent WhatsApp alert is relayed directly to you!
+                    When a bystander initiates a call, our BulkSMSPlans IVR gateway (7971123254) dynamically connects the caller to your registered mobile number while masking both phone numbers. Your privacy is 100% protected!
                 </div>
             </div>
         </div>
@@ -1263,7 +1258,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
             <div class="section-header" style="margin-bottom: 3rem;">
                 <span class="section-tag">Get In Touch</span>
                 <h2 class="section-title">Order Smart QR Tags & Inquiries</h2>
-                <p style="color: var(--text-muted); font-size: 0.98rem; margin-top: 0.4rem;">No online payment required. Send us an inquiry or contact us directly via Call or WhatsApp!</p>
+                <p style="color: var(--text-muted); font-size: 0.98rem; margin-top: 0.4rem;">No online payment required. Send us an inquiry or contact us directly via Call!</p>
             </div>
 
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.25rem;">
@@ -1292,7 +1287,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
 
                             <!-- VISUAL CHANNEL 1: DIRECT VOICE CALL -->
                             <div style="margin-bottom: 1.35rem;">
-                                <a href="tel:+919876543210" class="contact-channel-box" style="display: block; text-decoration: none; background: linear-gradient(135deg, #059669 0%, #10b981 100%); color: #ffffff; padding: 1.25rem 1.4rem; border-radius: 16px; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3); transition: all 0.3s ease; border: 1px solid rgba(255, 255, 255, 0.2); position: relative; overflow: hidden;">
+                                <a href="tel:7971123254" class="contact-channel-box" style="display: block; text-decoration: none; background: linear-gradient(135deg, #059669 0%, #10b981 100%); color: #ffffff; padding: 1.25rem 1.4rem; border-radius: 16px; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3); transition: all 0.3s ease; border: 1px solid rgba(255, 255, 255, 0.2); position: relative; overflow: hidden;">
                                     <div style="display: flex; align-items: center; justify-content: space-between; gap: 1rem;">
                                         <div style="display: flex; align-items: center; gap: 1rem;">
                                             <div style="width: 52px; height: 52px; border-radius: 14px; background: rgba(255, 255, 255, 0.2); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; backdrop-filter: blur(4px); flex-shrink: 0; border: 1px solid rgba(255,255,255,0.3);">
@@ -1300,10 +1295,10 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                                             </div>
                                             <div>
                                                 <div style="font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; opacity: 0.9; margin-bottom: 2px;">
-                                                    <i class="fa-solid fa-bolt" style="color: #fef08a;"></i> Instant Call Line
+                                                    <i class="fa-solid fa-bolt" style="color: #fef08a;"></i> Instant IVR Call Line
                                                 </div>
                                                 <div style="font-family: var(--font-heading); font-size: 1.25rem; font-weight: 800; letter-spacing: 0.2px;">
-                                                    +91 98765 43210
+                                                    7971123254
                                                 </div>
                                             </div>
                                         </div>
@@ -1314,20 +1309,20 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                                 </a>
                             </div>
 
-                            <!-- VISUAL CHANNEL 2: OFFICIAL WHATSAPP BOT -->
+                            <!-- VISUAL CHANNEL 2: OFFICIAL IVR MASKING LINE -->
                             <div style="margin-bottom: 1.75rem;">
-                                <a href="https://wa.me/919876543210?text=Hi%20Vehicle%20Sampark!%20I%20want%20to%20order%20smart%20vehicle%20tags" target="_blank" class="contact-channel-box" style="display: block; text-decoration: none; background: linear-gradient(135deg, #ea580c 0%, #f97316 100%); color: #ffffff; padding: 1.25rem 1.4rem; border-radius: 16px; box-shadow: 0 10px 25px rgba(249, 115, 22, 0.3); transition: all 0.3s ease; border: 1px solid rgba(255, 255, 255, 0.2); position: relative; overflow: hidden;">
+                                <a href="tel:7971123254" class="contact-channel-box" style="display: block; text-decoration: none; background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color: #ffffff; padding: 1.25rem 1.4rem; border-radius: 16px; box-shadow: 0 10px 25px rgba(2, 132, 199, 0.3); transition: all 0.3s ease; border: 1px solid rgba(255, 255, 255, 0.2); position: relative; overflow: hidden;">
                                     <div style="display: flex; align-items: center; justify-content: space-between; gap: 1rem;">
                                         <div style="display: flex; align-items: center; gap: 1rem;">
-                                            <div style="width: 52px; height: 52px; border-radius: 14px; background: rgba(255, 255, 255, 0.2); display: flex; align-items: center; justify-content: center; font-size: 1.55rem; backdrop-filter: blur(4px); flex-shrink: 0; border: 1px solid rgba(255,255,255,0.3);">
-                                                <i class="fa-brands fa-whatsapp" style="color: #ffffff;"></i>
+                                            <div style="width: 52px; height: 52px; border-radius: 14px; background: rgba(255, 255, 255, 0.2); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; backdrop-filter: blur(4px); flex-shrink: 0; border: 1px solid rgba(255,255,255,0.3);">
+                                                <i class="fa-solid fa-headset" style="color: #ffffff;"></i>
                                             </div>
                                             <div>
                                                 <div style="font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; opacity: 0.9; margin-bottom: 2px;">
-                                                    <i class="fa-solid fa-comments" style="color: #ffedd5;"></i> 1-Click WhatsApp Bot
+                                                    <i class="fa-solid fa-shield-halved" style="color: #7dd3fc;"></i> BulkSMSPlans IVR Hotline
                                                 </div>
                                                 <div style="font-family: var(--font-heading); font-size: 1.18rem; font-weight: 800;">
-                                                    Chat on WhatsApp
+                                                    7971123254
                                                 </div>
                                             </div>
                                         </div>
@@ -1390,10 +1385,10 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
 
                         <div class="form-group" style="margin-bottom: 1.15rem;">
                             <label class="form-label" style="font-size: 0.85rem; font-weight: 700; color: #334155; margin-bottom: 0.35rem; display: block;">
-                                Mobile / WhatsApp Number <span class="required" style="color: #f43f5e;">*</span>
+                                Mobile Number <span class="required" style="color: #f43f5e;">*</span>
                             </label>
                             <div style="position: relative;">
-                                <input type="tel" name="mobile" class="form-control" placeholder="+91 98765 43210" required style="padding-left: 2.6rem; border-radius: 12px; height: 46px;">
+                                <input type="tel" name="mobile" class="form-control" placeholder="e.g. 98765 43210" required style="padding-left: 2.6rem; border-radius: 12px; height: 46px;">
                                 <i class="fa-solid fa-mobile-screen-button" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: #f97316; font-size: 1rem;"></i>
                             </div>
                         </div>
@@ -1448,20 +1443,6 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
             </div>
         </div>
     </section>
-
-    <!-- FLOATING WHATSAPP QUICK CONNECT WIDGET (BOTTOM RIGHT) -->
-    <div class="floating-wa-wrapper">
-        <div class="wa-chat-bubble" id="waChatBubble">
-            <button class="wa-bubble-close" onclick="document.getElementById('waChatBubble').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
-            <div style="font-weight: 800; color: #047857; margin-bottom: 3px;">
-                <i class="fa-brands fa-whatsapp"></i> Instant Connect
-            </div>
-            Hi! Have a question or want to order smart vehicle tags? Chat with us directly on WhatsApp!
-        </div>
-        <a href="https://wa.me/919876543210?text=Hi%20Vehicle%20Sampark!%20I%20want%20to%20get%20smart%20vehicle%20QR%20tags" target="_blank" class="wa-btn-circle" title="Chat on WhatsApp">
-            <i class="fa-brands fa-whatsapp"></i>
-        </a>
-    </div>
 
     <!-- FOOTER -->
     <footer style="background: #0f172a; color: #ffffff; padding: 3.5rem 1.5rem 2.5rem 1.5rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.08);">

@@ -1641,16 +1641,6 @@ function applyNativeTranslation(langCode) {
     setHtml('#landingContactForm button[type="submit"]', data.form_btn);
     setHtml('#landingContactForm + div', data.form_safe_notice);
 
-    // Floating WhatsApp Bubble Widget
-    setHtml('#waChatBubble div:first-child', data.wa_widget_title);
-    const bubbleElem = document.getElementById('waChatBubble');
-    if (bubbleElem && data.wa_widget_msg) {
-        // Keep close button and header intact
-        const closeBtnHTML = '<button class="wa-bubble-close" onclick="document.getElementById(\'waChatBubble\').style.display=\'none\'"><i class="fa-solid fa-xmark"></i></button>';
-        const headerHTML = '<div style="font-weight: 800; color: #047857; margin-bottom: 3px;">' + data.wa_widget_title + '</div>';
-        bubbleElem.innerHTML = closeBtnHTML + headerHTML + data.wa_widget_msg;
-    }
-
     // Footer Section
     setHtml('footer p', data.footer_p);
     setHtml('footer a[href="#how-it-works"]', data.footer_l1);
