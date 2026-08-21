@@ -208,8 +208,8 @@ try {
         $batchId = 1;
     }
 
-    // Restore / Ensure QRC-853B-32D7 exists as registered submitted QR code
-    $chkQr = $pdo->prepare("SELECT id FROM qr_codes WHERE code_number = ?");
+    // Restore / Ensure QRC-853B-32D7 exists as registered submitted QR code (if missing)
+    $chkQr = $pdo->prepare("SELECT id, status FROM qr_codes WHERE code_number = ?");
     $chkQr->execute(['QRC-853B-32D7']);
     $qrRec = $chkQr->fetch();
 
@@ -219,7 +219,9 @@ try {
         $qrId = $pdo->lastInsertId();
     } else {
         $qrId = $qrRec['id'];
-        $pdo->prepare("UPDATE qr_codes SET status = 'submitted' WHERE id = ?")->execute([$qrId]);
+        if ($qrRec['status'] !== 'submitted') {
+            $pdo->prepare("UPDATE qr_codes SET status = 'submitted' WHERE id = ?")->execute([$qrId]);
+        }
     }
 
     // Ensure Submission details exist for QRC-853B-32D7
