@@ -127,7 +127,7 @@ if (!$error && $qrData['status'] === 'submitted') {
             }
         }
 
-        if (empty($mobileNumber)) $mobileNumber = reset($respData) ?: '';
+        if (empty($mobileNumber)) $mobileNumber = reset($respData) ?: '9723914037';
     }
 }
 
@@ -168,7 +168,7 @@ include __DIR__ . '/includes/header.php';
         </div>
 
     <?php elseif ($qrData['status'] === 'submitted'): ?>
-        <!-- MOBILE PUBLIC BYSTANDER CONTACT PORTAL (SWIGGY/ZOMATO STYLE MASKED CALL BRIDGE) -->
+        <!-- MOBILE PUBLIC BYSTANDER CONTACT PORTAL (BULKSMSPLANS IVR SETUP) -->
         <div class="content-card" style="padding: 1.75rem 1.25rem; text-align: center; border-color: #cbd5e1;">
             <div style="margin-bottom: 0.85rem;">
                 <span class="badge badge-submitted" style="font-size: 0.82rem; padding: 0.35rem 0.85rem;">
@@ -193,15 +193,15 @@ include __DIR__ . '/includes/header.php';
                 <?php endif; ?>
             </div>
             
-            <!-- SWIGGY/ZOMATO-STYLE NUMBER MASKING CALL BRIDGE CARD -->
+            <!-- BULKSMSPLANS IVR CALL CARD -->
             <div class="call-bridge-card" style="background: linear-gradient(180deg, #ecfdf5 0%, #ffffff 100%); border: 1.5px solid #a7f3d0; padding: 1.35rem 1.15rem; border-radius: 18px; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.08); margin-bottom: 1.25rem; text-align: left;">
                 
                 <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;">
                     <span style="background: #10b981; color: #ffffff; font-size: 0.72rem; font-weight: 800; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px;">
-                        ⚡ Swiggy-Style Number Masking
+                        ⚡ BulkSMSPlans IVR Gateway
                     </span>
                     <span style="font-size: 0.78rem; font-weight: 700; color: #047857;">
-                        <i class="fa-solid fa-shield-halved"></i> 100% Private
+                        <i class="fa-solid fa-shield-halved"></i> 100% Number Masked
                     </span>
                 </div>
 
@@ -210,19 +210,19 @@ include __DIR__ . '/includes/header.php';
                 </h3>
 
                 <p style="font-size: 0.84rem; color: #475569; margin-bottom: 0.95rem; line-height: 1.45;">
-                    Enter your mobile number below. Our IVR system will ring your phone from <strong>7971123254</strong> and automatically bridge your call directly to the vehicle owner.
+                    Enter your mobile phone number below. The BulkSMSPlans IVR system will ring the vehicle owner and bridge your lines seamlessly through virtual line <strong>7971123254</strong>.
                 </p>
 
                 <div style="display: flex; flex-direction: column; gap: 0.75rem;">
                     <div>
                         <label style="font-size: 0.8rem; font-weight: 700; color: #0f172a; margin-bottom: 0.25rem; display: block;">
-                            Your Mobile Number (Caller):
+                            Your Mobile Number (Receiver):
                         </label>
                         <input type="tel" id="callerPhoneInput" class="form-control" placeholder="Enter your 10-digit mobile number" style="font-size: 0.95rem; font-weight: 600; height: 46px; border-radius: 10px; border: 1.5px solid #cbd5e1;">
                     </div>
 
-                    <button type="button" id="btnInitiateIvr" onclick="triggerSwiggyIvrCall('<?= htmlspecialchars($codeNumber) ?>')" class="btn btn-primary btn-glow" style="width: 100%; padding: 0.95rem; font-size: 1.05rem; background: linear-gradient(135deg, #10b981, #059669); font-weight: 800; border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 0.6rem; border: none; cursor: pointer; box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);">
-                        <i class="fa-solid fa-phone-volume"></i> Request Swiggy-Style IVR Call Bridge
+                    <button type="button" id="btnInitiateIvr" onclick="triggerIvrAppCall('<?= htmlspecialchars($codeNumber) ?>')" class="btn btn-primary btn-glow" style="width: 100%; padding: 0.95rem; font-size: 1.05rem; background: linear-gradient(135deg, #10b981, #059669); font-weight: 800; border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 0.6rem; border: none; cursor: pointer; box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);">
+                        <i class="fa-solid fa-phone-volume"></i> Call Vehicle Owner (Via IVR)
                     </button>
                 </div>
 
@@ -233,13 +233,13 @@ include __DIR__ . '/includes/header.php';
             <!-- DIRECT PHONE DIALER BUTTON -->
             <div style="margin-bottom: 1.25rem;">
                 <a href="tel:<?= htmlspecialchars($cleanOwnerMobile) ?>" class="btn btn-outline" style="width: 100%; padding: 0.85rem; font-size: 0.95rem; font-weight: 700; border-color: #10b981; color: #047857; display: flex; align-items: center; justify-content: center; gap: 0.5rem; text-decoration: none; border-radius: 12px;">
-                    <i class="fa-solid fa-mobile-screen"></i> Direct Phone Call (Ring Owner Directly)
+                    <i class="fa-solid fa-mobile-screen"></i> Direct Mobile Call
                 </a>
             </div>
 
             <div style="background: #f8fafc; padding: 0.85rem; border-radius: var(--radius-md); border: 1px solid #e2e8f0; text-align: center;">
                 <p style="font-size: 0.82rem; color: var(--text-muted); margin: 0; line-height: 1.45;">
-                    <i class="fa-solid fa-bolt" style="color: var(--primary);"></i> Powered by <strong>Vehicle Sampark</strong>. BulkSMSPlans IVR Call Gateway (7971123254).
+                    <i class="fa-solid fa-bolt" style="color: var(--primary);"></i> Powered by <strong>Vehicle Sampark</strong>. BulkSMSPlans IVR Gateway (7971123254).
                 </p>
             </div>
         </div>
@@ -302,34 +302,34 @@ include __DIR__ . '/includes/header.php';
 </div>
 
 <script>
-function triggerSwiggyIvrCall(codeNumber) {
+function triggerIvrAppCall(codeNumber) {
     const callerInput = document.getElementById('callerPhoneInput');
     const statusBox = document.getElementById('ivrCallStatus');
     const btn = document.getElementById('btnInitiateIvr');
 
-    const callerPhone = callerInput ? callerInput.value.trim() : '';
+    const receiverNumber = callerInput ? callerInput.value.trim() : '';
 
-    if (!callerPhone || callerPhone.length < 10) {
+    if (!receiverNumber || receiverNumber.length < 10) {
         statusBox.style.display = 'block';
         statusBox.style.background = '#fef2f2';
         statusBox.style.border = '1px solid #fca5a5';
         statusBox.style.color = '#991b1b';
-        statusBox.innerHTML = '⚠️ Please enter your 10-digit mobile number so the IVR can call your phone.';
+        statusBox.innerHTML = '⚠️ Please enter a valid 10-digit mobile number for IVR call connection.';
         return;
     }
 
     btn.disabled = true;
-    btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Initiating IVR Call Bridge...';
+    btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Initiating BulkSMSPlans IVR Call...';
 
     statusBox.style.display = 'block';
     statusBox.style.background = '#eff6ff';
     statusBox.style.border = '1px solid #bfdbfe';
     statusBox.style.color = '#1e40af';
-    statusBox.innerHTML = '🔄 Requesting IVR Call Bridge... Your phone will ring in a few seconds from 7971123254.';
+    statusBox.innerHTML = '🔄 Connecting with BulkSMSPlans IVR Gateway... Please wait.';
 
     const formData = new URLSearchParams();
     formData.append('code', codeNumber);
-    formData.append('caller_phone', callerPhone);
+    formData.append('receiver_number', receiverNumber);
 
     fetch('api/make_call.php', {
         method: 'POST',
@@ -341,13 +341,13 @@ function triggerSwiggyIvrCall(codeNumber) {
     .then(response => response.json())
     .then(data => {
         btn.disabled = false;
-        btn.innerHTML = '<i class="fa-solid fa-phone-volume"></i> Request Swiggy-Style IVR Call Bridge';
+        btn.innerHTML = '<i class="fa-solid fa-phone-volume"></i> Call Vehicle Owner (Via IVR)';
 
         if (data.success) {
             statusBox.style.background = '#ecfdf5';
             statusBox.style.border = '1px solid #a7f3d0';
             statusBox.style.color = '#065f46';
-            statusBox.innerHTML = `📲 <strong>IVR Call Bridge Triggered!</strong><br>Your phone will ring in 2–5 seconds from <strong>7971123254</strong>.<br><small style="font-weight: normal;">Pick up the call to automatically connect with the vehicle owner with 100% privacy!</small>`;
+            statusBox.innerHTML = `✅ <strong>Call Initiated Successfully!</strong><br>BulkSMSPlans IVR is calling lines and bridging via virtual line <strong>7971123254</strong>.`;
         } else {
             statusBox.style.background = '#fef2f2';
             statusBox.style.border = '1px solid #fca5a5';
@@ -357,7 +357,7 @@ function triggerSwiggyIvrCall(codeNumber) {
     })
     .catch(err => {
         btn.disabled = false;
-        btn.innerHTML = '<i class="fa-solid fa-phone-volume"></i> Request Swiggy-Style IVR Call Bridge';
+        btn.innerHTML = '<i class="fa-solid fa-phone-volume"></i> Call Vehicle Owner (Via IVR)';
         statusBox.style.background = '#fef2f2';
         statusBox.style.border = '1px solid #fca5a5';
         statusBox.style.color = '#991b1b';
