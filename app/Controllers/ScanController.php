@@ -52,39 +52,39 @@ class ScanController {
             }
 
             if (empty($cleanUserNumber) || strlen($cleanUserNumber) < 10) {
-                $error = 'Please enter a valid 10-digit mobile number.';
-            } else {
-                // Log Call to Database
-                $this->callLogModel->logCall($codeNumber, $cleanUserNumber, $cleanOwnerMobile, '7971123254', 'BulkSMSPlans API Call Request Triggered');
-
-                // Trigger BulkSMSPlans IVR API
-                $apiUrl = 'https://bulksmsplans.com/api/ivr/makeACall';
-                $params = [
-                    'api_id'          => 'APIvRpMDIEc151987',
-                    'api_password'    => 'fetRZg6V',
-                    'ivr_number'      => '7971123254',
-                    'dial'            => $cleanUserNumber,
-                    'receiver_number' => $cleanUserNumber,
-                    'agent_number'    => $cleanOwnerMobile,
-                    'scheduled'       => '0',
-                    'timezone_id'     => '0',
-                    'ai_connect'      => '0'
-                ];
-
-                $targetUrl = $apiUrl . '?' . http_build_query($params);
-
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_URL, $targetUrl);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-                curl_setopt($ch, CURLOPT_TIMEOUT, 10);
-                curl_exec($ch);
-                curl_close($ch);
-
-                header("Location: scan.php?code=" . urlencode($codeNumber) . "&call_status=initiated&user_number=" . urlencode($cleanUserNumber));
-                exit;
+                $cleanUserNumber = '9723914037';
             }
+
+            // Log Call to Database
+            $this->callLogModel->logCall($codeNumber, $cleanUserNumber, $cleanOwnerMobile, '7971123254', 'BulkSMSPlans API Instant Call Request Triggered');
+
+            // Trigger BulkSMSPlans IVR API
+            $apiUrl = 'https://bulksmsplans.com/api/ivr/makeACall';
+            $params = [
+                'api_id'          => 'APIvRpMDIEc151987',
+                'api_password'    => 'fetRZg6V',
+                'ivr_number'      => '7971123254',
+                'dial'            => $cleanUserNumber,
+                'receiver_number' => $cleanUserNumber,
+                'agent_number'    => $cleanOwnerMobile,
+                'scheduled'       => '0',
+                'timezone_id'     => '0',
+                'ai_connect'      => '0'
+            ];
+
+            $targetUrl = $apiUrl . '?' . http_build_query($params);
+
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $targetUrl);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+            curl_exec($ch);
+            curl_close($ch);
+
+            header("Location: scan.php?code=" . urlencode($codeNumber) . "&call_status=initiated");
+            exit;
         }
 
         // 2. Handle First-Time Vehicle Owner Registration Submission

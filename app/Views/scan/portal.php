@@ -56,23 +56,17 @@ include __DIR__ . '/../layouts/header.php';
             </div>
             
             <?php if ($callStatus === 'initiated'): ?>
+                <!-- REFRESHED CALL INITIATED CONFIRMATION BANNER (SERVER-SIDE API EXECUTED) -->
                 <div style="background: #ecfdf5; border: 2px solid #a7f3d0; padding: 1.5rem 1.25rem; border-radius: 16px; margin-bottom: 1.5rem; text-align: left;">
                     <div style="font-weight: 800; color: #065f46; font-size: 1.15rem; margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.5rem;">
                         <i class="fa-solid fa-circle-check" style="color: #10b981; font-size: 1.4rem;"></i> Calling Initiated Towards Vehicle Owner!
                     </div>
                     <p style="font-size: 0.88rem; color: #047857; margin-bottom: 1rem; line-height: 1.5;">
-                        Your call request has been processed through the BulkSMSPlans IVR API. The IVR system will bridge the call between your mobile line and the vehicle owner.
+                        Your call request has been automatically routed to the Vehicle Owner. The IVR system (7971123254) is now ringing the owner's phone securely.
                     </p>
-                    
-                    <div style="background: #ffffff; padding: 0.85rem 1rem; border-radius: 10px; border: 1px solid #bbf7d0; margin-bottom: 0.75rem;">
-                        <div style="font-size: 0.82rem; color: #64748b; margin-bottom: 0.2rem;">Your Inputted Mobile Number (Dialer):</div>
-                        <div style="font-size: 1.05rem; font-weight: 800; color: #0f172a; font-family: monospace;">
-                            <i class="fa-solid fa-mobile-screen" style="color: #10b981;"></i> <?= htmlspecialchars($displayUserNumber) ?>
-                        </div>
-                    </div>
 
                     <div style="background: #ffffff; padding: 0.85rem 1rem; border-radius: 10px; border: 1px solid #bbf7d0; margin-bottom: 1rem;">
-                        <div style="font-size: 0.82rem; color: #64748b; margin-bottom: 0.2rem;">Agent (Vehicle Owner):</div>
+                        <div style="font-size: 0.82rem; color: #64748b; margin-bottom: 0.2rem;">Connected Agent (Vehicle Owner):</div>
                         <div style="font-size: 1.05rem; font-weight: 800; color: #0284c7; font-family: monospace;">
                             <i class="fa-solid fa-user-shield" style="color: #0284c7;"></i> Registered Owner Connected via IVR (7971123254)
                         </div>
@@ -85,18 +79,11 @@ include __DIR__ . '/../layouts/header.php';
                     </div>
                 </div>
             <?php else: ?>
+                <!-- 1-CLICK INSTANT CALL OWNER FORM -->
                 <form action="scan.php?code=<?= urlencode($codeNumber) ?>" method="POST" style="text-align: left; margin-bottom: 1.25rem;">
                     <div style="background: #f8fafc; border: 1.5px solid #cbd5e1; padding: 1.25rem; border-radius: 16px;">
-                        <label style="font-size: 0.88rem; font-weight: 800; color: #0f172a; margin-bottom: 0.5rem; display: block;">
-                            Enter Your Mobile Number <span style="color: var(--accent-rose);">*</span>
-                        </label>
-                        <div style="position: relative; margin-bottom: 1rem;">
-                            <input type="tel" name="user_number" class="form-control" placeholder="Enter your 10-digit mobile number" style="padding-left: 2.6rem; height: 48px; border-radius: 12px; font-size: 1.05rem; font-weight: 700; border: 1.5px solid #10b981;" required>
-                            <i class="fa-solid fa-phone" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: #10b981; font-size: 1.1rem;"></i>
-                        </div>
-
-                        <button type="submit" name="action_call_owner" class="btn btn-primary btn-glow" style="width: 100%; padding: 1.15rem; font-size: 1.15rem; background: linear-gradient(135deg, #10b981, #059669); border-radius: var(--radius-lg); font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 0.65rem; border: none; cursor: pointer; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.35);">
-                            <i class="fa-solid fa-phone-volume" style="font-size: 1.35rem;"></i> Call the Owner
+                        <button type="submit" name="action_call_owner" class="btn btn-primary btn-glow" style="width: 100%; padding: 1.25rem; font-size: 1.2rem; background: linear-gradient(135deg, #10b981, #059669); border-radius: var(--radius-lg); font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 0.75rem; border: none; cursor: pointer; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.35);">
+                            <i class="fa-solid fa-phone-volume" style="font-size: 1.4rem;"></i> Call the Owner
                         </button>
                     </div>
                 </form>
