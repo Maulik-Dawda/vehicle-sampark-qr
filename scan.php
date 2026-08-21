@@ -337,8 +337,8 @@ function confirmAndInitiateCall(codeNumber, ownerNumber) {
 
     closeSimSelectModal();
 
-    // 2. Directly initiate call in mobile's built-in phone app to ring owner
-    const targetTel = ownerNumber || '7971123254';
+    // 2. Directly initiate call to IVR Hotline (7971123254) to enforce 100% number masking privacy
+    const targetTel = '7971123254';
     window.location.href = 'tel:' + targetTel;
 }
 </script>
