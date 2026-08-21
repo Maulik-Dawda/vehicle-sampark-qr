@@ -814,6 +814,42 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
         <a href="#why-us" class="mobile-nav-link" onclick="toggleMobileNav()"><i class="fa-solid fa-shield-halved" style="color: #0284c7;"></i> Why Vehicle Sampark</a>
         <a href="#faq" class="mobile-nav-link" onclick="toggleMobileNav()"><i class="fa-solid fa-circle-question" style="color: #8b5cf6;"></i> Frequently Asked Questions</a>
         <a href="#contact" class="mobile-nav-link" onclick="toggleMobileNav()"><i class="fa-solid fa-envelope" style="color: var(--accent-rose);"></i> Contact Support</a>
+        
+        <div style="padding: 0.5rem 0;">
+            <div style="font-size: 0.82rem; font-weight: 800; color: #64748b; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px;">Select Language:</div>
+            <div class="custom-lang-dropdown notranslate" translate="no" style="width: 100%;">
+                <button type="button" class="custom-lang-btn" onclick="toggleLangDropdown(event)" style="width: 100%; justify-content: space-between; padding: 0.75rem 1rem;">
+                    <span style="display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fa-solid fa-globe lang-globe-icon"></i>
+                        <span class="custom-lang-current">🇬🇧 English</span>
+                    </span>
+                    <i class="fa-solid fa-chevron-down lang-arrow-icon"></i>
+                </button>
+                <div class="custom-lang-menu">
+                    <div class="lang-menu-item active" data-lang="en" onclick="selectCustomLang('en')"><span class="lang-flag">🇬🇧</span> <span class="lang-name">English</span> <i class="fa-solid fa-check lang-check"></i></div>
+                    <div class="lang-menu-item" data-lang="hi" onclick="selectCustomLang('hi')"><span class="lang-flag">🇮🇳</span> <span class="lang-name">हिंदी (Hindi)</span> <i class="fa-solid fa-check lang-check"></i></div>
+                    <div class="lang-menu-item" data-lang="gu" onclick="selectCustomLang('gu')"><span class="lang-flag">🇮🇳</span> <span class="lang-name">ગુજરાતી (Gujarati)</span> <i class="fa-solid fa-check lang-check"></i></div>
+                    <div class="lang-menu-item" data-lang="mr" onclick="selectCustomLang('mr')"><span class="lang-flag">🇮🇳</span> <span class="lang-name">मराठी (Marathi)</span> <i class="fa-solid fa-check lang-check"></i></div>
+                    <div class="lang-menu-item" data-lang="ta" onclick="selectCustomLang('ta')"><span class="lang-flag">🇮🇳</span> <span class="lang-name">தமிழ் (Tamil)</span> <i class="fa-solid fa-check lang-check"></i></div>
+                    <div class="lang-menu-item" data-lang="bn" onclick="selectCustomLang('bn')"><span class="lang-flag">🇮🇳</span> <span class="lang-name">বাংলা (Bengali)</span> <i class="fa-solid fa-check lang-check"></i></div>
+                    <div class="lang-menu-item" data-lang="ml" onclick="selectCustomLang('ml')"><span class="lang-flag">🇮🇳</span> <span class="lang-name">മലയാളം (Malayalam)</span> <i class="fa-solid fa-check lang-check"></i></div>
+                    <div class="lang-menu-item" data-lang="kn" onclick="selectCustomLang('kn')"><span class="lang-flag">🇮🇳</span> <span class="lang-name">ಕನ್ನಡ (Kannada)</span> <i class="fa-solid fa-check lang-check"></i></div>
+                    <div class="lang-menu-item" data-lang="pa" onclick="selectCustomLang('pa')"><span class="lang-flag">🇮🇳</span> <span class="lang-name">ਪੰਜਾਬੀ (Punjabi)</span> <i class="fa-solid fa-check lang-check"></i></div>
+                </div>
+                <select class="lang-select-box" onchange="onLangSelectChange(this)" style="display:none !important;">
+                    <option value="en" selected>English</option>
+                    <option value="hi">Hindi</option>
+                    <option value="gu">Gujarati</option>
+                    <option value="mr">Marathi</option>
+                    <option value="ta">Tamil</option>
+                    <option value="bn">Bengali</option>
+                    <option value="ml">Malayalam</option>
+                    <option value="kn">Kannada</option>
+                    <option value="pa">Punjabi</option>
+                </select>
+            </div>
+        </div>
+
         <a href="admin-qr-login" class="mobile-nav-link" style="background: linear-gradient(135deg, #10b981, #059669); color: #ffffff; border: none; justify-content: center;">
             <i class="fa-solid fa-lock"></i> Admin Portal Login
         </a>

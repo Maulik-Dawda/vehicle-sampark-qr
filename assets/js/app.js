@@ -1490,17 +1490,27 @@ const landingPageI18n = {
  * Custom Multi-Language Dropdown Engine
  */
 function toggleLangDropdown(event) {
-    if (event) event.stopPropagation();
-    const dropdown = document.getElementById('customLangDropdown');
-    if (!dropdown) return;
-    dropdown.classList.toggle('open');
+    if (event) {
+        event.stopPropagation();
+    }
+    const target = event ? (event.currentTarget || event.target) : null;
+    const parentContainer = target ? target.closest('.custom-lang-dropdown') : document.getElementById('customLangDropdown');
+    
+    if (parentContainer) {
+        parentContainer.classList.toggle('open');
+    } else {
+        const dropdown = document.getElementById('customLangDropdown');
+        if (dropdown) dropdown.classList.toggle('open');
+    }
 }
 
 document.addEventListener('click', function(e) {
-    const dropdown = document.getElementById('customLangDropdown');
-    if (dropdown && !dropdown.contains(e.target)) {
-        dropdown.classList.remove('open');
-    }
+    const dropdowns = document.querySelectorAll('.custom-lang-dropdown');
+    dropdowns.forEach(dropdown => {
+        if (dropdown && !dropdown.contains(e.target)) {
+            dropdown.classList.remove('open');
+        }
+    });
 });
 
 function selectCustomLang(langCode, triggerTranslation = true) {
@@ -1516,10 +1526,12 @@ function selectCustomLang(langCode, triggerTranslation = true) {
         'pa': '🇮🇳 ਪੰਜਾਬੀ (Punjabi)'
     };
 
-    const currentElem = document.getElementById('customLangCurrent');
-    if (currentElem && langLabels[langCode]) {
-        currentElem.innerHTML = langLabels[langCode];
-    }
+    const currentElems = document.querySelectorAll('.custom-lang-current');
+    currentElems.forEach(elem => {
+        if (elem && langLabels[langCode]) {
+            elem.innerHTML = langLabels[langCode];
+        }
+    });
 
     const items = document.querySelectorAll('.lang-menu-item');
     items.forEach(item => {
@@ -1530,15 +1542,16 @@ function selectCustomLang(langCode, triggerTranslation = true) {
         }
     });
 
-    const dropdown = document.getElementById('customLangDropdown');
-    if (dropdown) dropdown.classList.remove('open');
+    const dropdowns = document.querySelectorAll('.custom-lang-dropdown');
+    dropdowns.forEach(d => d.classList.remove('open'));
 
-    const selectElem = document.getElementById('langSelectBox');
-    if (selectElem) {
-        selectElem.value = langCode;
-        if (triggerTranslation) {
-            onLangSelectChange(selectElem);
-        }
+    const selectElems = document.querySelectorAll('.lang-select-box');
+    selectElems.forEach(s => {
+        s.value = langCode;
+    });
+
+    if (triggerTranslation && selectElems.length > 0) {
+        onLangSelectChange(selectElems[0]);
     }
 }
 
