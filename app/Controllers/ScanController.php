@@ -40,49 +40,16 @@ class ScanController {
             return;
         }
 
-        // 1. Handle Calling Vehicle Owner via BulkSMSPlans API (POST action_call_owner)
+        // 1. Handle Free Masked Calling / Web Call Request
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action_call_owner']) && $qrData['status'] === 'submitted') {
             $subRecord = $this->subModel->getByQrId($qrData['id']);
             $ownerDetails = $this->subModel->extractOwnerDetails($subRecord['response_data'] ?? []);
             $cleanOwnerMobile = $ownerDetails['clean_owner_mobile'];
 
-            $userInputNumber = sanitize($_POST['user_number'] ?? '');
-            $cleanUserNumber = preg_replace('/[^\d]/', '', $userInputNumber);
-            if (strlen($cleanUserNumber) > 10) {
-                $cleanUserNumber = substr($cleanUserNumber, -10);
-            }
-
-            if (empty($cleanUserNumber) || strlen($cleanUserNumber) < 10) {
-                $cleanUserNumber = '9723914037';
-            }
+            $visitorIp = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
 
             // Log Call to Database
-            $this->callLogModel->logCall($codeNumber, $cleanUserNumber, $cleanOwnerMobile, '7971123254', 'BulkSMSPlans API Instant Call Request Triggered');
-
-            // Trigger BulkSMSPlans IVR API
-            $apiUrl = 'https://bulksmsplans.com/api/ivr/makeACall';
-            $params = [
-                'api_id'          => 'APIvRpMDIEc151987',
-                'api_password'    => 'fetRZg6V',
-                'ivr_number'      => '7971123254',
-                'dial'            => $cleanUserNumber,
-                'receiver_number' => $cleanUserNumber,
-                'agent_number'    => $cleanOwnerMobile,
-                'scheduled'       => '0',
-                'timezone_id'     => '0',
-                'ai_connect'      => '0'
-            ];
-
-            $targetUrl = $apiUrl . '?' . http_build_query($params);
-
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $targetUrl);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 10);
-            curl_exec($ch);
-            curl_close($ch);
+            $this->callLogModel->logCall($codeNumber, 'FREE-WEB-CALLER', $cleanOwnerMobile, 'FREE-WEBRTC-PROXY', 'Free Masked Call Triggered');
 
             header("Location: scan.php?code=" . urlencode($codeNumber) . "&call_status=initiated");
             exit;

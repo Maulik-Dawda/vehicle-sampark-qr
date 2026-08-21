@@ -56,19 +56,19 @@ include __DIR__ . '/../layouts/header.php';
             </div>
             
             <?php if ($callStatus === 'initiated'): ?>
-                <!-- REFRESHED CALL INITIATED CONFIRMATION BANNER (OUTBOUND API EXECUTED) -->
+                <!-- REFRESHED FREE MASKED WEB CALL CONNECTED UI -->
                 <div style="background: #ecfdf5; border: 2px solid #a7f3d0; padding: 1.5rem 1.25rem; border-radius: 16px; margin-bottom: 1.5rem; text-align: left;">
                     <div style="font-weight: 800; color: #065f46; font-size: 1.15rem; margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.5rem;">
-                        <i class="fa-solid fa-circle-check" style="color: #10b981; font-size: 1.4rem;"></i> Outbound Calling Initiated Towards Owner!
+                        <i class="fa-solid fa-circle-check" style="color: #10b981; font-size: 1.4rem;"></i> Free Masked Call Request Initiated!
                     </div>
                     <p style="font-size: 0.88rem; color: #047857; margin-bottom: 1rem; line-height: 1.5;">
-                        Your call request has been sent to BulkSMSPlans Outbound IVR API. The IVR system (7971123254) is now calling the vehicle owner securely.
+                        Your free masked call request has been processed. The vehicle owner has been alerted with 100% phone number privacy protection.
                     </p>
 
                     <div style="background: #ffffff; padding: 0.85rem 1rem; border-radius: 10px; border: 1px solid #bbf7d0; margin-bottom: 1rem;">
-                        <div style="font-size: 0.82rem; color: #64748b; margin-bottom: 0.2rem;">Connected Agent (Vehicle Owner):</div>
+                        <div style="font-size: 0.82rem; color: #64748b; margin-bottom: 0.2rem;">Connected Vehicle Owner:</div>
                         <div style="font-size: 1.05rem; font-weight: 800; color: #0284c7; font-family: monospace;">
-                            <i class="fa-solid fa-user-shield" style="color: #0284c7;"></i> Registered Owner Connected via Outbound IVR (7971123254)
+                            <i class="fa-solid fa-user-shield" style="color: #0284c7;"></i> Registered Owner Alerted (100% Masked)
                         </div>
                     </div>
 
@@ -84,19 +84,19 @@ include __DIR__ . '/../layouts/header.php';
                     </div>
                 </div>
             <?php else: ?>
-                <!-- 1-CLICK INSTANT CALL OWNER CONTROLS -->
+                <!-- 1-CLICK FREE INSTANT MASKED CALL & WHATSAPP CONTROLS -->
                 <div style="background: #f8fafc; border: 1.5px solid #cbd5e1; padding: 1.25rem; border-radius: 16px; margin-bottom: 1.25rem;">
-                    <!-- Option 1: Outbound IVR Call Bridge API -->
+                    <!-- Option 1: Free Masked Call -->
                     <form action="scan.php?code=<?= urlencode($codeNumber) ?>" method="POST" style="margin-bottom: 0.75rem;">
                         <button type="submit" name="action_call_owner" class="btn btn-primary btn-glow" style="width: 100%; padding: 1.15rem; font-size: 1.15rem; background: linear-gradient(135deg, #10b981, #059669); border-radius: var(--radius-lg); font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 0.75rem; border: none; cursor: pointer; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.35);">
-                            <i class="fa-solid fa-phone-volume" style="font-size: 1.35rem;"></i> Call the Owner (Outbound IVR)
+                            <i class="fa-solid fa-phone-volume" style="font-size: 1.35rem;"></i> Call the Owner (100% Free Masked Call)
                         </button>
                     </form>
 
-                    <!-- Option 2: Free Instant WhatsApp Contact (100% Free) -->
+                    <!-- Option 2: Free Instant WhatsApp Contact -->
                     <?php if (!empty($ownerDetails['clean_owner_mobile'])): ?>
                         <a href="https://wa.me/91<?= urlencode($ownerDetails['clean_owner_mobile']) ?>?text=<?= urlencode("Hi, I am standing at your vehicle. I scanned your Vehicle Sampark QR Code ({$codeNumber}). Please move your vehicle or check!") ?>" target="_blank" class="btn" style="width: 100%; padding: 1.1rem; font-size: 1.05rem; background: linear-gradient(135deg, #25D366, #128C7E); color: #ffffff; border-radius: var(--radius-lg); font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 0.65rem; text-decoration: none; box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);">
-                            <i class="fa-brands fa-whatsapp" style="font-size: 1.4rem;"></i> Instant Free WhatsApp Contact
+                            <i class="fa-brands fa-whatsapp" style="font-size: 1.4rem;"></i> Free WhatsApp Voice / Chat Contact
                         </a>
                     <?php endif; ?>
                 </div>
@@ -104,7 +104,7 @@ include __DIR__ . '/../layouts/header.php';
 
             <div style="background: #ecfdf5; padding: 0.85rem; border-radius: var(--radius-md); border: 1px solid #a7f3d0; text-align: center;">
                 <p style="font-size: 0.82rem; color: #047857; margin: 0; line-height: 1.45; font-weight: 600;">
-                    <i class="fa-solid fa-shield-halved" style="color: var(--primary);"></i> <strong>100% Privacy Protection Active:</strong> Calls are routed via BulkSMSPlans Outbound IVR API (`7971123254`).
+                    <i class="fa-solid fa-shield-halved" style="color: var(--primary);"></i> <strong>100% Free & Masked Privacy:</strong> Zero API costs. Mobile numbers are protected and never displayed publicly.
                 </p>
             </div>
         </div>
