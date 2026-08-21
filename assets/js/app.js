@@ -173,26 +173,101 @@ function viewSubmissionDetails(codeNumber) {
 
     if (!modal) return;
 
-    title.textContent = 'Registered Owner - ' + codeNumber;
-    body.innerHTML = '<div style="text-align: center; padding: 2rem;"><i class="fa-solid fa-spinner fa-spin fa-2x" style="color: var(--primary);"></i></div>';
+    title.innerHTML = `<i class="fa-solid fa-id-card" style="color: var(--primary);"></i> Registered Scanner Details - <span style="font-family: monospace; color: var(--primary);">${codeNumber}</span>`;
+    body.innerHTML = '<div style="text-align: center; padding: 2.5rem;"><i class="fa-solid fa-spinner fa-spin fa-2x" style="color: var(--primary);"></i><p style="margin-top: 0.5rem; color: var(--text-muted);">Fetching scanner details...</p></div>';
     modal.classList.add('show');
 
     fetch('admin-qr-api?action=get_submission&code=' + encodeURIComponent(codeNumber))
         .then(res => res.json())
         .then(data => {
             if (data.success) {
-                let html = '<div style="margin-bottom: 1rem;"><span class="badge badge-submitted"><i class="fa-solid fa-check"></i> Registered on ' + data.data.submitted_at + '</span></div>';
-                html += '<table class="data-table"><thead><tr><th>Field Label</th><th>Submitted Information</th></tr></thead><tbody>';
+                const info = data.data;
+                let html = `
+                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.25rem;">
+                        <span class="badge badge-submitted" style="font-size: 0.85rem; padding: 0.4rem 0.85rem;">
+                            <i class="fa-solid fa-check-circle"></i> Registered: ${info.submitted_at}
+                        </span>
+                        <span class="badge" style="background: #f1f5f9; color: #334155; font-size: 0.85rem; border: 1px solid #cbd5e1; padding: 0.4rem 0.85rem;">
+                            <i class="fa-solid fa-phone"></i> IVR Calls: <strong>${info.total_calls}</strong>
+                        </span>
+                        <span class="badge" style="background: #f8fafc; color: #64748b; font-size: 0.82rem; border: 1px solid #e2e8f0; padding: 0.4rem 0.85rem;">
+                            <i class="fa-solid fa-network-wired"></i> IP: ${info.submitter_ip}
+                        </span>
+                    </div>
+
+                    <!-- OWNER & VEHICLE DETAILS TABLE -->
+                    <div style="background: #f8fafc; border-radius: 12px; border: 1px solid #e2e8f0; overflow: hidden; margin-bottom: 1.25rem;">
+                        <div style="padding: 0.75rem 1rem; background: #e2e8f0; font-weight: 800; color: #0f172a; font-size: 0.9rem; display: flex; align-items: center; justify-content: space-between;">
+                            <span><i class="fa-solid fa-car-side" style="color: var(--primary);"></i> Registered Vehicle Information</span>
+                            <span style="font-family: monospace; font-size: 0.82rem; color: #475569;">Batch: ${info.batch_name}</span>
+                        </div>
+                        <table class="data-table" style="margin: 0;">
+                            <tbody>`;
                 
-                for (const [key, val] of Object.entries(data.data.responses)) {
-                    html += `<tr><td style="font-weight: 600; width: 40%; color: var(--text-main);">${key}</td><td>${val}</td></tr>`;
+                for (const [key, val] of Object.entries(info.responses)) {
+                    let formattedVal = val;
+                    const keyLower = key.toLowerCase();
+                    if (keyLower.includes('mobile') || keyLower.includes('phone')) {
+                        const cleanNum = String(val).replace(/[^\d]/g, '');
+                        formattedVal = `<a href="tel:${cleanNum}" style="font-weight: 700; color: #0284c7; text-decoration: none;"><i class="fa-solid fa-phone"></i> ${val}</a>`;
+                    } else if (keyLower.includes('car number') || keyLower.includes('plate')) {
+                        formattedVal = `<strong style="background: #f97316; color: #ffffff; padding: 0.25rem 0.65rem; border-radius: 6px; font-size: 0.95rem; font-family: monospace;">${val}</strong>`;
+                    }
+                    html += `<tr>
+                        <td style="font-weight: 700; width: 40%; color: var(--text-main); font-size: 0.88rem;">${key}</td>
+                        <td style="font-size: 0.92rem;">${formattedVal}</td>
+                    </tr>`;
                 }
 
-                html += '</tbody></table>';
+                html += `   </tbody>
+                        </table>
+                    </div>
+
+                    <!-- QUICK ACTIONS -->
+                    <div style="display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1.25rem;">
+                        <a href="${info.scan_url}" target="_blank" class="btn btn-primary btn-sm" style="flex: 1; min-width: 160px; justify-content: center;">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Public Scanner Page
+                        </a>
+                        <a href="${info.download_pdf_url}" target="_blank" class="btn btn-secondary btn-sm" style="flex: 1; min-width: 160px; justify-content: center;">
+                            <i class="fa-solid fa-file-pdf"></i> Download PDF Tag Card
+                        </a>
+                    </div>`;
+
+                // IVR Call Logs Section
+                if (info.recent_calls && info.recent_calls.length > 0) {
+                    html += `
+                        <div style="border-top: 1px dashed #cbd5e1; padding-top: 1rem;">
+                            <div style="font-weight: 800; font-size: 0.88rem; color: var(--text-main); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.4rem;">
+                                <i class="fa-solid fa-clock-rotate-left" style="color: var(--primary);"></i> Recent IVR Calls History (${info.total_calls} Total Calls)
+                            </div>
+                            <table class="data-table" style="font-size: 0.82rem;">
+                                <thead>
+                                    <tr>
+                                        <th>Date & Time</th>
+                                        <th>Caller Line / SIM</th>
+                                        <th>IVR Hotline</th>
+                                    </tr>
+                                </thead>
+                                <tbody>`;
+                    info.recent_calls.forEach(log => {
+                        html += `<tr>
+                            <td>${log.created_at}</td>
+                            <td><strong style="color: #047857;">${log.caller_phone || 'Direct Caller'}</strong></td>
+                            <td>${log.ivr_number || '7971123254'}</td>
+                        </tr>`;
+                    });
+                    html += `   </tbody>
+                            </table>
+                        </div>`;
+                }
+
                 body.innerHTML = html;
             } else {
-                body.innerHTML = '<div style="color: var(--accent-rose); padding: 1rem;">' + data.message + '</div>';
+                body.innerHTML = '<div style="color: var(--accent-rose); padding: 1.5rem; text-align: center;">' + data.message + '</div>';
             }
+        })
+        .catch(err => {
+            body.innerHTML = '<div style="color: var(--accent-rose); padding: 1.5rem; text-align: center;">Failed to load scanner details.</div>';
         });
 }
 

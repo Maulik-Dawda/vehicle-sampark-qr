@@ -177,11 +177,15 @@ function handleGetSubmission($pdo) {
         jsonResponse(false, 'QR Code not found');
     }
 
+    $scanUrl = getAppBaseUrl() . '/scan.php?code=' . urlencode($codeNumber);
+
     if ($qr['status'] === 'pending') {
         jsonResponse(true, 'No submission yet', [
             'status' => 'pending',
             'code_number' => $codeNumber,
-            'scan_url' => getAppBaseUrl() . '/scan.php?code=' . urlencode($codeNumber)
+            'batch_name' => $qr['batch_name'],
+            'form_title' => $qr['form_title'],
+            'scan_url' => $scanUrl
         ]);
     }
 
@@ -195,10 +199,32 @@ function handleGetSubmission($pdo) {
 
     $responses = json_decode($submission['response_data'], true) ?: [];
 
+    // Fetch IVR Call Logs for this Scanner Tag
+    $callLogsCount = 0;
+    $recentCallLogs = [];
+    try {
+        $logCountStmt = $pdo->prepare("SELECT COUNT(*) FROM call_logs WHERE code_number = ?");
+        $logCountStmt->execute([$codeNumber]);
+        $callLogsCount = (int)$logCountStmt->fetchColumn();
+
+        $logsStmt = $pdo->prepare("SELECT caller_phone, ivr_number, created_at FROM call_logs WHERE code_number = ? ORDER BY id DESC LIMIT 5");
+        $logsStmt->execute([$codeNumber]);
+        $recentCallLogs = $logsStmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (Exception $e) {
+        // Non-blocking log fetch
+    }
+
     jsonResponse(true, 'Submission retrieved', [
         'status' => 'submitted',
         'code_number' => $codeNumber,
+        'batch_name' => $qr['batch_name'],
+        'form_title' => $qr['form_title'],
+        'scan_url' => $scanUrl,
         'submitted_at' => date('M j, Y g:i A', strtotime($submission['submitted_at'])),
-        'responses' => $responses
+        'submitter_ip' => $submission['submitter_ip'] ?? 'N/A',
+        'responses' => $responses,
+        'total_calls' => $callLogsCount,
+        'recent_calls' => $recentCallLogs,
+        'download_pdf_url' => 'admin-qr-single-pdf?code=' . urlencode($codeNumber)
     ]);
 }

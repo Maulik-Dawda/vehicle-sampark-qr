@@ -273,7 +273,7 @@ include __DIR__ . '/includes/header.php';
                                         
                                         <?php if ($qr['status'] === 'submitted'): ?>
                                             <button type="button" class="btn btn-primary btn-sm" onclick="viewSubmissionDetails('<?= htmlspecialchars($qr['code_number']) ?>')">
-                                                <i class="fa-solid fa-user"></i> Owner Details
+                                                <i class="fa-solid fa-file-invoice"></i> View Details
                                             </button>
                                         <?php endif; ?>
 
