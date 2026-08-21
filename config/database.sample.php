@@ -182,6 +182,7 @@ try {
         ");
     }
 
+    // Seed default Admin Account if missing (Username: admin | Password: admin123)
     $chkAdmin = $pdo->prepare("SELECT * FROM admins WHERE username = ?");
     $chkAdmin->execute(['admin']);
     $existingAdmin = $chkAdmin->fetch();
@@ -193,6 +194,49 @@ try {
             VALUES ('admin', 'admin@vehiclesampark.com', ?, 'System Administrator', 'VSPK2FASECRET123', 0)
         ");
         $seedStmt->execute([$defaultPassHash]);
+    }
+
+    // Seed Default Batch if missing
+    $chkBatch = $pdo->query("SELECT id FROM batches LIMIT 1")->fetch();
+    $batchId = $chkBatch ? $chkBatch['id'] : 1;
+    if (!$chkBatch) {
+        $pdo->exec("
+            INSERT INTO batches (id, batch_name, form_title, form_description, form_schema, total_qrs)
+            VALUES (1, 'Default Vehicle QR Batch', 'Vehicle Owner Registration', 'Register your vehicle details', '[]', 10)
+        ");
+        $batchId = 1;
+    }
+
+    // Restore / Ensure QRC-853B-32D7 exists as registered submitted QR code
+    $chkQr = $pdo->prepare("SELECT id FROM qr_codes WHERE code_number = ?");
+    $chkQr->execute(['QRC-853B-32D7']);
+    $qrRec = $chkQr->fetch();
+
+    if (!$qrRec) {
+        $pdo->prepare("INSERT INTO qr_codes (batch_id, code_number, status, submitted_at) VALUES (?, 'QRC-853B-32D7', 'submitted', CURRENT_TIMESTAMP)")
+            ->execute([$batchId]);
+        $qrId = $pdo->lastInsertId();
+    } else {
+        $qrId = $qrRec['id'];
+        $pdo->prepare("UPDATE qr_codes SET status = 'submitted' WHERE id = ?")->execute([$qrId]);
+    }
+
+    // Ensure Submission details exist for QRC-853B-32D7
+    $chkSub = $pdo->prepare("SELECT id FROM submissions WHERE code_number = ?");
+    $chkSub->execute(['QRC-853B-32D7']);
+    if (!$chkSub->fetch()) {
+        $sampleResp = json_encode([
+            'full_name' => 'Vehicle Owner',
+            'mobile_number' => '9723914037',
+            'emergency_mobile_number' => '9723914037',
+            'whatsapp_number' => '9723914037',
+            'car_number' => 'GJ-03-NL-0104',
+            'car_name' => 'Hyundai',
+            'car_model' => 'Creta'
+        ], JSON_UNESCAPED_UNICODE);
+
+        $pdo->prepare("INSERT INTO submissions (qr_code_id, code_number, response_data, submitter_ip) VALUES (?, 'QRC-853B-32D7', ?, '127.0.0.1')")
+            ->execute([$qrId, $sampleResp]);
     }
 } catch (Throwable $e) {
     // Migration exception handler
