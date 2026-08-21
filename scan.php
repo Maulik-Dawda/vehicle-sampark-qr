@@ -32,6 +32,118 @@ if (empty($codeNumber)) {
     }
 }
 
+// Extract Owner Phone and Car Details for Mobile Contact Portal
+$ownerName = '';
+$mobileNumber = '';
+$carName = '';
+$carNumber = '';
+$carModel = '';
+
+if (!$error && $qrData['status'] === 'submitted') {
+    $subStmt = $pdo->prepare("SELECT * FROM submissions WHERE qr_code_id = ? ORDER BY id DESC LIMIT 1");
+    $subStmt->execute([$qrData['id']]);
+    $subRecord = $subStmt->fetch();
+
+    if ($subRecord) {
+        $respData = json_decode($subRecord['response_data'], true) ?: [];
+
+        foreach ($respData as $lbl => $val) {
+            $lblLower = strtolower($lbl);
+            $valStr = (string)$val;
+
+            if (empty($ownerName) && (str_contains($lblLower, 'name') || str_contains($lblLower, 'owner'))) {
+                $ownerName = $valStr;
+            }
+            if (empty($mobileNumber) && (str_contains($lblLower, 'mobile') || str_contains($lblLower, 'phone') || str_contains($lblLower, 'contact') || str_contains($lblLower, 'number'))) {
+                $mobileNumber = $valStr;
+            }
+
+            if (empty($carName) && (str_contains($lblLower, 'car name') || str_contains($lblLower, 'make') || (str_contains($lblLower, 'car') && !str_contains($lblLower, 'number') && !str_contains($lblLower, 'model')))) {
+                $carName = $valStr;
+            }
+            if (empty($carNumber) && (str_contains($lblLower, 'car number') || str_contains($lblLower, 'plate') || str_contains($lblLower, 'reg') || str_contains($lblLower, 'vehicle number'))) {
+                $carNumber = $valStr;
+            }
+            if (empty($carModel) && (str_contains($lblLower, 'model') || str_contains($lblLower, 'variant'))) {
+                $carModel = $valStr;
+            }
+        }
+
+        if (empty($mobileNumber)) $mobileNumber = reset($respData) ?: '9723914037';
+    }
+}
+
+$cleanOwnerMobile = preg_replace('/[^\d]/', '', $mobileNumber);
+if (strlen($cleanOwnerMobile) > 10) {
+    $cleanOwnerMobile = substr($cleanOwnerMobile, -10);
+}
+
+// Handle Form Submission for Calling Vehicle Owner
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$error && isset($_POST['action_call_owner']) && $qrData['status'] === 'submitted') {
+    $userInputNumber = sanitize($_POST['user_number'] ?? '');
+    $cleanUserNumber = preg_replace('/[^\d]/', '', $userInputNumber);
+    if (strlen($cleanUserNumber) > 10) {
+        $cleanUserNumber = substr($cleanUserNumber, -10);
+    }
+
+    if (empty($cleanUserNumber) || strlen($cleanUserNumber) < 10) {
+        $error = 'Please enter a valid 10-digit mobile number.';
+    } else {
+        // 1. Store User Number in Database (call_logs table)
+        try {
+            $pdo->exec("
+                CREATE TABLE IF NOT EXISTS call_logs (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    code_number TEXT,
+                    caller_phone TEXT,
+                    user_number TEXT,
+                    owner_phone TEXT,
+                    ivr_number TEXT,
+                    api_response TEXT,
+                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+                )
+            ");
+
+            $logStmt = $pdo->prepare("
+                INSERT INTO call_logs (code_number, caller_phone, user_number, owner_phone, ivr_number, api_response)
+                VALUES (?, ?, ?, ?, ?, ?)
+            ");
+            $logStmt->execute([$codeNumber, $cleanUserNumber, $cleanUserNumber, $cleanOwnerMobile, '7971123254', 'Call Initiated by User']);
+        } catch (Exception $e) {
+            // Non-blocking log error
+        }
+
+        // 2. Trigger BulkSMSPlans IVR API (dial = User's Inputted Number)
+        $apiUrl = 'https://bulksmsplans.com/api/ivr/makeACall';
+        $params = [
+            'api_id'          => 'APIvRpMDIEc151987',
+            'api_password'    => 'fetRZg6V',
+            'ivr_number'      => '7971123254',
+            'dial'            => $cleanUserNumber, // User's inputted number
+            'receiver_number' => $cleanOwnerMobile, // Owner's number from DB
+            'agent_number'    => $cleanOwnerMobile, // Owner's number from DB
+            'scheduled'       => '0',
+            'timezone_id'     => '0',
+            'ai_connect'      => '0'
+        ];
+
+        $targetUrl = $apiUrl . '?' . http_build_query($params);
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $targetUrl);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+        $apiResponse = curl_exec($ch);
+        curl_close($ch);
+
+        // 3. Refresh Page & Show Call Initiated Message with User Number
+        header("Location: scan.php?code=" . urlencode($codeNumber) . "&call_status=initiated&user_number=" . urlencode($cleanUserNumber));
+        exit;
+    }
+}
+
 // Handle First-Time Owner Registration Submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$error && $qrData['status'] === 'pending') {
     $fullName = sanitize($_POST['full_name'] ?? '');
@@ -90,51 +202,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$error && $qrData['status'] === 'p
     }
 }
 
-// Extract Owner Phone and Car Details for Mobile Contact Portal
-$ownerName = '';
-$mobileNumber = '';
-$carName = '';
-$carNumber = '';
-$carModel = '';
-
-if (!$error && $qrData['status'] === 'submitted') {
-    $subStmt = $pdo->prepare("SELECT * FROM submissions WHERE qr_code_id = ? ORDER BY id DESC LIMIT 1");
-    $subStmt->execute([$qrData['id']]);
-    $subRecord = $subStmt->fetch();
-
-    if ($subRecord) {
-        $respData = json_decode($subRecord['response_data'], true) ?: [];
-
-        foreach ($respData as $lbl => $val) {
-            $lblLower = strtolower($lbl);
-            $valStr = (string)$val;
-
-            if (empty($ownerName) && (str_contains($lblLower, 'name') || str_contains($lblLower, 'owner'))) {
-                $ownerName = $valStr;
-            }
-            if (empty($mobileNumber) && (str_contains($lblLower, 'mobile') || str_contains($lblLower, 'phone') || str_contains($lblLower, 'contact') || str_contains($lblLower, 'number'))) {
-                $mobileNumber = $valStr;
-            }
-
-            if (empty($carName) && (str_contains($lblLower, 'car name') || str_contains($lblLower, 'make') || (str_contains($lblLower, 'car') && !str_contains($lblLower, 'number') && !str_contains($lblLower, 'model')))) {
-                $carName = $valStr;
-            }
-            if (empty($carNumber) && (str_contains($lblLower, 'car number') || str_contains($lblLower, 'plate') || str_contains($lblLower, 'reg') || str_contains($lblLower, 'vehicle number'))) {
-                $carNumber = $valStr;
-            }
-            if (empty($carModel) && (str_contains($lblLower, 'model') || str_contains($lblLower, 'variant'))) {
-                $carModel = $valStr;
-            }
-        }
-
-        if (empty($mobileNumber)) $mobileNumber = reset($respData) ?: '9723914037';
-    }
-}
-
-$cleanOwnerMobile = preg_replace('/[^\d]/', '', $mobileNumber);
-if (strlen($cleanOwnerMobile) > 10) {
-    $cleanOwnerMobile = substr($cleanOwnerMobile, -10);
-}
+$callStatus = sanitize($_GET['call_status'] ?? '');
+$displayUserNumber = sanitize($_GET['user_number'] ?? '');
 
 include __DIR__ . '/includes/header.php';
 ?>
@@ -168,7 +237,7 @@ include __DIR__ . '/includes/header.php';
         </div>
 
     <?php elseif ($qrData['status'] === 'submitted'): ?>
-        <!-- MOBILE PUBLIC BYSTANDER CONTACT PORTAL (SINGLE OPTION: CALL THE OWNER) -->
+        <!-- MOBILE PUBLIC BYSTANDER CONTACT PORTAL -->
         <div class="content-card" style="padding: 1.75rem 1.25rem; text-align: center; border-color: #cbd5e1;">
             <div style="margin-bottom: 0.85rem;">
                 <span class="badge badge-submitted" style="font-size: 0.82rem; padding: 0.35rem 0.85rem;">
@@ -193,87 +262,57 @@ include __DIR__ . '/includes/header.php';
                 <?php endif; ?>
             </div>
             
-            <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 1.5rem; line-height: 1.5;">
-                Need to alert the vehicle owner about wrong parking, emergency, or moving the car? Tap below to initiate your call:
-            </p>
+            <?php if ($callStatus === 'initiated'): ?>
+                <!-- REFRESHED CALL INITIATED CONFIRMATION BANNER -->
+                <div style="background: #ecfdf5; border: 2px solid #a7f3d0; padding: 1.25rem; border-radius: 16px; margin-bottom: 1.5rem; text-align: left;">
+                    <div style="font-weight: 800; color: #065f46; font-size: 1.1rem; margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fa-solid fa-circle-check" style="color: #10b981; font-size: 1.3rem;"></i> Calling Initiated Towards Owner!
+                    </div>
+                    <p style="font-size: 0.88rem; color: #047857; margin-bottom: 0.85rem; line-height: 1.45;">
+                        Your call request has been saved and sent to the IVR system. Connecting call now:
+                    </p>
+                    
+                    <div style="background: #ffffff; padding: 0.85rem 1rem; border-radius: 10px; border: 1px solid #bbf7d0; margin-bottom: 0.85rem;">
+                        <div style="font-size: 0.82rem; color: #64748b; margin-bottom: 0.2rem;">Your Input Mobile Number:</div>
+                        <div style="font-size: 1.05rem; font-weight: 800; color: #0f172a; font-family: monospace;">
+                            <i class="fa-solid fa-mobile-screen" style="color: #10b981;"></i> <?= htmlspecialchars($displayUserNumber) ?>
+                        </div>
+                    </div>
 
-            <!-- SINGLE OPTION BUTTON: CALL THE OWNER -->
-            <div style="margin-bottom: 1.25rem;">
-                <button type="button" onclick="openSimSelectModal()" class="btn btn-primary btn-glow" style="width: 100%; padding: 1.2rem; font-size: 1.15rem; background: linear-gradient(135deg, #10b981, #059669); border-radius: var(--radius-lg); font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 0.65rem; border: none; cursor: pointer; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.35);">
-                    <i class="fa-solid fa-phone-volume" style="font-size: 1.35rem;"></i> Call the Owner
-                </button>
-            </div>
+                    <div style="background: #ffffff; padding: 0.85rem 1rem; border-radius: 10px; border: 1px solid #bbf7d0; margin-bottom: 1rem;">
+                        <div style="font-size: 0.82rem; color: #64748b; margin-bottom: 0.2rem;">Connected IVR Hotline:</div>
+                        <div style="font-size: 1.05rem; font-weight: 800; color: #0284c7; font-family: monospace;">
+                            <i class="fa-solid fa-headset" style="color: #0284c7;"></i> 7971123254
+                        </div>
+                    </div>
+
+                    <a href="tel:7971123254" class="btn btn-primary btn-glow" style="width: 100%; padding: 1rem; font-size: 1.05rem; background: linear-gradient(135deg, #10b981, #059669); font-weight: 800; border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 0.5rem; text-decoration: none;">
+                        <i class="fa-solid fa-phone-volume"></i> Open Dial App to Ring Owner
+                    </a>
+                </div>
+            <?php else: ?>
+                <!-- USER INPUT FORM TO ENTER MOBILE NUMBER & CALL THE OWNER -->
+                <form action="scan.php?code=<?= urlencode($codeNumber) ?>" method="POST" style="text-align: left; margin-bottom: 1.25rem;">
+                    <div style="background: #f8fafc; border: 1.5px solid #cbd5e1; padding: 1.25rem; border-radius: 16px;">
+                        <label style="font-size: 0.88rem; font-weight: 800; color: #0f172a; margin-bottom: 0.5rem; display: block;">
+                            Enter Your Mobile Number <span style="color: var(--accent-rose);">*</span>
+                        </label>
+                        <div style="position: relative; margin-bottom: 1rem;">
+                            <input type="tel" name="user_number" class="form-control" placeholder="Enter your 10-digit mobile number" style="padding-left: 2.6rem; height: 48px; border-radius: 12px; font-size: 1.05rem; font-weight: 700; border: 1.5px solid #10b981;" required>
+                            <i class="fa-solid fa-phone" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: #10b981; font-size: 1.1rem;"></i>
+                        </div>
+
+                        <button type="submit" name="action_call_owner" class="btn btn-primary btn-glow" style="width: 100%; padding: 1.15rem; font-size: 1.15rem; background: linear-gradient(135deg, #10b981, #059669); border-radius: var(--radius-lg); font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 0.65rem; border: none; cursor: pointer; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.35);">
+                            <i class="fa-solid fa-phone-volume" style="font-size: 1.35rem;"></i> Call the Owner
+                        </button>
+                    </div>
+                </form>
+            <?php endif; ?>
 
             <div style="background: #f8fafc; padding: 0.85rem; border-radius: var(--radius-md); border: 1px solid #e2e8f0; text-align: center;">
                 <p style="font-size: 0.82rem; color: var(--text-muted); margin: 0; line-height: 1.45;">
-                    <i class="fa-solid fa-shield-halved" style="color: var(--primary);"></i> <strong>100% Number Masking Privacy:</strong> Select your SIM card to directly initiate call without revealing real phone numbers.
+                    <i class="fa-solid fa-shield-halved" style="color: var(--primary);"></i> <strong>100% Number Masking Privacy:</strong> Your entered number is saved as dialer and connects you securely via IVR 7971123254.
                 </p>
-            </div>
-        </div>
-
-        <!-- AUTOMATIC SIM CARD SELECTION POPUP MODAL -->
-        <div id="simSelectModal" style="display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(6px); z-index: 99999; align-items: center; justify-content: center; padding: 1rem;">
-            <div style="background: #ffffff; width: 100%; max-width: 450px; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); border: 1px solid #cbd5e1; overflow: hidden;">
-                
-                <div style="padding: 1.25rem 1.5rem; background: linear-gradient(135deg, #059669 0%, #10b981 100%); color: #ffffff; display: flex; align-items: center; justify-content: space-between;">
-                    <div style="font-size: 1.15rem; font-weight: 800; display: flex; align-items: center; gap: 0.6rem;">
-                        <i class="fa-solid fa-sim-card"></i> Select SIM Card / Mobile Line
-                    </div>
-                    <button type="button" onclick="closeSimSelectModal()" style="background: rgba(255,255,255,0.2); border: none; color: #ffffff; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; cursor: pointer;">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                </div>
-
-                <div style="padding: 1.5rem 1.35rem; text-align: left;">
-                    <p style="font-size: 0.88rem; color: #475569; margin-bottom: 1.15rem; line-height: 1.45;">
-                        Select which SIM card present in this phone you want to use to contact the owner:
-                    </p>
-
-                    <!-- SIM SLOT 1 -->
-                    <div style="margin-bottom: 0.85rem;">
-                        <button type="button" onclick="selectSimSlotAndCall('SIM 1', '<?= htmlspecialchars($codeNumber) ?>')" style="width: 100%; padding: 1rem 1.15rem; background: #f0fdf4; border: 1.5px solid #a7f3d0; border-radius: 14px; display: flex; align-items: center; justify-content: space-between; text-align: left; cursor: pointer; transition: all 0.2s ease;">
-                            <div style="display: flex; align-items: center; gap: 0.85rem;">
-                                <div style="width: 42px; height: 42px; border-radius: 12px; background: #10b981; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0;">
-                                    <i class="fa-solid fa-sim-card"></i>
-                                </div>
-                                <div>
-                                    <div style="font-size: 0.98rem; font-weight: 800; color: #065f46;">SIM 1 (Primary SIM Line)</div>
-                                    <div style="font-size: 0.8rem; color: #047857; font-weight: 600;">Tap to initiate call directly via SIM 1</div>
-                                </div>
-                            </div>
-                            <i class="fa-solid fa-chevron-right" style="color: #10b981;"></i>
-                        </button>
-                    </div>
-
-                    <!-- SIM SLOT 2 -->
-                    <div style="margin-bottom: 1.15rem;">
-                        <button type="button" onclick="selectSimSlotAndCall('SIM 2', '<?= htmlspecialchars($codeNumber) ?>')" style="width: 100%; padding: 1rem 1.15rem; background: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 14px; display: flex; align-items: center; justify-content: space-between; text-align: left; cursor: pointer; transition: all 0.2s ease;">
-                            <div style="display: flex; align-items: center; gap: 0.85rem;">
-                                <div style="width: 42px; height: 42px; border-radius: 12px; background: #0284c7; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0;">
-                                    <i class="fa-solid fa-sim-card"></i>
-                                </div>
-                                <div>
-                                    <div style="font-size: 0.98rem; font-weight: 800; color: #0f172a;">SIM 2 (Secondary SIM Line)</div>
-                                    <div style="font-size: 0.8rem; color: #64748b; font-weight: 600;">Tap to initiate call directly via SIM 2</div>
-                                </div>
-                            </div>
-                            <i class="fa-solid fa-chevron-right" style="color: #0284c7;"></i>
-                        </button>
-                    </div>
-
-                    <!-- OR ENTER CUSTOM MOBILE NUMBER -->
-                    <div style="border-top: 1px dashed #cbd5e1; padding-top: 1rem; margin-top: 1rem;">
-                        <label style="font-size: 0.82rem; font-weight: 700; color: #0f172a; margin-bottom: 0.35rem; display: block;">
-                            Or Enter SIM Mobile Number Manually:
-                        </label>
-                        <div style="display: flex; gap: 0.5rem;">
-                            <input type="tel" id="customSimInput" class="form-control" placeholder="e.g. 9876543210" style="border-radius: 12px; height: 46px; font-size: 0.95rem; font-weight: 700; border: 1.5px solid #cbd5e1; flex: 1;">
-                            <button type="button" onclick="customSimCall('<?= htmlspecialchars($codeNumber) ?>')" class="btn btn-primary" style="padding: 0 1.2rem; height: 46px; border-radius: 12px; font-weight: 800; background: #10b981;">
-                                Call
-                            </button>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -334,46 +373,15 @@ include __DIR__ . '/includes/header.php';
     <?php endif; ?>
 </div>
 
+<?php if ($callStatus === 'initiated'): ?>
 <script>
-function openSimSelectModal() {
-    const modal = document.getElementById('simSelectModal');
-    if (modal) {
-        modal.style.display = 'flex';
-    }
-}
-
-function closeSimSelectModal() {
-    const modal = document.getElementById('simSelectModal');
-    if (modal) {
-        modal.style.display = 'none';
-    }
-}
-
-function selectSimSlotAndCall(simSlot, codeNumber) {
-    // 1. Send selected SIM slot / phone number to API in background
-    const formData = new URLSearchParams();
-    formData.append('code', codeNumber);
-    formData.append('dial', simSlot);
-
-    fetch('api/make_call.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: formData.toString()
-    });
-
-    closeSimSelectModal();
-
-    // 2. Directly start call in mobile's built-in phone app (tel:7971123254) so IVR tune starts ringing immediately!
-    window.location.href = 'tel:7971123254';
-}
-
-function customSimCall(codeNumber) {
-    const input = document.getElementById('customSimInput');
-    const simVal = input ? input.value.trim() : 'SIM 1';
-    selectSimSlotAndCall(simVal, codeNumber);
-}
+// Automatically launch mobile phone dialer on refreshed call status page
+window.addEventListener('load', function() {
+    setTimeout(function() {
+        window.location.href = 'tel:7971123254';
+    }, 400);
+});
 </script>
+<?php endif; ?>
 
 <?php include __DIR__ . '/includes/footer.php'; ?>
