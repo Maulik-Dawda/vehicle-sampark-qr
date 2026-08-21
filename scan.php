@@ -127,7 +127,7 @@ if (!$error && $qrData['status'] === 'submitted') {
             }
         }
 
-        if (empty($mobileNumber)) $mobileNumber = reset($respData) ?: '9723914037';
+        if (empty($mobileNumber)) $mobileNumber = reset($respData) ?: '';
     }
 }
 
@@ -168,7 +168,7 @@ include __DIR__ . '/includes/header.php';
         </div>
 
     <?php elseif ($qrData['status'] === 'submitted'): ?>
-        <!-- MOBILE PUBLIC BYSTANDER CONTACT PORTAL (BULKSMSPLANS IVR SETUP) -->
+        <!-- MOBILE PUBLIC BYSTANDER CONTACT PORTAL (DIRECT 1-TAP PHONE CALL) -->
         <div class="content-card" style="padding: 1.75rem 1.25rem; text-align: center; border-color: #cbd5e1;">
             <div style="margin-bottom: 0.85rem;">
                 <span class="badge badge-submitted" style="font-size: 0.82rem; padding: 0.35rem 0.85rem;">
@@ -193,53 +193,27 @@ include __DIR__ . '/includes/header.php';
                 <?php endif; ?>
             </div>
             
-            <!-- BULKSMSPLANS IVR CALL CARD -->
-            <div class="call-bridge-card" style="background: linear-gradient(180deg, #ecfdf5 0%, #ffffff 100%); border: 1.5px solid #a7f3d0; padding: 1.35rem 1.15rem; border-radius: 18px; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.08); margin-bottom: 1.25rem; text-align: left;">
-                
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;">
-                    <span style="background: #10b981; color: #ffffff; font-size: 0.72rem; font-weight: 800; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px;">
-                        ⚡ BulkSMSPlans IVR Gateway
-                    </span>
-                    <span style="font-size: 0.78rem; font-weight: 700; color: #047857;">
-                        <i class="fa-solid fa-shield-halved"></i> 100% Number Masked
-                    </span>
-                </div>
+            <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 1.5rem; line-height: 1.5;">
+                Need to alert the vehicle owner about wrong parking, emergency, or moving the car? Tap below to start your call immediately:
+            </p>
 
-                <h3 style="font-size: 1.12rem; font-weight: 800; color: #065f46; margin-bottom: 0.35rem; font-family: var(--font-heading);">
-                    Connect Call via Virtual IVR (7971123254)
-                </h3>
-
-                <p style="font-size: 0.84rem; color: #475569; margin-bottom: 0.95rem; line-height: 1.45;">
-                    Enter your mobile phone number below. The BulkSMSPlans IVR system will ring the vehicle owner and bridge your lines seamlessly through virtual line <strong>7971123254</strong>.
-                </p>
-
-                <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-                    <div>
-                        <label style="font-size: 0.8rem; font-weight: 700; color: #0f172a; margin-bottom: 0.25rem; display: block;">
-                            Your Mobile Number (Receiver):
-                        </label>
-                        <input type="tel" id="callerPhoneInput" class="form-control" placeholder="Enter your 10-digit mobile number" style="font-size: 0.95rem; font-weight: 600; height: 46px; border-radius: 10px; border: 1.5px solid #cbd5e1;">
-                    </div>
-
-                    <button type="button" id="btnInitiateIvr" onclick="triggerIvrAppCall('<?= htmlspecialchars($codeNumber) ?>')" class="btn btn-primary btn-glow" style="width: 100%; padding: 0.95rem; font-size: 1.05rem; background: linear-gradient(135deg, #10b981, #059669); font-weight: 800; border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 0.6rem; border: none; cursor: pointer; box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);">
-                        <i class="fa-solid fa-phone-volume"></i> Call Vehicle Owner (Via IVR)
-                    </button>
-                </div>
-
-                <!-- LIVE ANIMATED STATUS -->
-                <div id="ivrCallStatus" style="display: none; margin-top: 0.85rem; padding: 0.85rem; border-radius: 10px; font-size: 0.88rem; font-weight: 600; text-align: center;"></div>
+            <!-- DIRECT 1-TAP PHONE CALL BUTTON -->
+            <div style="margin-bottom: 1rem;">
+                <a href="tel:<?= htmlspecialchars($cleanOwnerMobile) ?>" class="btn btn-primary btn-glow" style="width: 100%; padding: 1.15rem; font-size: 1.15rem; background: linear-gradient(135deg, #10b981, #059669); border-radius: var(--radius-lg); font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 0.65rem; text-decoration: none; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.35);">
+                    <i class="fa-solid fa-phone-volume" style="font-size: 1.35rem;"></i> Call Vehicle Owner Directly
+                </a>
             </div>
 
-            <!-- DIRECT PHONE DIALER BUTTON -->
+            <!-- IVR HOTLINE OPTION -->
             <div style="margin-bottom: 1.25rem;">
-                <a href="tel:<?= htmlspecialchars($cleanOwnerMobile) ?>" class="btn btn-outline" style="width: 100%; padding: 0.85rem; font-size: 0.95rem; font-weight: 700; border-color: #10b981; color: #047857; display: flex; align-items: center; justify-content: center; gap: 0.5rem; text-decoration: none; border-radius: 12px;">
-                    <i class="fa-solid fa-mobile-screen"></i> Direct Mobile Call
+                <a href="tel:7971123254" class="btn btn-outline" style="width: 100%; padding: 0.9rem; font-size: 0.95rem; font-weight: 700; border-color: #0284c7; color: #0369a1; display: flex; align-items: center; justify-content: center; gap: 0.5rem; text-decoration: none; border-radius: 12px;">
+                    <i class="fa-solid fa-headset"></i> Call IVR Hotline (7971123254)
                 </a>
             </div>
 
             <div style="background: #f8fafc; padding: 0.85rem; border-radius: var(--radius-md); border: 1px solid #e2e8f0; text-align: center;">
                 <p style="font-size: 0.82rem; color: var(--text-muted); margin: 0; line-height: 1.45;">
-                    <i class="fa-solid fa-bolt" style="color: var(--primary);"></i> Powered by <strong>Vehicle Sampark</strong>. BulkSMSPlans IVR Gateway (7971123254).
+                    <i class="fa-solid fa-bolt" style="color: var(--primary);"></i> <strong>Instant 1-Tap Connection:</strong> Tapping "Call Vehicle Owner Directly" opens your phone dialer to ring the owner immediately.
                 </p>
             </div>
         </div>
@@ -255,7 +229,7 @@ include __DIR__ . '/includes/header.php';
                 </div>
                 <h1 style="font-size: 1.6rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.3rem;">Vehicle Owner Registration</h1>
                 <p style="color: var(--text-muted); font-size: 0.88rem;">
-                    Fill out your vehicle details to register this QR Tag. Once registered, public scanners can call you securely via IVR relay.
+                    Fill out your vehicle details to register this QR Tag. Once registered, public scanners can call you securely.
                 </p>
             </div>
 
@@ -300,70 +274,5 @@ include __DIR__ . '/includes/header.php';
         </div>
     <?php endif; ?>
 </div>
-
-<script>
-function triggerIvrAppCall(codeNumber) {
-    const callerInput = document.getElementById('callerPhoneInput');
-    const statusBox = document.getElementById('ivrCallStatus');
-    const btn = document.getElementById('btnInitiateIvr');
-
-    const receiverNumber = callerInput ? callerInput.value.trim() : '';
-
-    if (!receiverNumber || receiverNumber.length < 10) {
-        statusBox.style.display = 'block';
-        statusBox.style.background = '#fef2f2';
-        statusBox.style.border = '1px solid #fca5a5';
-        statusBox.style.color = '#991b1b';
-        statusBox.innerHTML = '⚠️ Please enter a valid 10-digit mobile number for IVR call connection.';
-        return;
-    }
-
-    btn.disabled = true;
-    btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Initiating BulkSMSPlans IVR Call...';
-
-    statusBox.style.display = 'block';
-    statusBox.style.background = '#eff6ff';
-    statusBox.style.border = '1px solid #bfdbfe';
-    statusBox.style.color = '#1e40af';
-    statusBox.innerHTML = '🔄 Connecting with BulkSMSPlans IVR Gateway... Please wait.';
-
-    const formData = new URLSearchParams();
-    formData.append('code', codeNumber);
-    formData.append('receiver_number', receiverNumber);
-
-    fetch('api/make_call.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: formData.toString()
-    })
-    .then(response => response.json())
-    .then(data => {
-        btn.disabled = false;
-        btn.innerHTML = '<i class="fa-solid fa-phone-volume"></i> Call Vehicle Owner (Via IVR)';
-
-        if (data.success) {
-            statusBox.style.background = '#ecfdf5';
-            statusBox.style.border = '1px solid #a7f3d0';
-            statusBox.style.color = '#065f46';
-            statusBox.innerHTML = `✅ <strong>Call Initiated Successfully!</strong><br>BulkSMSPlans IVR is calling lines and bridging via virtual line <strong>7971123254</strong>.`;
-        } else {
-            statusBox.style.background = '#fef2f2';
-            statusBox.style.border = '1px solid #fca5a5';
-            statusBox.style.color = '#991b1b';
-            statusBox.innerHTML = `❌ <strong>Call Request Failed:</strong> ${data.message}`;
-        }
-    })
-    .catch(err => {
-        btn.disabled = false;
-        btn.innerHTML = '<i class="fa-solid fa-phone-volume"></i> Call Vehicle Owner (Via IVR)';
-        statusBox.style.background = '#fef2f2';
-        statusBox.style.border = '1px solid #fca5a5';
-        statusBox.style.color = '#991b1b';
-        statusBox.innerHTML = '❌ Network connection error. Please try again.';
-    });
-}
-</script>
 
 <?php include __DIR__ . '/includes/footer.php'; ?>
