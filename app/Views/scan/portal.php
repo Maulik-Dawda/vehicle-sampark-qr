@@ -92,9 +92,9 @@ include __DIR__ . '/../layouts/header.php';
                 </script>
             <?php endif; ?>
 
-            <div style="background: #f8fafc; padding: 0.85rem; border-radius: var(--radius-md); border: 1px solid #e2e8f0; text-align: center;">
-                <p style="font-size: 0.82rem; color: var(--text-muted); margin: 0; line-height: 1.45;">
-                    <i class="fa-solid fa-shield-halved" style="color: var(--primary);"></i> <strong>100% Privacy Protection:</strong> BulkSMSPlans IVR API bridges the call using agent_number and dialer number securely.
+            <div style="background: #ecfdf5; padding: 0.85rem; border-radius: var(--radius-md); border: 1px solid #a7f3d0; text-align: center;">
+                <p style="font-size: 0.82rem; color: #047857; margin: 0; line-height: 1.45; font-weight: 600;">
+                    <i class="fa-solid fa-shield-halved" style="color: var(--primary);"></i> <strong>Inbound Masked Calling Active:</strong> Direct Dial-in via <strong>7971123254</strong>. Your personal mobile number stays 100% hidden and protected.
                 </p>
             </div>
         </div>

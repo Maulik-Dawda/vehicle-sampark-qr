@@ -146,6 +146,8 @@ class ScanController {
             $subRecord = $this->subModel->getByQrId($qrData['id']);
             if ($subRecord) {
                 $ownerDetails = $this->subModel->extractOwnerDetails($subRecord['response_data']);
+                // Register active inbound call mapping for direct dial-in
+                $this->callLogModel->createMapping($codeNumber, $ownerDetails['clean_owner_mobile'], $_SERVER['REMOTE_ADDR'] ?? '');
             }
         }
 
