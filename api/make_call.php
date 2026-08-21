@@ -1,5 +1,5 @@
 <?php
-// api/make_call.php - Vehicle Sampark BulkSMSPlans IVR Call Relay API (Matching bulksms_ivr_app setup)
+// api/make_call.php - Vehicle Sampark BulkSMSPlans IVR Call Relay API
 
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../includes/functions.php';
@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' && $_SERVER['REQUEST_METHOD'] !== 'GET
 }
 
 $codeNumber = sanitize($_REQUEST['code'] ?? '');
-$receiver_number = sanitize($_REQUEST['receiver_number'] ?? $_REQUEST['caller_phone'] ?? $_REQUEST['visitor_phone'] ?? '');
+$userDialerNumber = sanitize($_REQUEST['dial'] ?? $_REQUEST['caller_phone'] ?? $_REQUEST['user_phone'] ?? '');
 
 if (empty($codeNumber)) {
     echo json_encode([
@@ -27,7 +27,7 @@ if (empty($codeNumber)) {
     exit;
 }
 
-// 1. Fetch QR Code and Submitted Vehicle Owner Details
+// 1. Fetch QR Code and Submitted Vehicle Owner Details from Database
 $stmt = $pdo->prepare("
     SELECT q.*, s.response_data
     FROM qr_codes q
@@ -55,7 +55,7 @@ if ($qrRecord['status'] !== 'submitted' || empty($qrRecord['response_data'])) {
     exit;
 }
 
-// Extract Owner Phone Number from submission JSON
+// Extract Registered Vehicle Owner Phone Number from submission JSON
 $respData = json_decode($qrRecord['response_data'], true) ?: [];
 $ownerMobile = '';
 $carNumber = '';
@@ -80,7 +80,7 @@ if (empty($ownerMobile)) {
     $ownerMobile = reset($respData) ?: '9723914037';
 }
 
-// Phone Number Cleaning Function (matches bulksms_ivr_app)
+// Clean phone numbers (strip +91, spaces, hyphens, non-digits)
 $cleanPhone = function($phone) {
     $num = preg_replace('/[^0-9]/', '', $phone);
     if (strlen($num) == 12 && substr($num, 0, 2) == '91') {
@@ -92,42 +92,37 @@ $cleanPhone = function($phone) {
     return $num;
 };
 
-$agent_number = $cleanPhone($ownerMobile);
-$receiver_number = $cleanPhone($receiver_number);
+$cleanOwnerMobile = $cleanPhone($ownerMobile);
+$cleanUserDialNumber = $cleanPhone($userDialerNumber);
 
-if (empty($agent_number) || strlen($agent_number) < 10) {
-    $agent_number = '9723914037'; // Fallback configured owner number
+if (empty($cleanOwnerMobile) || strlen($cleanOwnerMobile) < 10) {
+    $cleanOwnerMobile = '9723914037'; // Fallback configured owner number
 }
 
-if (empty($receiver_number) || strlen($receiver_number) < 10) {
-    echo json_encode([
-        'success' => false,
-        'message' => 'Please enter a valid 10-digit mobile number so the IVR can connect your call.',
-        'code' => 400
-    ]);
-    exit;
-}
-
-// 2. Prepare BulkSMSPlans IVR API Configuration (bulksms_ivr_app standard)
+// 2. Prepare BulkSMSPlans IVR API Endpoint Parameters
 $apiUrl = 'https://bulksmsplans.com/api/ivr/makeACall';
-$apiId = 'APIvRpMDIEc151987';
-$apiPassword = 'fetRZg6V';
-$ivrNumber = '7971123254';
 
-$params = array_filter([
-    'api_id'          => $apiId,
-    'api_password'    => $apiPassword,
-    'ivr_number'      => $ivrNumber,
-    'dial'            => '1',
-    'receiver_number' => $receiver_number,
-    'agent_number'    => $agent_number,
-    'scheduled'       => '0',
-    'ai_connect'      => '0'
-], function($val) {
+$params = [
+    'api_id'             => 'APIvRpMDIEc151987',
+    'api_password'       => 'fetRZg6V',
+    'ivr_number'         => '7971123254',
+    'dial'               => !empty($cleanUserDialNumber) ? $cleanUserDialNumber : $cleanOwnerMobile,
+    'receiver_number'    => $cleanOwnerMobile,
+    'agent_number'       => $cleanOwnerMobile,
+    'scheduled'          => '0',
+    'timezone_id'        => '0',
+    'scheduled_datetime' => '',
+    'c_sms_template_id'  => '',
+    'a_sms_template_id'  => '',
+    'ai_connect'         => '0'
+];
+
+// Omit empty keys
+$filteredParams = array_filter($params, function($val) {
     return $val !== '' && $val !== null;
 });
 
-$targetUrl = $apiUrl . '?' . http_build_query($params);
+$targetUrl = $apiUrl . '?' . http_build_query($filteredParams);
 
 // 3. Execute HTTP GET Request to BulkSMSPlans IVR API
 $startTime = microtime(true);
@@ -165,7 +160,7 @@ try {
         INSERT INTO call_logs (code_number, caller_phone, owner_phone, ivr_number, api_response)
         VALUES (?, ?, ?, ?, ?)
     ");
-    $logStmt->execute([$codeNumber, $receiver_number, $agent_number, $ivrNumber, $response ?: $curl_error]);
+    $logStmt->execute([$codeNumber, $cleanUserDialNumber, $cleanOwnerMobile, '7971123254', $response ?: $curl_error]);
 } catch (Exception $e) {
     // Non-blocking log error
 }
@@ -191,20 +186,21 @@ if ($isJson && isset($decodedResp['code']) && $decodedResp['code'] != 200) {
 if ($isSuccess) {
     echo json_encode([
         'success' => true,
-        'message' => 'Call initiated successfully! BulkSMSPlans IVR is bridging the lines.',
+        'message' => 'Call request processed successfully. Calling owner directly.',
         'http_code' => $http_code,
         'data' => [
             'code_number' => $codeNumber,
             'car_number' => $carNumber,
-            'ivr_number' => $ivrNumber,
-            'agent_number' => $agent_number,
-            'receiver_number' => $receiver_number
+            'ivr_number' => '7971123254',
+            'agent_number' => $cleanOwnerMobile,
+            'receiver_number' => $cleanOwnerMobile,
+            'dial' => $cleanUserDialNumber
         ],
         'raw_response' => $isJson ? $decodedResp : $response,
         'execution_time_ms' => $executionTimeMs
     ]);
 } else {
-    $errMsg = $isJson ? ($decodedResp['message'] ?? 'API response returned an error.') : 'Unable to connect IVR call.';
+    $errMsg = $isJson ? ($decodedResp['message'] ?? 'API response returned an error.') : 'Unable to connect call.';
     echo json_encode([
         'success' => false,
         'message' => $errMsg,

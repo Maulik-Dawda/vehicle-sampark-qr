@@ -127,7 +127,7 @@ if (!$error && $qrData['status'] === 'submitted') {
             }
         }
 
-        if (empty($mobileNumber)) $mobileNumber = reset($respData) ?: '';
+        if (empty($mobileNumber)) $mobileNumber = reset($respData) ?: '9723914037';
     }
 }
 
@@ -168,7 +168,7 @@ include __DIR__ . '/includes/header.php';
         </div>
 
     <?php elseif ($qrData['status'] === 'submitted'): ?>
-        <!-- MOBILE PUBLIC BYSTANDER CONTACT PORTAL (DIRECT 1-TAP PHONE CALL) -->
+        <!-- MOBILE PUBLIC BYSTANDER CONTACT PORTAL -->
         <div class="content-card" style="padding: 1.75rem 1.25rem; text-align: center; border-color: #cbd5e1;">
             <div style="margin-bottom: 0.85rem;">
                 <span class="badge badge-submitted" style="font-size: 0.82rem; padding: 0.35rem 0.85rem;">
@@ -193,20 +193,31 @@ include __DIR__ . '/includes/header.php';
                 <?php endif; ?>
             </div>
             
-            <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 1.5rem; line-height: 1.5;">
-                Need to alert the vehicle owner about wrong parking, emergency, or moving the car? Tap below to start your call immediately:
-            </p>
+            <!-- SIM PHONE SELECTION / INPUT CARD -->
+            <div class="sim-card-box" style="background: #f0fdf4; border: 1.5px solid #bbf7d0; padding: 1.25rem; border-radius: 16px; margin-bottom: 1.25rem; text-align: left;">
+                <div style="font-weight: 800; color: #047857; font-size: 0.98rem; margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fa-solid fa-sim-card" style="font-size: 1.2rem; color: #10b981;"></i> Your SIM / Phone Number
+                </div>
+                <p style="font-size: 0.83rem; color: #334155; margin-bottom: 0.85rem; line-height: 1.45;">
+                    Select or enter your SIM mobile number present in this phone to initiate direct calling to the vehicle owner.
+                </p>
 
-            <!-- DIRECT 1-TAP PHONE CALL BUTTON -->
-            <div style="margin-bottom: 1.25rem;">
-                <a href="tel:<?= htmlspecialchars($cleanOwnerMobile) ?>" class="btn btn-primary btn-glow" style="width: 100%; padding: 1.15rem; font-size: 1.15rem; background: linear-gradient(135deg, #10b981, #059669); border-radius: var(--radius-lg); font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 0.65rem; text-decoration: none; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.35);">
-                    <i class="fa-solid fa-phone-volume" style="font-size: 1.35rem;"></i> Call Vehicle Owner Directly
-                </a>
+                <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                    <div>
+                        <label style="font-size: 0.8rem; font-weight: 700; color: #0f172a; margin-bottom: 0.25rem; display: block;">Your Phone Number (SIM Number):</label>
+                        <input type="tel" id="userSimPhoneInput" class="form-control" placeholder="Enter your 10-digit mobile number" style="font-size: 1rem; font-weight: 600; height: 46px; border-radius: 10px; border: 1.5px solid #cbd5e1;">
+                    </div>
+
+                    <!-- DIRECT 1-TAP CALL BUTTON (TRIGGERS API & BUILT-IN INBUILT PHONE APP INSTANTLY) -->
+                    <button type="button" id="btnDirectCallOwner" onclick="initiateDirectMobileCall('<?= htmlspecialchars($codeNumber) ?>', '<?= htmlspecialchars($cleanOwnerMobile) ?>')" class="btn btn-primary btn-glow" style="width: 100%; padding: 1.1rem; font-size: 1.1rem; background: linear-gradient(135deg, #10b981, #059669); font-weight: 800; border-radius: 14px; display: flex; align-items: center; justify-content: center; gap: 0.65rem; border: none; cursor: pointer; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.35);">
+                        <i class="fa-solid fa-phone-volume" style="font-size: 1.3rem;"></i> Direct Call Vehicle Owner
+                    </button>
+                </div>
             </div>
 
             <div style="background: #f8fafc; padding: 0.85rem; border-radius: var(--radius-md); border: 1px solid #e2e8f0; text-align: center;">
                 <p style="font-size: 0.82rem; color: var(--text-muted); margin: 0; line-height: 1.45;">
-                    <i class="fa-solid fa-bolt" style="color: var(--primary);"></i> <strong>Instant 1-Tap Connection:</strong> Tapping "Call Vehicle Owner Directly" opens your phone dialer to ring the owner immediately.
+                    <i class="fa-solid fa-bolt" style="color: var(--primary);"></i> <strong>Instant Connection:</strong> Tapping "Direct Call Vehicle Owner" immediately launches your phone's built-in call app to ring the vehicle owner directly.
                 </p>
             </div>
         </div>
@@ -267,5 +278,29 @@ include __DIR__ . '/includes/header.php';
         </div>
     <?php endif; ?>
 </div>
+
+<script>
+function initiateDirectMobileCall(codeNumber, ownerNumber) {
+    const userPhoneInput = document.getElementById('userSimPhoneInput');
+    const userDial = userPhoneInput ? userPhoneInput.value.trim() : '';
+
+    // 1. Send API Request in background
+    const formData = new URLSearchParams();
+    formData.append('code', codeNumber);
+    formData.append('dial', userDial);
+
+    fetch('api/make_call.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: formData.toString()
+    });
+
+    // 2. Directly initiate call in mobile's built-in phone app without permission dialogs
+    const targetTel = ownerNumber || '7971123254';
+    window.location.href = 'tel:' + targetTel;
+}
+</script>
 
 <?php include __DIR__ . '/includes/footer.php'; ?>
