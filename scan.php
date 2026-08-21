@@ -78,7 +78,7 @@ if (strlen($cleanOwnerMobile) > 10) {
     $cleanOwnerMobile = substr($cleanOwnerMobile, -10);
 }
 
-// Handle Form Submission for Calling Vehicle Owner
+// Handle Form Submission for Calling Vehicle Owner via BulkSMSPlans API
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$error && isset($_POST['action_call_owner']) && $qrData['status'] === 'submitted') {
     $userInputNumber = sanitize($_POST['user_number'] ?? '');
     $cleanUserNumber = preg_replace('/[^\d]/', '', $userInputNumber);
@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$error && isset($_POST['action_cal
     if (empty($cleanUserNumber) || strlen($cleanUserNumber) < 10) {
         $error = 'Please enter a valid 10-digit mobile number.';
     } else {
-        // 1. Store User Number in Database (call_logs table)
+        // 1. Store User Number in Database (call_logs table as user_number)
         try {
             $pdo->exec("
                 CREATE TABLE IF NOT EXISTS call_logs (
@@ -108,20 +108,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$error && isset($_POST['action_cal
                 INSERT INTO call_logs (code_number, caller_phone, user_number, owner_phone, ivr_number, api_response)
                 VALUES (?, ?, ?, ?, ?, ?)
             ");
-            $logStmt->execute([$codeNumber, $cleanUserNumber, $cleanUserNumber, $cleanOwnerMobile, '7971123254', 'Call Initiated by User']);
+            $logStmt->execute([$codeNumber, $cleanUserNumber, $cleanUserNumber, $cleanOwnerMobile, '7971123254', 'BulkSMSPlans API Call Request Triggered']);
         } catch (Exception $e) {
             // Non-blocking log error
         }
 
-        // 2. Trigger BulkSMSPlans IVR API (dial = User's Inputted Number)
+        // 2. Trigger BulkSMSPlans IVR API (dial = User's Inputted Number, agent_number = Owner Number from DB)
         $apiUrl = 'https://bulksmsplans.com/api/ivr/makeACall';
         $params = [
             'api_id'          => 'APIvRpMDIEc151987',
             'api_password'    => 'fetRZg6V',
             'ivr_number'      => '7971123254',
-            'dial'            => $cleanUserNumber, // User's inputted number
+            'dial'            => $cleanUserNumber, // User's inputted number as dialer
             'receiver_number' => $cleanOwnerMobile, // Owner's number from DB
-            'agent_number'    => $cleanOwnerMobile, // Owner's number from DB
+            'agent_number'    => $cleanOwnerMobile, // Owner's number from DB as agent
             'scheduled'       => '0',
             'timezone_id'     => '0',
             'ai_connect'      => '0'
@@ -138,7 +138,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$error && isset($_POST['action_cal
         $apiResponse = curl_exec($ch);
         curl_close($ch);
 
-        // 3. Refresh Page & Show Call Initiated Message with User Number
+        // 3. Refresh Page & Show Call Initiated Message with User Number (without auto opening phone dialer)
         header("Location: scan.php?code=" . urlencode($codeNumber) . "&call_status=initiated&user_number=" . urlencode($cleanUserNumber));
         exit;
     }
@@ -263,32 +263,34 @@ include __DIR__ . '/includes/header.php';
             </div>
             
             <?php if ($callStatus === 'initiated'): ?>
-                <!-- REFRESHED CALL INITIATED CONFIRMATION BANNER -->
-                <div style="background: #ecfdf5; border: 2px solid #a7f3d0; padding: 1.25rem; border-radius: 16px; margin-bottom: 1.5rem; text-align: left;">
-                    <div style="font-weight: 800; color: #065f46; font-size: 1.1rem; margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.5rem;">
-                        <i class="fa-solid fa-circle-check" style="color: #10b981; font-size: 1.3rem;"></i> Calling Initiated Towards Owner!
+                <!-- REFRESHED CALL INITIATED CONFIRMATION BANNER (SERVER-SIDE API EXECUTED) -->
+                <div style="background: #ecfdf5; border: 2px solid #a7f3d0; padding: 1.5rem 1.25rem; border-radius: 16px; margin-bottom: 1.5rem; text-align: left;">
+                    <div style="font-weight: 800; color: #065f46; font-size: 1.15rem; margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fa-solid fa-circle-check" style="color: #10b981; font-size: 1.4rem;"></i> Calling Initiated Towards Vehicle Owner!
                     </div>
-                    <p style="font-size: 0.88rem; color: #047857; margin-bottom: 0.85rem; line-height: 1.45;">
-                        Your call request has been saved and sent to the IVR system. Connecting call now:
+                    <p style="font-size: 0.88rem; color: #047857; margin-bottom: 1rem; line-height: 1.5;">
+                        Your call request has been processed through the BulkSMSPlans IVR API. The IVR system will bridge the call between your mobile line and the vehicle owner.
                     </p>
                     
-                    <div style="background: #ffffff; padding: 0.85rem 1rem; border-radius: 10px; border: 1px solid #bbf7d0; margin-bottom: 0.85rem;">
-                        <div style="font-size: 0.82rem; color: #64748b; margin-bottom: 0.2rem;">Your Input Mobile Number:</div>
+                    <div style="background: #ffffff; padding: 0.85rem 1rem; border-radius: 10px; border: 1px solid #bbf7d0; margin-bottom: 0.75rem;">
+                        <div style="font-size: 0.82rem; color: #64748b; margin-bottom: 0.2rem;">Your Inputted Mobile Number (Dialer):</div>
                         <div style="font-size: 1.05rem; font-weight: 800; color: #0f172a; font-family: monospace;">
                             <i class="fa-solid fa-mobile-screen" style="color: #10b981;"></i> <?= htmlspecialchars($displayUserNumber) ?>
                         </div>
                     </div>
 
                     <div style="background: #ffffff; padding: 0.85rem 1rem; border-radius: 10px; border: 1px solid #bbf7d0; margin-bottom: 1rem;">
-                        <div style="font-size: 0.82rem; color: #64748b; margin-bottom: 0.2rem;">Connected IVR Hotline:</div>
+                        <div style="font-size: 0.82rem; color: #64748b; margin-bottom: 0.2rem;">Agent (Vehicle Owner):</div>
                         <div style="font-size: 1.05rem; font-weight: 800; color: #0284c7; font-family: monospace;">
-                            <i class="fa-solid fa-headset" style="color: #0284c7;"></i> 7971123254
+                            <i class="fa-solid fa-user-shield" style="color: #0284c7;"></i> Registered Owner Connected via IVR (7971123254)
                         </div>
                     </div>
 
-                    <a href="tel:7971123254" class="btn btn-primary btn-glow" style="width: 100%; padding: 1rem; font-size: 1.05rem; background: linear-gradient(135deg, #10b981, #059669); font-weight: 800; border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 0.5rem; text-decoration: none;">
-                        <i class="fa-solid fa-phone-volume"></i> Open Dial App to Ring Owner
-                    </a>
+                    <div style="text-align: center; margin-top: 1rem;">
+                        <a href="scan.php?code=<?= urlencode($codeNumber) ?>" class="btn btn-outline" style="font-size: 0.88rem; font-weight: 700; color: #047857; border-color: #a7f3d0; text-decoration: none;">
+                            <i class="fa-solid fa-rotate-left"></i> Make Another Call Request
+                        </a>
+                    </div>
                 </div>
             <?php else: ?>
                 <!-- USER INPUT FORM TO ENTER MOBILE NUMBER & CALL THE OWNER -->
@@ -311,7 +313,7 @@ include __DIR__ . '/includes/header.php';
 
             <div style="background: #f8fafc; padding: 0.85rem; border-radius: var(--radius-md); border: 1px solid #e2e8f0; text-align: center;">
                 <p style="font-size: 0.82rem; color: var(--text-muted); margin: 0; line-height: 1.45;">
-                    <i class="fa-solid fa-shield-halved" style="color: var(--primary);"></i> <strong>100% Number Masking Privacy:</strong> Your entered number is saved as dialer and connects you securely via IVR 7971123254.
+                    <i class="fa-solid fa-shield-halved" style="color: var(--primary);"></i> <strong>100% Privacy Protection:</strong> BulkSMSPlans IVR API bridges the call using agent_number and dialer number securely.
                 </p>
             </div>
         </div>
@@ -372,16 +374,5 @@ include __DIR__ . '/includes/header.php';
         </div>
     <?php endif; ?>
 </div>
-
-<?php if ($callStatus === 'initiated'): ?>
-<script>
-// Automatically launch mobile phone dialer on refreshed call status page
-window.addEventListener('load', function() {
-    setTimeout(function() {
-        window.location.href = 'tel:7971123254';
-    }, 400);
-});
-</script>
-<?php endif; ?>
 
 <?php include __DIR__ . '/includes/footer.php'; ?>
