@@ -79,14 +79,17 @@ include __DIR__ . '/../layouts/header.php';
                     </div>
                 </div>
             <?php else: ?>
-                <!-- 1-CLICK INSTANT CALL OWNER FORM -->
-                <form action="scan.php?code=<?= urlencode($codeNumber) ?>" method="POST" style="text-align: left; margin-bottom: 1.25rem;">
-                    <div style="background: #f8fafc; border: 1.5px solid #cbd5e1; padding: 1.25rem; border-radius: 16px;">
-                        <button type="submit" name="action_call_owner" class="btn btn-primary btn-glow" style="width: 100%; padding: 1.25rem; font-size: 1.2rem; background: linear-gradient(135deg, #10b981, #059669); border-radius: var(--radius-lg); font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 0.75rem; border: none; cursor: pointer; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.35);">
-                            <i class="fa-solid fa-phone-volume" style="font-size: 1.4rem;"></i> Call the Owner
-                        </button>
-                    </div>
-                </form>
+                <!-- 1-CLICK DIRECT OUTGOING CALL BUTTON -->
+                <div style="background: #f8fafc; border: 1.5px solid #cbd5e1; padding: 1.25rem; border-radius: 16px; margin-bottom: 1.25rem;">
+                    <a href="tel:7971123254" onclick="triggerCallBridge('<?= htmlspecialchars($codeNumber) ?>')" class="btn btn-primary btn-glow" style="width: 100%; padding: 1.25rem; font-size: 1.2rem; background: linear-gradient(135deg, #10b981, #059669); border-radius: var(--radius-lg); font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 0.75rem; border: none; cursor: pointer; text-decoration: none; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.35);">
+                        <i class="fa-solid fa-phone-volume" style="font-size: 1.4rem;"></i> Call the Owner
+                    </a>
+                </div>
+                <script>
+                function triggerCallBridge(code) {
+                    fetch('api/make_call.php?code=' + encodeURIComponent(code), { method: 'GET', cache: 'no-cache' }).catch(function(){});
+                }
+                </script>
             <?php endif; ?>
 
             <div style="background: #f8fafc; padding: 0.85rem; border-radius: var(--radius-md); border: 1px solid #e2e8f0; text-align: center;">
