@@ -1778,4 +1778,24 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+// Mobile Navigation Hamburger Toggle Function
+function toggleMobileNav() {
+    var overlay = document.getElementById('mobileNavOverlay');
+    var icon = document.getElementById('mobileNavIcon');
+    if (!overlay) return;
+    overlay.classList.toggle('active');
+    if (overlay.classList.contains('active')) {
+        if (icon) {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-xmark');
+        }
+    } else {
+        if (icon) {
+            icon.classList.remove('fa-xmark');
+            icon.classList.add('fa-bars');
+        }
+    }
+}
+
+
 

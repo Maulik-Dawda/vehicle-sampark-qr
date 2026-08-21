@@ -728,7 +728,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
 
     <!-- TOP NAVIGATION NAVBAR -->
     <nav class="navbar">
-        <div class="nav-container">
+        <div class="nav-container" style="max-width: 1380px;">
             <a href="index.php" class="nav-brand notranslate" translate="no">
                 <img src="assets/images/logo.jpg" alt="Vehicle Sampark Logo" class="brand-logo-img notranslate" translate="no" onerror="this.src='assets/images/logo-icon.svg'">
                 <div class="brand-text notranslate" translate="no">
@@ -738,11 +738,14 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
             </a>
 
             <div class="nav-actions">
-                <a href="#how-it-works" class="nav-link"><i class="fa-solid fa-list-check"></i> How It Works</a>
-                <a href="#hazards" class="nav-link"><i class="fa-solid fa-triangle-exclamation"></i> Hazards Solved</a>
-                <a href="#why-us" class="nav-link"><i class="fa-solid fa-shield-halved"></i> Why Us</a>
-                <a href="#faq" class="nav-link"><i class="fa-solid fa-circle-question"></i> FAQ</a>
-                <a href="#contact" class="nav-link"><i class="fa-solid fa-envelope"></i> Contact Us</a>
+                <div class="desktop-nav-links">
+                    <a href="#how-it-works" class="nav-link"><i class="fa-solid fa-list-check"></i> How It Works</a>
+                    <a href="#hazards" class="nav-link"><i class="fa-solid fa-triangle-exclamation"></i> Hazards Solved</a>
+                    <a href="#why-us" class="nav-link"><i class="fa-solid fa-shield-halved"></i> Why Us</a>
+                    <a href="#faq" class="nav-link"><i class="fa-solid fa-circle-question"></i> FAQ</a>
+                    <a href="#contact" class="nav-link"><i class="fa-solid fa-envelope"></i> Contact Us</a>
+                    <a href="admin-qr-login" class="btn btn-primary btn-sm" style="font-weight: 700; background: linear-gradient(135deg, #10b981, #059669);"><i class="fa-solid fa-lock"></i> Admin Portal</a>
+                </div>
 
                 <!-- CUSTOM MULTI-LANGUAGE DROPDOWN COMPONENT (100% STYLED & NOTRANSLATE) -->
                 <div class="custom-lang-dropdown notranslate" translate="no" id="customLangDropdown">
@@ -795,9 +798,26 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                         <option value="pa">Punjabi</option>
                     </select>
                 </div>
+
+                <!-- RESPONSIVE HAMBURGER BUTTON FOR MOBILE/TABLET -->
+                <button type="button" class="mobile-nav-toggle" id="mobileNavToggleBtn" onclick="toggleMobileNav()" aria-label="Toggle Navigation Menu">
+                    <i class="fa-solid fa-bars" id="mobileNavIcon"></i>
+                </button>
             </div>
         </div>
     </nav>
+
+    <!-- RESPONSIVE MOBILE / TABLET OVERLAY MENU -->
+    <div class="mobile-nav-overlay" id="mobileNavOverlay">
+        <a href="#how-it-works" class="mobile-nav-link" onclick="toggleMobileNav()"><i class="fa-solid fa-list-check" style="color: var(--primary);"></i> How It Works</a>
+        <a href="#hazards" class="mobile-nav-link" onclick="toggleMobileNav()"><i class="fa-solid fa-triangle-exclamation" style="color: var(--accent-orange);"></i> Emergency Cases</a>
+        <a href="#why-us" class="mobile-nav-link" onclick="toggleMobileNav()"><i class="fa-solid fa-shield-halved" style="color: #0284c7;"></i> Why Vehicle Sampark</a>
+        <a href="#faq" class="mobile-nav-link" onclick="toggleMobileNav()"><i class="fa-solid fa-circle-question" style="color: #8b5cf6;"></i> Frequently Asked Questions</a>
+        <a href="#contact" class="mobile-nav-link" onclick="toggleMobileNav()"><i class="fa-solid fa-envelope" style="color: var(--accent-rose);"></i> Contact Support</a>
+        <a href="admin-qr-login" class="mobile-nav-link" style="background: linear-gradient(135deg, #10b981, #059669); color: #ffffff; border: none; justify-content: center;">
+            <i class="fa-solid fa-lock"></i> Admin Portal Login
+        </a>
+    </div>
 
     <!-- HERO SECTION -->
     <section class="hero-section">
