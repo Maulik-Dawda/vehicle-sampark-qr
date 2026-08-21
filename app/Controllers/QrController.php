@@ -1,6 +1,7 @@
 <?php
 // app/Controllers/QrController.php - Handles QR Image Streaming & PDF Tag Generation
 
+require_once __DIR__ . '/../../includes/functions.php';
 require_once __DIR__ . '/../../vendor/autoload.php';
 require_once __DIR__ . '/../Models/QRCodeModel.php';
 require_once __DIR__ . '/../Models/BatchModel.php';

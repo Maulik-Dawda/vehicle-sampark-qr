@@ -1,6 +1,8 @@
 <?php
 // app/Controllers/HomeController.php - Public Landing Page & Contact Controller
 
+require_once __DIR__ . '/../../includes/functions.php';
+
 class HomeController {
     private $pdo;
 

@@ -1,6 +1,7 @@
 <?php
 // app/Controllers/AuthController.php - Admin Authentication Controller
 
+require_once __DIR__ . '/../../includes/functions.php';
 require_once __DIR__ . '/../Models/AdminModel.php';
 
 class AuthController {

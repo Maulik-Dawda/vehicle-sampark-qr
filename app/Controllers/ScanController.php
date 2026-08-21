@@ -1,6 +1,7 @@
 <?php
 // app/Controllers/ScanController.php - Public QR Code Scanner & Call Relay Controller
 
+require_once __DIR__ . '/../../includes/functions.php';
 require_once __DIR__ . '/../Models/QRCodeModel.php';
 require_once __DIR__ . '/../Models/SubmissionModel.php';
 require_once __DIR__ . '/../Models/CallLogModel.php';

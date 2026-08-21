@@ -1,6 +1,7 @@
 <?php
 // app/Controllers/ApiController.php - Admin API & IVR Call Endpoint Controller
 
+require_once __DIR__ . '/../../includes/functions.php';
 require_once __DIR__ . '/../Models/QRCodeModel.php';
 require_once __DIR__ . '/../Models/BatchModel.php';
 require_once __DIR__ . '/../Models/SubmissionModel.php';

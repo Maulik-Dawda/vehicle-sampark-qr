@@ -1,6 +1,7 @@
 <?php
 // app/Controllers/DashboardController.php - Admin Dashboard & Profile Controller
 
+require_once __DIR__ . '/../../includes/functions.php';
 require_once __DIR__ . '/../Models/QRCodeModel.php';
 require_once __DIR__ . '/../Models/BatchModel.php';
 require_once __DIR__ . '/../Models/AdminModel.php';
