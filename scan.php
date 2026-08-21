@@ -198,16 +198,9 @@ include __DIR__ . '/includes/header.php';
             </p>
 
             <!-- DIRECT 1-TAP PHONE CALL BUTTON -->
-            <div style="margin-bottom: 1rem;">
+            <div style="margin-bottom: 1.25rem;">
                 <a href="tel:<?= htmlspecialchars($cleanOwnerMobile) ?>" class="btn btn-primary btn-glow" style="width: 100%; padding: 1.15rem; font-size: 1.15rem; background: linear-gradient(135deg, #10b981, #059669); border-radius: var(--radius-lg); font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 0.65rem; text-decoration: none; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.35);">
                     <i class="fa-solid fa-phone-volume" style="font-size: 1.35rem;"></i> Call Vehicle Owner Directly
-                </a>
-            </div>
-
-            <!-- IVR HOTLINE OPTION -->
-            <div style="margin-bottom: 1.25rem;">
-                <a href="tel:7971123254" class="btn btn-outline" style="width: 100%; padding: 0.9rem; font-size: 0.95rem; font-weight: 700; border-color: #0284c7; color: #0369a1; display: flex; align-items: center; justify-content: center; gap: 0.5rem; text-decoration: none; border-radius: 12px;">
-                    <i class="fa-solid fa-headset"></i> Call IVR Hotline (7971123254)
                 </a>
             </div>
 
