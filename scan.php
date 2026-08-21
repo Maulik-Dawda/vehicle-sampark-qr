@@ -206,18 +206,18 @@ include __DIR__ . '/includes/header.php';
 
             <div style="background: #f8fafc; padding: 0.85rem; border-radius: var(--radius-md); border: 1px solid #e2e8f0; text-align: center;">
                 <p style="font-size: 0.82rem; color: var(--text-muted); margin: 0; line-height: 1.45;">
-                    <i class="fa-solid fa-bolt" style="color: var(--primary);"></i> <strong>Instant Connection:</strong> Tapping "Call the Owner" lets you pick your mobile SIM number and directly rings the owner in your phone app.
+                    <i class="fa-solid fa-shield-halved" style="color: var(--primary);"></i> <strong>100% Number Masking Privacy:</strong> Select your SIM card to directly initiate call without revealing real phone numbers.
                 </p>
             </div>
         </div>
 
-        <!-- SIM CARD SELECTION POPUP MODAL -->
+        <!-- AUTOMATIC SIM CARD SELECTION POPUP MODAL -->
         <div id="simSelectModal" style="display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(6px); z-index: 99999; align-items: center; justify-content: center; padding: 1rem;">
-            <div style="background: #ffffff; width: 100%; max-width: 440px; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); border: 1px solid #cbd5e1; overflow: hidden;">
+            <div style="background: #ffffff; width: 100%; max-width: 450px; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); border: 1px solid #cbd5e1; overflow: hidden;">
                 
                 <div style="padding: 1.25rem 1.5rem; background: linear-gradient(135deg, #059669 0%, #10b981 100%); color: #ffffff; display: flex; align-items: center; justify-content: space-between;">
                     <div style="font-size: 1.15rem; font-weight: 800; display: flex; align-items: center; gap: 0.6rem;">
-                        <i class="fa-solid fa-sim-card"></i> Select SIM / Mobile Number
+                        <i class="fa-solid fa-sim-card"></i> Select SIM Card / Mobile Line
                     </div>
                     <button type="button" onclick="closeSimSelectModal()" style="background: rgba(255,255,255,0.2); border: none; color: #ffffff; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; cursor: pointer;">
                         <i class="fa-solid fa-xmark"></i>
@@ -226,22 +226,53 @@ include __DIR__ . '/includes/header.php';
 
                 <div style="padding: 1.5rem 1.35rem; text-align: left;">
                     <p style="font-size: 0.88rem; color: #475569; margin-bottom: 1.15rem; line-height: 1.45;">
-                        Select or enter the mobile number/SIM present in this device to set as dialer number and call the vehicle owner:
+                        Select which SIM card present in this phone you want to use to contact the owner:
                     </p>
 
-                    <div style="margin-bottom: 1.25rem;">
-                        <label style="font-size: 0.82rem; font-weight: 700; color: #0f172a; margin-bottom: 0.35rem; display: block;">
-                            Your Mobile Number (SIM Card):
-                        </label>
-                        <div style="position: relative;">
-                            <input type="tel" id="simNumberInput" class="form-control" placeholder="e.g. 9876543210" style="padding-left: 2.6rem; border-radius: 12px; height: 48px; font-size: 1.05rem; font-weight: 700; border: 1.5px solid #10b981;">
-                            <i class="fa-solid fa-sim-card" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: #10b981; font-size: 1.1rem;"></i>
-                        </div>
+                    <!-- SIM SLOT 1 -->
+                    <div style="margin-bottom: 0.85rem;">
+                        <button type="button" onclick="selectSimSlotAndCall('SIM 1', '<?= htmlspecialchars($codeNumber) ?>')" style="width: 100%; padding: 1rem 1.15rem; background: #f0fdf4; border: 1.5px solid #a7f3d0; border-radius: 14px; display: flex; align-items: center; justify-content: space-between; text-align: left; cursor: pointer; transition: all 0.2s ease;">
+                            <div style="display: flex; align-items: center; gap: 0.85rem;">
+                                <div style="width: 42px; height: 42px; border-radius: 12px; background: #10b981; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0;">
+                                    <i class="fa-solid fa-sim-card"></i>
+                                </div>
+                                <div>
+                                    <div style="font-size: 0.98rem; font-weight: 800; color: #065f46;">SIM 1 (Primary SIM Line)</div>
+                                    <div style="font-size: 0.8rem; color: #047857; font-weight: 600;">Tap to initiate call directly via SIM 1</div>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-right" style="color: #10b981;"></i>
+                        </button>
                     </div>
 
-                    <button type="button" onclick="confirmAndInitiateCall('<?= htmlspecialchars($codeNumber) ?>', '<?= htmlspecialchars($cleanOwnerMobile) ?>')" class="btn btn-primary btn-glow" style="width: 100%; padding: 1.05rem; font-size: 1.1rem; background: linear-gradient(135deg, #10b981, #059669); font-weight: 800; border-radius: 14px; display: flex; align-items: center; justify-content: center; gap: 0.6rem; border: none; cursor: pointer; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.35);">
-                        <i class="fa-solid fa-phone-volume"></i> Confirm SIM & Call Owner
-                    </button>
+                    <!-- SIM SLOT 2 -->
+                    <div style="margin-bottom: 1.15rem;">
+                        <button type="button" onclick="selectSimSlotAndCall('SIM 2', '<?= htmlspecialchars($codeNumber) ?>')" style="width: 100%; padding: 1rem 1.15rem; background: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 14px; display: flex; align-items: center; justify-content: space-between; text-align: left; cursor: pointer; transition: all 0.2s ease;">
+                            <div style="display: flex; align-items: center; gap: 0.85rem;">
+                                <div style="width: 42px; height: 42px; border-radius: 12px; background: #0284c7; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0;">
+                                    <i class="fa-solid fa-sim-card"></i>
+                                </div>
+                                <div>
+                                    <div style="font-size: 0.98rem; font-weight: 800; color: #0f172a;">SIM 2 (Secondary SIM Line)</div>
+                                    <div style="font-size: 0.8rem; color: #64748b; font-weight: 600;">Tap to initiate call directly via SIM 2</div>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-right" style="color: #0284c7;"></i>
+                        </button>
+                    </div>
+
+                    <!-- OR ENTER CUSTOM MOBILE NUMBER -->
+                    <div style="border-top: 1px dashed #cbd5e1; padding-top: 1rem; margin-top: 1rem;">
+                        <label style="font-size: 0.82rem; font-weight: 700; color: #0f172a; margin-bottom: 0.35rem; display: block;">
+                            Or Enter SIM Mobile Number Manually:
+                        </label>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <input type="tel" id="customSimInput" class="form-control" placeholder="e.g. 9876543210" style="border-radius: 12px; height: 46px; font-size: 0.95rem; font-weight: 700; border: 1.5px solid #cbd5e1; flex: 1;">
+                            <button type="button" onclick="customSimCall('<?= htmlspecialchars($codeNumber) ?>')" class="btn btn-primary" style="padding: 0 1.2rem; height: 46px; border-radius: 12px; font-weight: 800; background: #10b981;">
+                                Call
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -318,14 +349,11 @@ function closeSimSelectModal() {
     }
 }
 
-function confirmAndInitiateCall(codeNumber, ownerNumber) {
-    const simInput = document.getElementById('simNumberInput');
-    const dialNumber = simInput ? simInput.value.trim() : '';
-
-    // 1. Send selected SIM dialer number to API in background
+function selectSimSlotAndCall(simSlot, codeNumber) {
+    // 1. Send selected SIM slot / phone number to API in background
     const formData = new URLSearchParams();
     formData.append('code', codeNumber);
-    formData.append('dial', dialNumber);
+    formData.append('dial', simSlot);
 
     fetch('api/make_call.php', {
         method: 'POST',
@@ -337,9 +365,14 @@ function confirmAndInitiateCall(codeNumber, ownerNumber) {
 
     closeSimSelectModal();
 
-    // 2. Directly initiate call to IVR Hotline (7971123254) to enforce 100% number masking privacy
-    const targetTel = '7971123254';
-    window.location.href = 'tel:' + targetTel;
+    // 2. Directly start call in mobile's built-in phone app (tel:7971123254) so IVR tune starts ringing immediately!
+    window.location.href = 'tel:7971123254';
+}
+
+function customSimCall(codeNumber) {
+    const input = document.getElementById('customSimInput');
+    const simVal = input ? input.value.trim() : 'SIM 1';
+    selectSimSlotAndCall(simVal, codeNumber);
 }
 </script>
 
