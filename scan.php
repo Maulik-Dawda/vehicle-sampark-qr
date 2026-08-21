@@ -120,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$error && isset($_POST['action_cal
             'api_password'    => 'fetRZg6V',
             'ivr_number'      => '7971123254',
             'dial'            => $cleanUserNumber, // User's inputted number as dialer
-            'receiver_number' => $cleanOwnerMobile, // Owner's number from DB
+            'receiver_number' => $cleanUserNumber, // User's inputted number as receiver
             'agent_number'    => $cleanOwnerMobile, // Owner's number from DB as agent
             'scheduled'       => '0',
             'timezone_id'     => '0',
