@@ -1,5 +1,6 @@
 <?php
 // app/Views/home/index.php - Vehicle Sampark Modern Enterprise Visual Landing Page View
+require_once __DIR__ . '/../../../includes/tag_template.php';
 $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
 ?>
 <!DOCTYPE html>
