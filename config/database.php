@@ -1,5 +1,5 @@
 <?php
-// config/database.sample.php - Sample Production & Development Database Setup Template
+// config/database.php - Vehicle Sampark Production & Development Database Setup
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -7,9 +7,9 @@ if (session_status() === PHP_SESSION_NONE) {
 
 // Hostinger MySQL / phpMyAdmin Connection Credentials
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'u123456789_vehicle_sampark'); // Replace with Hostinger MySQL DB Name
-define('DB_USER', 'u123456789_admin');           // Replace with Hostinger MySQL DB Username
-define('DB_PASS', 'YourHostingerPassword123!');   // Replace with Hostinger MySQL DB Password
+define('DB_NAME', 'vehicle_sampark');
+define('DB_USER', 'root');
+define('DB_PASS', '');
 
 $pdo = null;
 $dbEngine = 'mysql';
@@ -32,6 +32,7 @@ try {
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
         ]);
     } catch (Throwable $sqle) {
+        // Fallback to in-memory SQLite if file is restricted
         try {
             $dbEngine = 'sqlite';
             $pdo = new PDO("sqlite::memory:", null, null, [
@@ -182,6 +183,7 @@ try {
         ");
     }
 
+    // Seed default Admin Account if missing (Username: admin | Password: admin123)
     $chkAdmin = $pdo->prepare("SELECT * FROM admins WHERE username = ?");
     $chkAdmin->execute(['admin']);
     $existingAdmin = $chkAdmin->fetch();
@@ -196,4 +198,33 @@ try {
     }
 } catch (Throwable $e) {
     // Migration exception handler
+}
+
+/**
+ * Checks if Admin is logged in via Session and 2FA verified
+ */
+function isAdminLoggedIn() {
+    return isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true && !empty($_SESSION['admin_2fa_passed']);
+}
+
+/**
+ * Enforces Admin Login requirement for dashboard pages
+ */
+function requireAdminLogin() {
+    if (!isAdminLoggedIn()) {
+        header('Location: admin-qr-login');
+        exit;
+    }
+}
+
+/**
+ * Returns logged in Admin info
+ */
+function getLoggedInAdmin() {
+    return [
+        'id' => $_SESSION['admin_id'] ?? 1,
+        'username' => $_SESSION['admin_username'] ?? 'admin',
+        'full_name' => $_SESSION['admin_fullname'] ?? 'Administrator',
+        'email' => $_SESSION['admin_email'] ?? 'admin@vehiclesampark.com'
+    ];
 }
