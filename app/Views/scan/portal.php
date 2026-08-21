@@ -56,59 +56,53 @@ include __DIR__ . '/../layouts/header.php';
             </div>
             
             <?php if ($callStatus === 'initiated'): ?>
-                <!-- LIVE WEBRTC FREE MASKED CALL ACTIVE SCREEN -->
-                <div style="background: #0f172a; border: 2px solid #10b981; padding: 1.75rem 1.25rem; border-radius: 20px; margin-bottom: 1.5rem; text-align: center; color: #ffffff; box-shadow: 0 15px 35px rgba(16, 185, 129, 0.25);">
-                    <div style="width: 72px; height: 72px; background: rgba(16, 185, 129, 0.15); border: 2.5px solid #10b981; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem; animation: pulseGlow 1.8s infinite;">
-                        <i class="fa-solid fa-phone-volume" style="color: #10b981; font-size: 2rem;"></i>
+                <!-- REFRESHED CALL INITIATED CONFIRMATION BANNER (IVR EXECUTED) -->
+                <div style="background: #ecfdf5; border: 2px solid #a7f3d0; padding: 1.5rem 1.25rem; border-radius: 16px; margin-bottom: 1.5rem; text-align: left;">
+                    <div style="font-weight: 800; color: #065f46; font-size: 1.15rem; margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fa-solid fa-circle-check" style="color: #10b981; font-size: 1.4rem;"></i> Inbound Masked Call Initiated!
                     </div>
-
-                    <div style="font-weight: 800; color: #10b981; font-size: 1.25rem; margin-bottom: 0.3rem;">
-                        Free Masked Call Request Active
-                    </div>
-                    <p style="font-size: 0.88rem; color: #94a3b8; margin-bottom: 1.25rem; line-height: 1.45;">
-                        Your free web audio call request has been created. The vehicle owner has been alerted with 100% phone number privacy protection.
+                    <p style="font-size: 0.88rem; color: #047857; margin-bottom: 1rem; line-height: 1.5;">
+                        Your call request has been processed. The IVR Hotline (<strong>07971123254</strong>) is now routing the call to the vehicle owner securely.
                     </p>
 
-                    <div style="background: rgba(255, 255, 255, 0.06); padding: 0.85rem 1rem; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1); margin-bottom: 1.25rem;">
-                        <div style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 0.25rem;">Connected Vehicle Owner:</div>
-                        <div style="font-size: 1.05rem; font-weight: 800; color: #38bdf8; font-family: monospace;">
-                            <i class="fa-solid fa-shield-halved" style="color: #38bdf8;"></i> Registered Owner Alerted (100% Masked)
+                    <div style="background: #ffffff; padding: 0.85rem 1rem; border-radius: 10px; border: 1px solid #bbf7d0; margin-bottom: 1rem;">
+                        <div style="font-size: 0.82rem; color: #64748b; margin-bottom: 0.2rem;">Connected Agent (Vehicle Owner):</div>
+                        <div style="font-size: 1.05rem; font-weight: 800; color: #0284c7; font-family: monospace;">
+                            <i class="fa-solid fa-user-shield" style="color: #0284c7;"></i> Connected via Inbound IVR (07971123254)
                         </div>
                     </div>
 
-                    <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-                        <?php if (!empty($ownerDetails['clean_owner_mobile'])): ?>
-                            <a href="https://wa.me/91<?= urlencode($ownerDetails['clean_owner_mobile']) ?>?text=<?= urlencode("Hi, I am standing at your vehicle. I scanned your Vehicle Sampark QR Code ({$codeNumber}). Please move your vehicle or check!") ?>" target="_blank" class="btn btn-primary" style="font-size: 1.05rem; font-weight: 800; background: linear-gradient(135deg, #25D366, #128C7E); border: none; text-decoration: none; justify-content: center; padding: 0.95rem;">
-                                <i class="fa-brands fa-whatsapp" style="font-size: 1.35rem;"></i> Instant Free WhatsApp Voice / Message
-                            </a>
-                        <?php endif; ?>
-                        <a href="scan.php?code=<?= urlencode($codeNumber) ?>" class="btn btn-outline" style="font-size: 0.88rem; font-weight: 700; color: #ffffff; border-color: rgba(255, 255, 255, 0.2); text-decoration: none; justify-content: center;">
-                            <i class="fa-solid fa-rotate-left"></i> End Call / Back
+                    <div style="display: flex; flex-direction: column; gap: 0.65rem; margin-top: 1rem;">
+                        <a href="tel:07971123254" class="btn btn-primary" style="font-size: 0.95rem; font-weight: 700; background: linear-gradient(135deg, #10b981, #059669); text-decoration: none; justify-content: center; padding: 0.9rem;">
+                            <i class="fa-solid fa-phone"></i> Dial Inbound IVR Line (07971123254) Directly
+                        </a>
+                        <a href="scan.php?code=<?= urlencode($codeNumber) ?>" class="btn btn-outline" style="font-size: 0.88rem; font-weight: 700; color: #047857; border-color: #a7f3d0; text-decoration: none; justify-content: center;">
+                            <i class="fa-solid fa-rotate-left"></i> Make Another Call Request
                         </a>
                     </div>
                 </div>
             <?php else: ?>
-                <!-- 1-CLICK FREE INSTANT MASKED CALL CONTROLS -->
+                <!-- 1-CLICK INSTANT CALL OWNER CONTROLS -->
                 <div style="background: #f8fafc; border: 1.5px solid #cbd5e1; padding: 1.25rem; border-radius: 16px; margin-bottom: 1.25rem;">
-                    <!-- Option 1: Free Masked Call -->
+                    <!-- Option 1: Inbound Masked IVR Call -->
                     <form action="scan.php?code=<?= urlencode($codeNumber) ?>" method="POST" style="margin-bottom: 0.75rem;">
                         <button type="submit" name="action_call_owner" class="btn btn-primary btn-glow" style="width: 100%; padding: 1.2rem; font-size: 1.15rem; background: linear-gradient(135deg, #10b981, #059669); border-radius: var(--radius-lg); font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 0.75rem; border: none; cursor: pointer; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.35);">
-                            <i class="fa-solid fa-phone-volume" style="font-size: 1.35rem;"></i> Call the Owner (100% Free Masked Call)
+                            <i class="fa-solid fa-phone-volume" style="font-size: 1.35rem;"></i> Call the Owner (Inbound Masked Call)
                         </button>
                     </form>
 
-                    <!-- Option 2: Free Instant WhatsApp Contact -->
-                    <?php if (!empty($ownerDetails['clean_owner_mobile'])): ?>
-                        <a href="https://wa.me/91<?= urlencode($ownerDetails['clean_owner_mobile']) ?>?text=<?= urlencode("Hi, I am standing at your vehicle. I scanned your Vehicle Sampark QR Code ({$codeNumber}). Please move your vehicle or check!") ?>" target="_blank" class="btn" style="width: 100%; padding: 1.1rem; font-size: 1.05rem; background: linear-gradient(135deg, #25D366, #128C7E); color: #ffffff; border-radius: var(--radius-lg); font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 0.65rem; text-decoration: none; box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);">
-                            <i class="fa-brands fa-whatsapp" style="font-size: 1.4rem;"></i> Free WhatsApp Voice / Chat Contact
+                    <!-- Option 2: Direct Dial Inbound IVR Line -->
+                    <div style="text-align: center; margin-top: 0.5rem;">
+                        <a href="tel:07971123254" style="font-size: 0.9rem; font-weight: 700; color: #0284c7; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem;">
+                            <i class="fa-solid fa-square-phone" style="font-size: 1.1rem;"></i> Direct Dial Inbound IVR Line (07971123254)
                         </a>
-                    <?php endif; ?>
+                    </div>
                 </div>
             <?php endif; ?>
 
             <div style="background: #ecfdf5; padding: 0.85rem; border-radius: var(--radius-md); border: 1px solid #a7f3d0; text-align: center;">
                 <p style="font-size: 0.82rem; color: #047857; margin: 0; line-height: 1.45; font-weight: 600;">
-                    <i class="fa-solid fa-shield-halved" style="color: var(--primary);"></i> <strong>100% Free Masked Inbound Call:</strong> Zero API fees. Mobile numbers are protected and never revealed.
+                    <i class="fa-solid fa-shield-halved" style="color: var(--primary);"></i> <strong>100% Inbound Masked Calling Active:</strong> Direct Dial-in via <strong>07971123254</strong>. Mobile numbers are protected and never revealed.
                 </p>
             </div>
         </div>

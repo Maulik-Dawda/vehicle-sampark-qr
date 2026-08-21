@@ -253,7 +253,7 @@ function viewSubmissionDetails(codeNumber) {
                         html += `<tr>
                             <td>${log.created_at}</td>
                             <td><strong style="color: #047857;">${log.caller_phone || 'Direct Caller'}</strong></td>
-                            <td>${log.ivr_number || '7971123254'}</td>
+                            <td>${log.ivr_number || '07971123254'}</td>
                         </tr>`;
                     });
                     html += `   </tbody>
