@@ -1,24 +1,13 @@
 <?php
-// logout.php - Vehicle Sampark Admin Session Logout Script
+// logout.php - Admin Logout Entry Point
 
-require_once __DIR__ . '/config/database.php';
-
-// Unset all session variables
-$_SESSION = array();
-
-// Destroy session cookie if present
-if (ini_get("session.use_cookies")) {
-    $params = session_get_cookie_params();
-    setcookie(
-        session_name(), '', time() - 42000,
-        $params["path"], $params["domain"],
-        $params["secure"], $params["httponly"]
-    );
+if (file_exists(__DIR__ . '/config/database.php')) {
+    require_once __DIR__ . '/config/database.php';
+} elseif (file_exists(__DIR__ . '/config/database.sample.php')) {
+    require_once __DIR__ . '/config/database.sample.php';
 }
+require_once __DIR__ . '/includes/functions.php';
+require_once __DIR__ . '/app/Controllers/AuthController.php';
 
-// Destroy session
-session_destroy();
-
-// Redirect to login page
-header('Location: login.php');
-exit;
+$controller = new AuthController($pdo);
+$controller->logout();
