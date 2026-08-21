@@ -62,7 +62,7 @@ include __DIR__ . '/../layouts/header.php';
                         <i class="fa-solid fa-circle-check" style="color: #10b981; font-size: 1.4rem;"></i> Calling Initiated Towards Vehicle Owner!
                     </div>
                     <p style="font-size: 0.88rem; color: #047857; margin-bottom: 1rem; line-height: 1.5;">
-                        Your call request has been automatically routed to the Vehicle Owner. The IVR system (7971123254) is now ringing the owner's phone securely.
+                        Your call request has been automatically processed. The IVR Hotline (7971123254) is now ringing the vehicle owner's phone securely.
                     </p>
 
                     <div style="background: #ffffff; padding: 0.85rem 1rem; border-radius: 10px; border: 1px solid #bbf7d0; margin-bottom: 1rem;">
@@ -72,18 +72,29 @@ include __DIR__ . '/../layouts/header.php';
                         </div>
                     </div>
 
-                    <div style="text-align: center; margin-top: 1rem;">
-                        <a href="scan.php?code=<?= urlencode($codeNumber) ?>" class="btn btn-outline" style="font-size: 0.88rem; font-weight: 700; color: #047857; border-color: #a7f3d0; text-decoration: none;">
+                    <div style="display: flex; flex-direction: column; gap: 0.65rem; margin-top: 1rem;">
+                        <a href="tel:7971123254" class="btn btn-primary" style="font-size: 0.95rem; font-weight: 700; background: linear-gradient(135deg, #10b981, #059669); text-decoration: none; justify-content: center;">
+                            <i class="fa-solid fa-phone"></i> Dial IVR Hotline (7971123254) Directly
+                        </a>
+                        <a href="scan.php?code=<?= urlencode($codeNumber) ?>" class="btn btn-outline" style="font-size: 0.88rem; font-weight: 700; color: #047857; border-color: #a7f3d0; text-decoration: none; justify-content: center;">
                             <i class="fa-solid fa-rotate-left"></i> Make Another Call Request
                         </a>
                     </div>
                 </div>
             <?php else: ?>
-                <!-- 1-CLICK DIRECT OUTGOING CALL BUTTON -->
+                <!-- 1-CLICK INSTANT CALL OWNER CONTROLS -->
                 <div style="background: #f8fafc; border: 1.5px solid #cbd5e1; padding: 1.25rem; border-radius: 16px; margin-bottom: 1.25rem;">
-                    <a href="tel:7971123254" onclick="triggerCallBridge('<?= htmlspecialchars($codeNumber) ?>')" class="btn btn-primary btn-glow" style="width: 100%; padding: 1.25rem; font-size: 1.2rem; background: linear-gradient(135deg, #10b981, #059669); border-radius: var(--radius-lg); font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 0.75rem; border: none; cursor: pointer; text-decoration: none; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.35);">
-                        <i class="fa-solid fa-phone-volume" style="font-size: 1.4rem;"></i> Call the Owner
-                    </a>
+                    <form action="scan.php?code=<?= urlencode($codeNumber) ?>" method="POST" style="margin-bottom: 0.75rem;">
+                        <button type="submit" name="action_call_owner" class="btn btn-primary btn-glow" style="width: 100%; padding: 1.25rem; font-size: 1.2rem; background: linear-gradient(135deg, #10b981, #059669); border-radius: var(--radius-lg); font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 0.75rem; border: none; cursor: pointer; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.35);">
+                            <i class="fa-solid fa-phone-volume" style="font-size: 1.4rem;"></i> Call the Owner
+                        </button>
+                    </form>
+
+                    <div style="text-align: center; margin-top: 0.5rem;">
+                        <a href="tel:7971123254" onclick="triggerCallBridge('<?= htmlspecialchars($codeNumber) ?>')" style="font-size: 0.85rem; font-weight: 700; color: #0284c7; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem;">
+                            <i class="fa-solid fa-square-phone"></i> Direct Dial IVR Hotline (7971123254)
+                        </a>
+                    </div>
                 </div>
                 <script>
                 function triggerCallBridge(code) {
