@@ -45,6 +45,63 @@ require_once __DIR__ . '/../../../includes/header.php';
     transform: translateY(-3px);
     box-shadow: 0 10px 25px rgba(0,0,0,0.08);
 }
+
+/* SETTINGS GUIDANCE MODAL STYLES */
+.settings-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(6px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 999999;
+    padding: 1rem;
+}
+
+.settings-modal-card {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 1.75rem 1.5rem;
+    max-width: 480px;
+    width: 100%;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+    position: relative;
+    animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.step-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 0.85rem 1rem;
+    border-radius: 14px;
+    margin-bottom: 0.75rem;
+}
+
+.step-num {
+    background: #0284c7;
+    color: #ffffff;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+}
 </style>
 
 <div class="container garage-page-container">
@@ -86,10 +143,13 @@ require_once __DIR__ . '/../../../includes/header.php';
                 Please tap <strong>Allow</strong> on your mobile browser popup to enable GPS location & fetch nearest garages.
             </div>
 
-            <!-- EXPLICIT RETRY / ENABLE GPS BUTTON -->
-            <div id="gpsActionArea" style="margin-top: 0.85rem; display: none;">
-                <button id="enableGpsBtn" class="btn btn-primary" style="padding: 0.75rem 1.4rem; font-size: 0.92rem; font-weight: 800; background: linear-gradient(135deg, #0284c7, #0369a1); border: none; border-radius: 12px; cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem; box-shadow: 0 6px 18px rgba(2, 132, 199, 0.3);">
-                    <i class="fa-solid fa-location-crosshairs" style="font-size: 1.1rem;"></i> Turn On Mobile GPS / Grant Permission
+            <!-- ACTION BUTTONS FOR LOCATION PERMISSION & MOBILE SETTINGS -->
+            <div id="gpsActionArea" style="margin-top: 0.85rem; display: flex; flex-wrap: wrap; gap: 0.65rem; justify-content: center;">
+                <button id="enableGpsBtn" class="btn btn-primary" style="padding: 0.75rem 1.25rem; font-size: 0.9rem; font-weight: 800; background: linear-gradient(135deg, #0284c7, #0369a1); border: none; border-radius: 12px; cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem; box-shadow: 0 6px 18px rgba(2, 132, 199, 0.3);">
+                    <i class="fa-solid fa-location-crosshairs" style="font-size: 1.1rem;"></i> Turn On GPS / Grant Permission
+                </button>
+                <button id="openSettingsBtn" class="btn" style="padding: 0.75rem 1.25rem; font-size: 0.9rem; font-weight: 800; background: #fff7ed; color: #c2410c; border: 1.5px solid #ffedd5; border-radius: 12px; cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem;">
+                    <i class="fa-solid fa-gear" style="font-size: 1.05rem;"></i> How to Unblock Permission in Mobile Settings
                 </button>
             </div>
         </div>
@@ -108,6 +168,55 @@ require_once __DIR__ . '/../../../includes/header.php';
     </div>
 </div>
 
+<!-- SETTINGS GUIDANCE MODAL FOR MOBILE USERS -->
+<div id="settingsModal" class="settings-modal-overlay">
+    <div class="settings-modal-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; border-bottom: 1px solid #f1f5f9; padding-bottom: 0.85rem;">
+            <h2 style="font-size: 1.25rem; font-weight: 800; color: #0f172a; margin: 0; display: flex; align-items: center; gap: 0.5rem;">
+                <i class="fa-solid fa-sliders" style="color: #0284c7;"></i> Enable Location in Settings
+            </h2>
+            <button id="closeModalBtn" style="background: none; border: none; font-size: 1.4rem; color: #64748b; cursor: pointer; padding: 0.2rem;">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <p style="font-size: 0.88rem; color: #475569; margin-bottom: 1rem; line-height: 1.5;">
+            Follow these 3 quick steps to enable location access for this site in your mobile browser:
+        </p>
+
+        <!-- OS SPECIFIC INSTRUCTIONS -->
+        <div id="settingsStepsContainer">
+            <div class="step-box">
+                <div class="step-num">1</div>
+                <div style="font-size: 0.88rem; color: #1e293b; line-height: 1.4;">
+                    Tap the <strong>🔒 Lock / Settings Icon</strong> located at the top left of your mobile browser address bar.
+                </div>
+            </div>
+            <div class="step-box">
+                <div class="step-num">2</div>
+                <div style="font-size: 0.88rem; color: #1e293b; line-height: 1.4;">
+                    Select <strong>Permissions</strong> or <strong>Site Settings</strong> and tap <strong>Location</strong>.
+                </div>
+            </div>
+            <div class="step-box">
+                <div class="step-num">3</div>
+                <div style="font-size: 0.88rem; color: #1e293b; line-height: 1.4;">
+                    Switch setting to <strong>Allow</strong> or <strong>Turn On GPS</strong>, then reload this page.
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 1.25rem; display: flex; flex-direction: column; gap: 0.65rem;">
+            <button onclick="window.location.reload();" class="btn btn-primary" style="width: 100%; padding: 0.9rem; font-size: 0.95rem; font-weight: 800; background: linear-gradient(135deg, #10b981, #059669); border: none; border-radius: 12px; cursor: pointer;">
+                <i class="fa-solid fa-rotate"></i> I Have Allowed Permission — Reload Page
+            </button>
+            <a href="https://www.google.com/maps/search/car+garage+and+service+center+near+me" target="_blank" class="btn btn-outline" style="width: 100%; padding: 0.85rem; font-size: 0.88rem; font-weight: 700; color: #0284c7; border-color: #bae6fd; text-decoration: none; justify-content: center;">
+                <i class="fa-solid fa-map-pin"></i> Or Open Google Maps App Natively
+            </a>
+        </div>
+    </div>
+</div>
+
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     const locationStatusBox = document.getElementById("locationStatusBox");
@@ -115,10 +224,14 @@ document.addEventListener("DOMContentLoaded", function() {
     const locationSubText = document.getElementById("locationSubText");
     const gpsActionArea = document.getElementById("gpsActionArea");
     const enableGpsBtn = document.getElementById("enableGpsBtn");
+    const openSettingsBtn = document.getElementById("openSettingsBtn");
     const masterGoogleMapsBtn = document.getElementById("masterGoogleMapsBtn");
     const garagesList = document.getElementById("garagesList");
 
-    // Comprehensive list of Garages & Service Centers
+    const settingsModal = document.getElementById("settingsModal");
+    const closeModalBtn = document.getElementById("closeModalBtn");
+
+    // Garages dataset
     const baseGarages = [
         {
             name: "Bosch Authorized Car Service Center",
@@ -234,7 +347,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    function fetchLocation() {
+    function requestBrowserLocation() {
         locationStatusBox.style.background = "#f0f9ff";
         locationStatusBox.style.borderColor = "#bae6fd";
         locationStatusText.style.color = "#0369a1";
@@ -264,10 +377,10 @@ document.addEventListener("DOMContentLoaded", function() {
                     locationStatusBox.style.background = "#fff7ed";
                     locationStatusBox.style.borderColor = "#ffedd5";
                     locationStatusText.style.color = "#c2410c";
-                    locationStatusText.innerHTML = `<i class="fa-solid fa-location-slash" style="color: #f97316; font-size: 1.3rem;"></i> GPS / Location Access Not Granted`;
+                    locationStatusText.innerHTML = `<i class="fa-solid fa-location-slash" style="color: #f97316; font-size: 1.3rem;"></i> Location Access Denied / Off`;
                     locationSubText.style.color = "#9a3412";
-                    locationSubText.innerHTML = "Mobile GPS access was not granted or turned off. Tap the button below to retry permission & activate GPS.";
-                    gpsActionArea.style.display = "block";
+                    locationSubText.innerHTML = "Permission is blocked in mobile browser settings. Tap below for permission settings guide or retry.";
+                    gpsActionArea.style.display = "flex";
 
                     masterGoogleMapsBtn.href = "https://www.google.com/maps/search/car+garage+and+service+center+near+me";
 
@@ -284,12 +397,51 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // Trigger location on load
-    fetchLocation();
+    // Check navigator.permissions API if available
+    if (navigator.permissions && navigator.permissions.query) {
+        navigator.permissions.query({ name: 'geolocation' }).then(function(result) {
+            if (result.state === 'denied') {
+                locationStatusBox.style.background = "#fff7ed";
+                locationStatusBox.style.borderColor = "#ffedd5";
+                locationStatusText.style.color = "#c2410c";
+                locationStatusText.innerHTML = `<i class="fa-solid fa-user-lock" style="color: #ea580c; font-size: 1.3rem;"></i> Location Blocked in Mobile Settings`;
+                locationSubText.style.color = "#9a3412";
+                locationSubText.innerHTML = "Location permission is blocked for this site. Tap <strong>How to Unblock Permission</strong> below to turn it back on in 2 seconds.";
+                gpsActionArea.style.display = "flex";
+                renderGarages(null, null);
+            } else {
+                requestBrowserLocation();
+            }
 
-    // Re-trigger location request when user taps 'Turn On Mobile GPS'
+            result.onchange = function() {
+                if (result.state === 'granted') {
+                    requestBrowserLocation();
+                }
+            };
+        }).catch(function() {
+            requestBrowserLocation();
+        });
+    } else {
+        requestBrowserLocation();
+    }
+
+    // Interactive button listeners
     enableGpsBtn.addEventListener("click", function() {
-        fetchLocation();
+        requestBrowserLocation();
+    });
+
+    openSettingsBtn.addEventListener("click", function() {
+        settingsModal.style.display = "flex";
+    });
+
+    closeModalBtn.addEventListener("click", function() {
+        settingsModal.style.display = "none";
+    });
+
+    settingsModal.addEventListener("click", function(e) {
+        if (e.target === settingsModal) {
+            settingsModal.style.display = "none";
+        }
     });
 });
 </script>
