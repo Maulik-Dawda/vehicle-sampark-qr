@@ -4,18 +4,18 @@ include __DIR__ . '/../layouts/header.php';
 ?>
 
 <style>
-/* PREVENT MOBILE VIRTUAL KEYBOARD OVERLAP & FORCE TOP SCROLL */
+/* PREVENT MOBILE VIRTUAL KEYBOARD OVERLAP & ZERO-LAG NATIVE SCROLLING */
 .public-form-container {
     max-width: 580px;
-    margin: 1rem auto 4rem auto;
+    margin: 1rem auto 3rem auto;
     padding: 0 0.5rem;
     box-sizing: border-box;
-    transition: padding-bottom 0.3s ease;
+    transition: padding-bottom 0.2s ease;
 }
 
 @media (max-width: 640px) {
     .public-form-container {
-        padding-bottom: 85vh !important; /* Huge bottom space so any input can scroll right to the top of screen */
+        padding-bottom: 60vh !important; /* Bottom space so lowest inputs scroll comfortably above soft keyboard */
     }
 }
 
@@ -29,17 +29,18 @@ include __DIR__ . '/../layouts/header.php';
     text-align: center;
 }
 
-/* ACTIVE FOCUS HIGHLIGHT FOR MOBILE INPUTS */
-.form-group {
+/* NATIVE BROWSER SCROLL-MARGIN FOR 60FPS ZERO-LAG ALIGNMENT BELOW HEADER */
+.form-group, input.form-control {
+    scroll-margin-top: 95px !important;
     padding: 0.5rem;
     border-radius: 14px;
-    transition: all 0.25s ease;
+    transition: background 0.2s ease, border-color 0.2s ease;
 }
 
 .form-group.field-focused {
     background: #f0f9ff !important;
     border: 2px solid #0284c7 !important;
-    box-shadow: 0 8px 25px rgba(2, 132, 199, 0.25) !important;
+    box-shadow: 0 8px 20px rgba(2, 132, 199, 0.2) !important;
 }
 
 .form-group.field-focused label {
@@ -251,61 +252,51 @@ include __DIR__ . '/../layouts/header.php';
 </div>
 
 <script>
-// UNCONDITIONAL DIRECT-TO-TOP MOBILE FIELD SCROLL ENGINE
+// SILKY SMOOTH ZERO-LAG NATIVE SCROLL ENGINE
 document.addEventListener("DOMContentLoaded", function() {
     const formContainer = document.getElementById("publicFormContainer");
     const formGroups = document.querySelectorAll("#ownerRegisterForm .form-group");
     const inputs = document.querySelectorAll("#ownerRegisterForm input");
 
-    function forceScrollToTop(inputEl) {
+    let scrollTimer = null;
+
+    // Instantly cancel JS auto-scroll if user touches or swipes the screen
+    function cancelPendingScroll() {
+        if (scrollTimer) {
+            clearTimeout(scrollTimer);
+            scrollTimer = null;
+        }
+    }
+
+    window.addEventListener("touchstart", cancelPendingScroll, { passive: true });
+    window.addEventListener("touchmove", cancelPendingScroll, { passive: true });
+    window.addEventListener("wheel", cancelPendingScroll, { passive: true });
+
+    function smoothScrollToInput(inputEl) {
         if (!inputEl) return;
-        
+        cancelPendingScroll();
+
         const parentGroup = inputEl.closest(".form-group") || inputEl;
         
-        // Remove previous field highlights
         formGroups.forEach(fg => fg.classList.remove("field-focused"));
         if (parentGroup.classList) {
             parentGroup.classList.add("field-focused");
         }
 
-        // Expand bottom container padding to 85vh so any input can scroll right to top of screen
         if (formContainer) {
-            formContainer.style.paddingBottom = "85vh";
+            formContainer.style.paddingBottom = "60vh";
         }
 
-        // Calculate absolute top position of active form group with 95px clearance below top header bar
-        const rect = parentGroup.getBoundingClientRect();
-        const currentScroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-        const headerEl = document.querySelector(".navbar") || document.querySelector("header");
-        const headerOffset = headerEl ? (headerEl.offsetHeight + 20) : 95;
-        const exactTopY = Math.max(0, rect.top + currentScroll - headerOffset);
-
-        // Staggered scroll triggers to lock input at very top as keyboard slides up
-        const intervals = [0, 50, 150, 300, 500, 750, 1000];
-        intervals.forEach(function(ms) {
-            setTimeout(function() {
-                window.scrollTo({
-                    top: exactTopY,
-                    behavior: ms > 0 ? "smooth" : "auto"
-                });
-                document.documentElement.scrollTop = exactTopY;
-                document.body.scrollTop = exactTopY;
-            }, ms);
-        });
+        // Single smooth scroll call using native CSS scroll-margin-top (95px clearance)
+        scrollTimer = setTimeout(function() {
+            parentGroup.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+        }, 220);
     }
 
     inputs.forEach(function(input) {
         input.addEventListener("focus", function() {
-            forceScrollToTop(input);
+            smoothScrollToInput(input);
         });
-
-        input.addEventListener("click", function() {
-            forceScrollToTop(input);
-        });
-
-        input.addEventListener("touchstart", function() {
-            forceScrollToTop(input);
-        }, { passive: true });
 
         input.addEventListener("blur", function() {
             const parentGroup = input.closest(".form-group");
@@ -320,19 +311,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 if (formContainer) {
                     formContainer.style.paddingBottom = "2rem";
                 }
-            }, 350);
+            }, 300);
         });
     });
-
-    // Visual Viewport resize listener for mobile soft keyboard popup detection
-    if (window.visualViewport) {
-        window.visualViewport.addEventListener("resize", function() {
-            const activeEl = document.activeElement;
-            if (activeEl && activeEl.tagName === "INPUT") {
-                forceScrollToTop(activeEl);
-            }
-        });
-    }
 });
 </script>
 
