@@ -98,15 +98,15 @@ html, body {
     }
 }
 
-/* SETTINGS GUIDANCE MODAL STYLES */
+/* SETTINGS & PERMISSION MODAL STYLES */
 .settings-modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(15, 23, 42, 0.7);
-    backdrop-filter: blur(6px);
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(8px);
     display: none;
     align-items: center;
     justify-content: center;
@@ -116,11 +116,11 @@ html, body {
 
 .settings-modal-card {
     background: #ffffff;
-    border-radius: 20px;
-    padding: 1.5rem 1.25rem;
-    max-width: 480px;
+    border-radius: 24px;
+    padding: 1.75rem 1.35rem;
+    max-width: 440px;
     width: 100%;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
     position: relative;
     max-height: 90vh;
     overflow-y: auto;
@@ -128,7 +128,7 @@ html, body {
 }
 
 @keyframes slideUp {
-    from { opacity: 0; transform: translateY(20px); }
+    from { opacity: 0; transform: translateY(24px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
@@ -157,6 +157,29 @@ html, body {
     flex-shrink: 0;
 }
 </style>
+
+<!-- INITIAL LOCATION PERMISSION PROMPT POPUP MODAL -->
+<div id="locationPromptModal" class="settings-modal-overlay">
+    <div class="settings-modal-card" style="text-align: center;">
+        <div style="width: 70px; height: 70px; background: rgba(2, 132, 199, 0.12); border: 2px solid #bae6fd; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.15rem; color: #0284c7; font-size: 2rem;">
+            <i class="fa-solid fa-location-dot"></i>
+        </div>
+        <h2 style="font-size: 1.35rem; font-weight: 800; color: #0f172a; margin-bottom: 0.4rem;">
+            Allow Location Access
+        </h2>
+        <p style="font-size: 0.88rem; color: #64748b; margin-bottom: 1.35rem; line-height: 1.5;">
+            Vehicle Sampark requires your mobile device GPS location to show nearest car repair garages & authorized service centers.
+        </p>
+
+        <button id="modalAllowGpsBtn" class="btn btn-primary" style="width: 100%; padding: 1.05rem; font-size: 1rem; font-weight: 800; background: linear-gradient(135deg, #0284c7, #0369a1); border: none; border-radius: 14px; cursor: pointer; box-shadow: 0 8px 22px rgba(2, 132, 199, 0.35); margin-bottom: 0.65rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+            <i class="fa-solid fa-location-crosshairs" style="font-size: 1.1rem;"></i> ALLOW LOCATION ACCESS
+        </button>
+
+        <button id="modalSkipGpsBtn" class="btn btn-outline" style="width: 100%; padding: 0.75rem; font-size: 0.85rem; font-weight: 700; color: #64748b; border-color: #cbd5e1; text-decoration: none; justify-content: center;">
+            Skip & View Default Garages
+        </button>
+    </div>
+</div>
 
 <div class="container garage-page-container">
     <!-- BACK TO PORTAL LINK -->
@@ -194,13 +217,13 @@ html, body {
                 <i class="fa-solid fa-compass fa-spin" style="font-size: 1.2rem; color: #0284c7;"></i> Requesting Browser Location Permission...
             </div>
             <div id="locationSubText" style="font-size: 0.82rem; color: #0284c7; margin-top: 0.3rem; line-height: 1.4;">
-                Connecting directly with your browser. Please tap <strong>Allow</strong> on the location popup.
+                Please tap <strong>ALLOW LOCATION ACCESS</strong> on the popup to enable GPS location & fetch nearest garages.
             </div>
 
             <!-- ACTION BUTTONS FOR LOCATION PERMISSION & MOBILE SETTINGS -->
             <div id="gpsActionArea" style="margin-top: 0.75rem; display: flex; flex-direction: column; gap: 0.5rem; justify-content: center;">
                 <button id="enableGpsBtn" class="btn btn-primary" style="width: 100%; padding: 0.75rem 1rem; font-size: 0.9rem; font-weight: 800; background: linear-gradient(135deg, #0284c7, #0369a1); border: none; border-radius: 12px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem; box-shadow: 0 6px 18px rgba(2, 132, 199, 0.3);">
-                    <i class="fa-solid fa-location-dot" style="font-size: 1rem;"></i> 📍 Allow Location Access (Show Browser Popup)
+                    <i class="fa-solid fa-location-dot" style="font-size: 1rem;"></i> 📍 Trigger Location Permission Popup
                 </button>
                 <button id="openSettingsBtn" class="btn" style="width: 100%; padding: 0.7rem 1rem; font-size: 0.85rem; font-weight: 800; background: #fff7ed; color: #c2410c; border: 1.5px solid #ffedd5; border-radius: 12px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;">
                     <i class="fa-solid fa-gear" style="font-size: 1rem;"></i> How to Unblock Permission in Mobile Settings
@@ -281,6 +304,10 @@ document.addEventListener("DOMContentLoaded", function() {
     const openSettingsBtn = document.getElementById("openSettingsBtn");
     const masterGoogleMapsBtn = document.getElementById("masterGoogleMapsBtn");
     const garagesList = document.getElementById("garagesList");
+
+    const locationPromptModal = document.getElementById("locationPromptModal");
+    const modalAllowGpsBtn = document.getElementById("modalAllowGpsBtn");
+    const modalSkipGpsBtn = document.getElementById("modalSkipGpsBtn");
 
     const settingsModal = document.getElementById("settingsModal");
     const closeModalBtn = document.getElementById("closeModalBtn");
@@ -401,12 +428,13 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    function requestBrowserLocation() {
+    function triggerBrowserLocationPopup() {
+        locationPromptModal.style.display = "none";
         locationStatusBox.style.background = "#f0f9ff";
         locationStatusBox.style.borderColor = "#bae6fd";
         locationStatusText.style.color = "#0369a1";
         locationStatusText.innerHTML = `<i class="fa-solid fa-compass fa-spin" style="font-size: 1.2rem; color: #0284c7;"></i> Requesting Browser Location Permission...`;
-        locationSubText.innerHTML = "Connecting directly with browser. Please tap <strong>Allow</strong> on the location popup.";
+        locationSubText.innerHTML = "Please tap <strong>Allow</strong> on your mobile browser popup.";
         gpsActionArea.style.display = "none";
 
         if ("geolocation" in navigator) {
@@ -431,9 +459,9 @@ document.addEventListener("DOMContentLoaded", function() {
                     locationStatusBox.style.background = "#fff7ed";
                     locationStatusBox.style.borderColor = "#ffedd5";
                     locationStatusText.style.color = "#c2410c";
-                    locationStatusText.innerHTML = `<i class="fa-solid fa-location-slash" style="color: #f97316; font-size: 1.2rem;"></i> Location Permission Required`;
+                    locationStatusText.innerHTML = `<i class="fa-solid fa-location-slash" style="color: #f97316; font-size: 1.2rem;"></i> Location Access Denied / Off`;
                     locationSubText.style.color = "#9a3412";
-                    locationSubText.innerHTML = "Tap the button below to trigger the browser location popup or open settings guide.";
+                    locationSubText.innerHTML = "Permission is blocked in mobile browser settings. Tap below for permission settings guide or retry.";
                     gpsActionArea.style.display = "flex";
 
                     masterGoogleMapsBtn.href = "https://www.google.com/maps/search/car+garage+and+service+center+near+me";
@@ -451,12 +479,36 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // Direct Browser Connection on Page Load
-    requestBrowserLocation();
+    // Check navigator.permissions API if available
+    if (navigator.permissions && navigator.permissions.query) {
+        navigator.permissions.query({ name: 'geolocation' }).then(function(result) {
+            if (result.state === 'granted') {
+                triggerBrowserLocationPopup();
+            } else {
+                locationPromptModal.style.display = "flex";
+                renderGarages(null, null);
+            }
+        }).catch(function() {
+            locationPromptModal.style.display = "flex";
+            renderGarages(null, null);
+        });
+    } else {
+        locationPromptModal.style.display = "flex";
+        renderGarages(null, null);
+    }
 
-    // Interactive button listeners
+    // Modal Button Listeners
+    modalAllowGpsBtn.addEventListener("click", function() {
+        triggerBrowserLocationPopup();
+    });
+
+    modalSkipGpsBtn.addEventListener("click", function() {
+        locationPromptModal.style.display = "none";
+    });
+
+    // Page Action Buttons
     enableGpsBtn.addEventListener("click", function() {
-        requestBrowserLocation();
+        triggerBrowserLocationPopup();
     });
 
     openSettingsBtn.addEventListener("click", function() {
