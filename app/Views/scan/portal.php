@@ -273,10 +273,12 @@ document.addEventListener("DOMContentLoaded", function() {
             formContainer.style.paddingBottom = "85vh";
         }
 
-        // Calculate absolute top position of active form group relative to page
+        // Calculate absolute top position of active form group with 95px clearance below top header bar
         const rect = parentGroup.getBoundingClientRect();
         const currentScroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-        const exactTopY = Math.max(0, rect.top + currentScroll - 10); // 10px from extreme top edge of screen
+        const headerEl = document.querySelector(".navbar") || document.querySelector("header");
+        const headerOffset = headerEl ? (headerEl.offsetHeight + 20) : 95;
+        const exactTopY = Math.max(0, rect.top + currentScroll - headerOffset);
 
         // Staggered scroll triggers to lock input at very top as keyboard slides up
         const intervals = [0, 50, 150, 300, 500, 750, 1000];
