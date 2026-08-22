@@ -7,7 +7,7 @@ include __DIR__ . '/../layouts/header.php';
 /* PREVENT MOBILE VIRTUAL KEYBOARD OVERLAP */
 .public-form-container {
     max-width: 580px;
-    margin: 1.5rem auto 3rem auto;
+    margin: 1rem auto 4rem auto;
     padding: 0 0.5rem;
     box-sizing: border-box;
     transition: padding-bottom 0.3s ease;
@@ -15,7 +15,7 @@ include __DIR__ . '/../layouts/header.php';
 
 @media (max-width: 640px) {
     .public-form-container {
-        padding-bottom: 25vh;
+        padding-bottom: 70vh !important; /* Huge bottom space so any input can scroll to top of screen */
     }
 }
 
@@ -27,6 +27,24 @@ include __DIR__ . '/../layouts/header.php';
     margin: 1.25rem 0;
     box-shadow: 0 10px 25px rgba(16, 185, 129, 0.12);
     text-align: center;
+}
+
+/* ACTIVE FOCUS HIGHLIGHT FOR MOBILE INPUTS */
+.form-group {
+    padding: 0.4rem;
+    border-radius: 12px;
+    transition: all 0.25s ease;
+}
+
+.form-group.field-focused {
+    background: #f0f9ff !important;
+    border: 2px solid #0284c7 !important;
+    box-shadow: 0 8px 25px rgba(2, 132, 199, 0.2) !important;
+}
+
+.form-group.field-focused label {
+    color: #0369a1 !important;
+    font-weight: 800 !important;
 }
 </style>
 
@@ -233,52 +251,77 @@ include __DIR__ . '/../layouts/header.php';
 </div>
 
 <script>
-// MOBILE SOFT KEYBOARD OVERLAP RESPONSIVE AUTO-SCROLL ENGINE
+// ADVANCED MULTI-STAGE SCROLL POSITIONING FOR MOBILE KEYBOARDS
 document.addEventListener("DOMContentLoaded", function() {
     const formContainer = document.getElementById("publicFormContainer");
+    const formGroups = document.querySelectorAll("#ownerRegisterForm .form-group");
     const inputs = document.querySelectorAll("#ownerRegisterForm input");
 
-    function scrollToFocusedInput(inputEl) {
+    function executePositionScroll(inputEl) {
         if (!inputEl) return;
         
-        // Expand bottom container padding so lowest inputs can scroll high above mobile keyboard
-        if (formContainer) {
-            formContainer.style.paddingBottom = "60vh";
-        }
+        // Remove previous field highlights
+        formGroups.forEach(fg => fg.classList.remove("field-focused"));
         
-        setTimeout(function() {
-            inputEl.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
-        }, 250);
+        const parentGroup = inputEl.closest(".form-group");
+        if (parentGroup) {
+            parentGroup.classList.add("field-focused");
+        }
+
+        // Expand bottom container padding to 75vh so any input can scroll near the top of the mobile screen
+        if (formContainer) {
+            formContainer.style.paddingBottom = "75vh";
+        }
+
+        // Calculate absolute top offset relative to current page scroll
+        const rect = inputEl.getBoundingClientRect();
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const targetY = rect.top + scrollTop - 90; // 90px top clearance from top header
+
+        // Staggered scroll triggers to adjust as keyboard slides up
+        const scrollDelays = [50, 200, 450, 700];
+        scrollDelays.forEach(function(delay) {
+            setTimeout(function() {
+                window.scrollTo({
+                    top: targetY,
+                    behavior: "smooth"
+                });
+            }, delay);
+        });
     }
 
     inputs.forEach(function(input) {
         input.addEventListener("focus", function() {
-            scrollToFocusedInput(input);
+            executePositionScroll(input);
         });
 
         input.addEventListener("click", function() {
-            scrollToFocusedInput(input);
+            executePositionScroll(input);
         });
 
         input.addEventListener("blur", function() {
+            const parentGroup = input.closest(".form-group");
+            if (parentGroup) {
+                parentGroup.classList.remove("field-focused");
+            }
+            
             setTimeout(function() {
-                // If focus moved to another input in form, keep padding
                 if (document.activeElement && document.activeElement.tagName === "INPUT") {
                     return;
                 }
                 if (formContainer) {
                     formContainer.style.paddingBottom = "2rem";
                 }
-            }, 300);
+            }, 350);
         });
     });
 
-    // Visual Viewport resize listener for Android Chrome & iOS Safari virtual keyboard trigger
+    // Visual Viewport resize listener for mobile soft keyboard popup detection
     if (window.visualViewport) {
         window.visualViewport.addEventListener("resize", function() {
             const activeEl = document.activeElement;
             if (activeEl && activeEl.tagName === "INPUT") {
-                scrollToFocusedInput(activeEl);
+                executePositionScroll(activeEl);
             }
         });
     }
