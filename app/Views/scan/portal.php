@@ -92,11 +92,16 @@ include __DIR__ . '/../layouts/header.php';
                     </form>
 
                     <!-- Option 2: Direct Dial Inbound IVR Line -->
-                    <div style="text-align: center; margin-top: 0.5rem;">
+                    <div style="text-align: center; margin-top: 0.5rem; margin-bottom: 0.85rem;">
                         <a href="tel:7971123254" style="font-size: 0.9rem; font-weight: 700; color: #0284c7; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem;">
                             <i class="fa-solid fa-square-phone" style="font-size: 1.1rem;"></i> Direct Dial Inbound IVR Line (7971123254)
                         </a>
                     </div>
+
+                    <!-- Option 3: Nearest Service Center & Garage Button -->
+                    <a href="scan.php?code=<?= urlencode($codeNumber) ?>&view=garages" class="btn" style="width: 100%; padding: 1.05rem; font-size: 1.05rem; background: linear-gradient(135deg, #0284c7, #0369a1); color: #ffffff; border-radius: var(--radius-lg); font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 0.65rem; text-decoration: none; box-shadow: 0 8px 20px rgba(2, 132, 199, 0.3);">
+                        <i class="fa-solid fa-wrench" style="font-size: 1.2rem;"></i> Nearest Service Center & Garage
+                    </a>
                 </div>
             <?php endif; ?>
 

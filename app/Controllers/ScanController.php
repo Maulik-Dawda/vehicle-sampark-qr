@@ -151,6 +151,13 @@ class ScanController {
             }
         }
 
+        $viewMode = sanitize($_GET['view'] ?? '');
+        if ($viewMode === 'garages') {
+            $pageTitle = 'Nearest Garages & Service Centers - Vehicle Sampark';
+            include __DIR__ . '/../Views/scan/garages.php';
+            return;
+        }
+
         $callStatus = sanitize($_GET['call_status'] ?? '');
         $displayUserNumber = sanitize($_GET['user_number'] ?? '');
 
