@@ -231,6 +231,7 @@ try {
         $sampleResp = json_encode([
             'full_name' => 'Vehicle Owner',
             'mobile_number' => '9723914037',
+            'alternate_phone' => '9723914037',
             'emergency_mobile_number' => '9723914037',
             'whatsapp_number' => '9723914037',
             'car_number' => 'GJ-03-NL-0104',

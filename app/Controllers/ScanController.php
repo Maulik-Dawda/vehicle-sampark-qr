@@ -91,13 +91,14 @@ class ScanController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && $qrData['status'] === 'pending') {
             $fullName = sanitize($_POST['full_name'] ?? '');
             $mobileNumber = sanitize($_POST['mobile_number'] ?? '');
+            $alternatePhone = sanitize($_POST['alternate_phone'] ?? '');
             $emergencyMobileNumber = sanitize($_POST['emergency_mobile_number'] ?? '');
             $whatsappNumber = sanitize($_POST['whatsapp_number'] ?? $mobileNumber);
             $carNumber = strtoupper(trim(sanitize($_POST['car_number'] ?? '')));
             $carName = sanitize($_POST['car_name'] ?? '');
             $carModel = sanitize($_POST['car_model'] ?? '');
 
-            if (empty($fullName) || empty($mobileNumber) || empty($emergencyMobileNumber) || empty($carNumber) || empty($carName) || empty($carModel)) {
+            if (empty($fullName) || empty($mobileNumber) || empty($alternatePhone) || empty($emergencyMobileNumber) || empty($carNumber) || empty($carName) || empty($carModel)) {
                 $error = 'Please fill out all required vehicle owner registration fields.';
             } elseif (!preg_match('/^[A-Za-z0-9\s\-]{4,15}$/', $carNumber)) {
                 $error = 'Invalid Car Number format. Example of valid format: GJ-03-NL-0104 or MH-01-AB-1234.';
@@ -105,6 +106,7 @@ class ScanController {
                 $responses = [
                     'Full Name' => $fullName,
                     'Mobile Number' => $mobileNumber,
+                    'Alternate Phone Number' => $alternatePhone,
                     'WhatsApp Number' => $whatsappNumber,
                     'Emergency Mobile Number' => $emergencyMobileNumber,
                     'Car Number' => $carNumber,
@@ -136,7 +138,11 @@ class ScanController {
         $ownerDetails = [
             'owner_name' => '',
             'mobile_number' => '',
+            'alternate_phone' => '',
+            'emergency_mobile_number' => '',
+            'whatsapp_number' => '',
             'clean_owner_mobile' => '9723914037',
+            'clean_alternate_phone' => '9723914037',
             'car_name' => '',
             'car_number' => '',
             'car_model' => ''
@@ -155,6 +161,12 @@ class ScanController {
         if ($viewMode === 'garages') {
             $pageTitle = 'Nearest Garages & Service Centers - Vehicle Sampark';
             include __DIR__ . '/../Views/scan/garages.php';
+            return;
+        }
+
+        if ($viewMode === 'whatsapp_options') {
+            $pageTitle = 'Select Safety Alert Reason - Vehicle Sampark';
+            include __DIR__ . '/../Views/scan/whatsapp_options.php';
             return;
         }
 
