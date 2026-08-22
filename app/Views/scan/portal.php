@@ -22,10 +22,10 @@ include __DIR__ . '/../layouts/header.php';
 .registered-tag-preview {
     background: #ffffff;
     border: 2px solid #a7f3d0;
-    border-radius: 20px;
-    padding: 1.25rem;
-    margin: 1.25rem 0;
-    box-shadow: 0 10px 25px rgba(16, 185, 129, 0.12);
+    border-radius: 16px;
+    padding: 0.85rem;
+    margin: 0.65rem 0;
+    box-shadow: 0 6px 18px rgba(16, 185, 129, 0.1);
     text-align: center;
 }
 
@@ -49,6 +49,26 @@ include __DIR__ . '/../layouts/header.php';
 }
 </style>
 
+<?php if ($success): ?>
+<style>
+/* ABSOLUTE NON-SCROLLABLE FIT FOR REGISTRATION SUCCESS PAGE ON MOBILE & DESKTOP */
+html, body {
+    overflow: hidden !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+}
+
+.public-form-container {
+    margin: 0.25rem auto !important;
+    padding-bottom: 0 !important;
+    max-height: 98vh !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+</style>
+<?php endif; ?>
+
 <div class="public-form-container" id="publicFormContainer">
     <?php if ($error): ?>
         <div class="content-card" style="padding: 2rem 1.5rem; text-align: center;">
@@ -61,33 +81,33 @@ include __DIR__ . '/../layouts/header.php';
         </div>
 
     <?php elseif ($success): ?>
-        <!-- REGISTRATION SUCCESS SCREEN WITH LIVE QR CODE TAG DISPLAY -->
-        <div class="content-card" style="padding: 2rem 1.25rem; text-align: center;">
-            <div style="width: 72px; height: 72px; background: #ecfdf5; color: #10b981; border: 2.5px solid #a7f3d0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.4rem; margin: 0 auto 1.25rem auto; box-shadow: 0 8px 20px rgba(16, 185, 129, 0.2);">
+        <!-- 100% NON-SCROLLABLE COMPACT SUCCESS SCREEN -->
+        <div class="content-card" style="padding: 1.25rem 1rem; text-align: center; max-width: 480px; width: 100%; border-radius: 20px;">
+            <div style="width: 52px; height: 52px; background: #ecfdf5; color: #10b981; border: 2px solid #a7f3d0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.75rem; margin: 0 auto 0.5rem auto; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);">
                 <i class="fa-solid fa-circle-check"></i>
             </div>
             
-            <h1 style="font-size: 1.65rem; color: var(--text-main); font-weight: 800; margin-bottom: 0.5rem;">
+            <h1 style="font-size: 1.35rem; color: var(--text-main); font-weight: 800; margin-bottom: 0.3rem; line-height: 1.25;">
                 QR Code Successfully Registered!
             </h1>
             
-            <div style="background: #f0f9ff; border: 1.5px solid #bae6fd; padding: 1rem; border-radius: 16px; margin: 1rem 0; text-align: center;">
-                <p style="color: #0369a1; font-size: 0.95rem; margin: 0; line-height: 1.5; font-weight: 600;">
-                    Your QR Code <strong style="color: #0284c7; font-family: monospace; font-size: 1.05rem;"><?= htmlspecialchars($codeNumber) ?></strong> is registered with vehicle <strong style="color: #d97706;"><?= htmlspecialchars(trim("{$_POST['car_name']} {$_POST['car_model']}")) ?></strong> and number plate <strong style="color: #10b981; font-family: monospace; font-size: 1.05rem;"><?= htmlspecialchars(strtoupper($_POST['car_number'])) ?></strong>.
+            <div style="background: #f0f9ff; border: 1.5px solid #bae6fd; padding: 0.6rem 0.75rem; border-radius: 12px; margin: 0.5rem 0; text-align: center;">
+                <p style="color: #0369a1; font-size: 0.84rem; margin: 0; line-height: 1.35; font-weight: 600;">
+                    Your QR Code <strong style="color: #0284c7; font-family: monospace; font-size: 0.92rem;"><?= htmlspecialchars($codeNumber) ?></strong> is registered with vehicle <strong style="color: #d97706;"><?= htmlspecialchars(trim("{$_POST['car_name']} {$_POST['car_model']}")) ?></strong> and plate <strong style="color: #10b981; font-family: monospace; font-size: 0.92rem;"><?= htmlspecialchars(strtoupper($_POST['car_number'])) ?></strong>.
                 </p>
             </div>
 
-            <!-- REGISTERED VEHICLE QR TAG DISPLAY ON SCREEN (LOADS FROM qr.php?code=...) -->
-            <div class="registered-tag-preview">
-                <div style="font-size: 0.85rem; font-weight: 800; color: #047857; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;">
-                    <i class="fa-solid fa-qrcode"></i> Your Registered Vehicle QR Tag
+            <!-- COMPACT REGISTERED VEHICLE QR TAG DISPLAY -->
+            <div class="registered-tag-preview" style="margin: 0.5rem 0 0 0;">
+                <div style="font-size: 0.78rem; font-weight: 800; color: #047857; margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 0.4px;">
+                    <i class="fa-solid fa-qrcode"></i> Registered Vehicle QR Tag
                 </div>
-                <div style="background: #ffffff; padding: 1rem; border-radius: 16px; border: 1.5px dashed #10b981; display: inline-block;">
-                    <img src="qr.php?code=<?= urlencode($codeNumber) ?>" alt="Registered QR Code Tag" style="width: 180px; height: 180px; display: block; margin: 0 auto; border-radius: 8px;">
-                    <div style="font-family: monospace; font-weight: 800; color: #0284c7; font-size: 1.15rem; margin-top: 0.6rem;">
+                <div style="background: #ffffff; padding: 0.65rem; border-radius: 14px; border: 1.5px dashed #10b981; display: inline-block;">
+                    <img src="qr.php?code=<?= urlencode($codeNumber) ?>" alt="Registered QR Code Tag" style="width: 130px; height: 130px; display: block; margin: 0 auto; border-radius: 6px;">
+                    <div style="font-family: monospace; font-weight: 800; color: #0284c7; font-size: 1rem; margin-top: 0.35rem;">
                         <?= htmlspecialchars($codeNumber) ?>
                     </div>
-                    <div style="font-size: 1rem; font-weight: 800; color: #d97706; margin-top: 0.2rem;">
+                    <div style="font-size: 0.9rem; font-weight: 800; color: #d97706; margin-top: 0.15rem;">
                         <?= htmlspecialchars(strtoupper($_POST['car_number'])) ?>
                     </div>
                 </div>
