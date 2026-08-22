@@ -64,7 +64,7 @@ class ScanController {
                 'api_id'          => 'APIvRpMDIEc151987',
                 'api_password'    => 'fetRZg6V',
                 'ivr_number'      => '07971123254',
-                'dial'            => $cleanUserNumber,
+                'dial'            => $cleanOwnerMobile,
                 'receiver_number' => $cleanUserNumber,
                 'agent_number'    => $cleanOwnerMobile,
                 'scheduled'       => '0',
