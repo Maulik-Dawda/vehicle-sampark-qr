@@ -7,14 +7,15 @@ include __DIR__ . '/../layouts/header.php';
 /* PREVENT MOBILE VIRTUAL KEYBOARD OVERLAP */
 .public-form-container {
     max-width: 580px;
-    margin: 1.5rem auto 5rem auto;
+    margin: 1.5rem auto 3rem auto;
     padding: 0 0.5rem;
     box-sizing: border-box;
+    transition: padding-bottom 0.3s ease;
 }
 
 @media (max-width: 640px) {
     .public-form-container {
-        padding-bottom: 35vh !important; /* Ensures bottom fields & submit buttons scroll above soft keyboard */
+        padding-bottom: 25vh;
     }
 }
 
@@ -29,7 +30,7 @@ include __DIR__ . '/../layouts/header.php';
 }
 </style>
 
-<div class="public-form-container">
+<div class="public-form-container" id="publicFormContainer">
     <?php if ($error): ?>
         <div class="content-card" style="padding: 2rem 1.5rem; text-align: center;">
             <i class="fa-solid fa-triangle-exclamation empty-icon" style="color: var(--accent-rose); font-size: 3rem;"></i>
@@ -193,7 +194,7 @@ include __DIR__ . '/../layouts/header.php';
                     <input type="tel" name="mobile_number" class="form-control" placeholder="e.g. 98765 43210" required>
                 </div>
 
-                <!-- NEW REQUIRED FIELD: ALTERNATE PHONE NUMBER -->
+                <!-- REQUIRED FIELD: ALTERNATE PHONE NUMBER -->
                 <div class="form-group">
                     <label class="form-label">Alternate Phone Number <span class="required">*</span></label>
                     <input type="tel" name="alternate_phone" class="form-control" placeholder="e.g. 98765 43211 (Alternate contact)" required>
@@ -232,16 +233,55 @@ include __DIR__ . '/../layouts/header.php';
 </div>
 
 <script>
-// MOBILE SOFT KEYBOARD OVERLAP RESPONSIVE FIX
+// MOBILE SOFT KEYBOARD OVERLAP RESPONSIVE AUTO-SCROLL ENGINE
 document.addEventListener("DOMContentLoaded", function() {
+    const formContainer = document.getElementById("publicFormContainer");
     const inputs = document.querySelectorAll("#ownerRegisterForm input");
+
+    function scrollToFocusedInput(inputEl) {
+        if (!inputEl) return;
+        
+        // Expand bottom container padding so lowest inputs can scroll high above mobile keyboard
+        if (formContainer) {
+            formContainer.style.paddingBottom = "60vh";
+        }
+        
+        setTimeout(function() {
+            inputEl.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
+        }, 250);
+    }
+
     inputs.forEach(function(input) {
         input.addEventListener("focus", function() {
+            scrollToFocusedInput(input);
+        });
+
+        input.addEventListener("click", function() {
+            scrollToFocusedInput(input);
+        });
+
+        input.addEventListener("blur", function() {
             setTimeout(function() {
-                input.scrollIntoView({ behavior: "smooth", block: "center" });
+                // If focus moved to another input in form, keep padding
+                if (document.activeElement && document.activeElement.tagName === "INPUT") {
+                    return;
+                }
+                if (formContainer) {
+                    formContainer.style.paddingBottom = "2rem";
+                }
             }, 300);
         });
     });
+
+    // Visual Viewport resize listener for Android Chrome & iOS Safari virtual keyboard trigger
+    if (window.visualViewport) {
+        window.visualViewport.addEventListener("resize", function() {
+            const activeEl = document.activeElement;
+            if (activeEl && activeEl.tagName === "INPUT") {
+                scrollToFocusedInput(activeEl);
+            }
+        });
+    }
 });
 </script>
 
