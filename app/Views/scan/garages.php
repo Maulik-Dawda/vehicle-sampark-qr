@@ -191,16 +191,16 @@ html, body {
         <!-- INTERACTIVE LOCATION & GPS STATUS BANNER -->
         <div id="locationStatusBox" style="background: #f0f9ff; border: 1.5px solid #bae6fd; padding: 1rem 0.85rem; border-radius: 16px; margin-bottom: 1.25rem; text-align: center;">
             <div id="locationStatusText" style="font-weight: 800; color: #0369a1; font-size: 0.95rem; display: flex; align-items: center; justify-content: center; gap: 0.4rem; flex-wrap: wrap;">
-                <i class="fa-solid fa-compass fa-spin" style="font-size: 1.2rem; color: #0284c7;"></i> Requesting Mobile GPS / Location...
+                <i class="fa-solid fa-compass fa-spin" style="font-size: 1.2rem; color: #0284c7;"></i> Requesting Browser Location Permission...
             </div>
             <div id="locationSubText" style="font-size: 0.82rem; color: #0284c7; margin-top: 0.3rem; line-height: 1.4;">
-                Please tap <strong>Allow</strong> on your mobile browser popup to enable GPS location & fetch nearest garages.
+                Connecting directly with your browser. Please tap <strong>Allow</strong> on the location popup.
             </div>
 
             <!-- ACTION BUTTONS FOR LOCATION PERMISSION & MOBILE SETTINGS -->
             <div id="gpsActionArea" style="margin-top: 0.75rem; display: flex; flex-direction: column; gap: 0.5rem; justify-content: center;">
-                <button id="enableGpsBtn" class="btn btn-primary" style="width: 100%; padding: 0.7rem 1rem; font-size: 0.88rem; font-weight: 800; background: linear-gradient(135deg, #0284c7, #0369a1); border: none; border-radius: 12px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem; box-shadow: 0 6px 18px rgba(2, 132, 199, 0.3);">
-                    <i class="fa-solid fa-location-crosshairs" style="font-size: 1rem;"></i> Turn On GPS / Grant Permission
+                <button id="enableGpsBtn" class="btn btn-primary" style="width: 100%; padding: 0.75rem 1rem; font-size: 0.9rem; font-weight: 800; background: linear-gradient(135deg, #0284c7, #0369a1); border: none; border-radius: 12px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem; box-shadow: 0 6px 18px rgba(2, 132, 199, 0.3);">
+                    <i class="fa-solid fa-location-dot" style="font-size: 1rem;"></i> 📍 Allow Location Access (Show Browser Popup)
                 </button>
                 <button id="openSettingsBtn" class="btn" style="width: 100%; padding: 0.7rem 1rem; font-size: 0.85rem; font-weight: 800; background: #fff7ed; color: #c2410c; border: 1.5px solid #ffedd5; border-radius: 12px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;">
                     <i class="fa-solid fa-gear" style="font-size: 1rem;"></i> How to Unblock Permission in Mobile Settings
@@ -405,8 +405,8 @@ document.addEventListener("DOMContentLoaded", function() {
         locationStatusBox.style.background = "#f0f9ff";
         locationStatusBox.style.borderColor = "#bae6fd";
         locationStatusText.style.color = "#0369a1";
-        locationStatusText.innerHTML = `<i class="fa-solid fa-compass fa-spin" style="font-size: 1.2rem; color: #0284c7;"></i> Requesting Mobile GPS / Location...`;
-        locationSubText.innerHTML = "Please tap <strong>Allow</strong> on your mobile browser popup to enable GPS location & fetch nearest garages.";
+        locationStatusText.innerHTML = `<i class="fa-solid fa-compass fa-spin" style="font-size: 1.2rem; color: #0284c7;"></i> Requesting Browser Location Permission...`;
+        locationSubText.innerHTML = "Connecting directly with browser. Please tap <strong>Allow</strong> on the location popup.";
         gpsActionArea.style.display = "none";
 
         if ("geolocation" in navigator) {
@@ -431,9 +431,9 @@ document.addEventListener("DOMContentLoaded", function() {
                     locationStatusBox.style.background = "#fff7ed";
                     locationStatusBox.style.borderColor = "#ffedd5";
                     locationStatusText.style.color = "#c2410c";
-                    locationStatusText.innerHTML = `<i class="fa-solid fa-location-slash" style="color: #f97316; font-size: 1.2rem;"></i> Location Access Denied / Off`;
+                    locationStatusText.innerHTML = `<i class="fa-solid fa-location-slash" style="color: #f97316; font-size: 1.2rem;"></i> Location Permission Required`;
                     locationSubText.style.color = "#9a3412";
-                    locationSubText.innerHTML = "Permission is blocked in mobile browser settings. Tap below for permission settings guide or retry.";
+                    locationSubText.innerHTML = "Tap the button below to trigger the browser location popup or open settings guide.";
                     gpsActionArea.style.display = "flex";
 
                     masterGoogleMapsBtn.href = "https://www.google.com/maps/search/car+garage+and+service+center+near+me";
@@ -451,33 +451,8 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // Check navigator.permissions API if available
-    if (navigator.permissions && navigator.permissions.query) {
-        navigator.permissions.query({ name: 'geolocation' }).then(function(result) {
-            if (result.state === 'denied') {
-                locationStatusBox.style.background = "#fff7ed";
-                locationStatusBox.style.borderColor = "#ffedd5";
-                locationStatusText.style.color = "#c2410c";
-                locationStatusText.innerHTML = `<i class="fa-solid fa-user-lock" style="color: #ea580c; font-size: 1.2rem;"></i> Location Blocked in Mobile Settings`;
-                locationSubText.style.color = "#9a3412";
-                locationSubText.innerHTML = "Location permission is blocked for this site. Tap <strong>How to Unblock Permission</strong> below to turn it back on in 2 seconds.";
-                gpsActionArea.style.display = "flex";
-                renderGarages(null, null);
-            } else {
-                requestBrowserLocation();
-            }
-
-            result.onchange = function() {
-                if (result.state === 'granted') {
-                    requestBrowserLocation();
-                }
-            };
-        }).catch(function() {
-            requestBrowserLocation();
-        });
-    } else {
-        requestBrowserLocation();
-    }
+    // Direct Browser Connection on Page Load
+    requestBrowserLocation();
 
     // Interactive button listeners
     enableGpsBtn.addEventListener("click", function() {
