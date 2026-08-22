@@ -61,7 +61,7 @@ include __DIR__ . '/../layouts/header.php';
         </div>
 
     <?php elseif ($success): ?>
-        <!-- REGISTRATION SUCCESS SCREEN WITH TAG DISPLAY & NO TEST PUBLIC BUTTON -->
+        <!-- REGISTRATION SUCCESS SCREEN WITH LIVE QR CODE TAG DISPLAY -->
         <div class="content-card" style="padding: 2rem 1.25rem; text-align: center;">
             <div style="width: 72px; height: 72px; background: #ecfdf5; color: #10b981; border: 2.5px solid #a7f3d0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.4rem; margin: 0 auto 1.25rem auto; box-shadow: 0 8px 20px rgba(16, 185, 129, 0.2);">
                 <i class="fa-solid fa-circle-check"></i>
@@ -77,33 +77,20 @@ include __DIR__ . '/../layouts/header.php';
                 </p>
             </div>
 
-            <!-- REGISTERED VEHICLE QR TAG DISPLAY ON SCREEN -->
+            <!-- REGISTERED VEHICLE QR TAG DISPLAY ON SCREEN (LOADS FROM qr.php?code=...) -->
             <div class="registered-tag-preview">
                 <div style="font-size: 0.85rem; font-weight: 800; color: #047857; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;">
                     <i class="fa-solid fa-qrcode"></i> Your Registered Vehicle QR Tag
                 </div>
                 <div style="background: #ffffff; padding: 1rem; border-radius: 16px; border: 1.5px dashed #10b981; display: inline-block;">
-                    <img src="qr_stream.php?code=<?= urlencode($codeNumber) ?>" alt="Registered QR Code" style="width: 170px; height: 170px; display: block; margin: 0 auto; border-radius: 8px;">
-                    <div style="font-family: monospace; font-weight: 800; color: #0284c7; font-size: 1.1rem; margin-top: 0.5rem;">
+                    <img src="qr.php?code=<?= urlencode($codeNumber) ?>" alt="Registered QR Code Tag" style="width: 180px; height: 180px; display: block; margin: 0 auto; border-radius: 8px;">
+                    <div style="font-family: monospace; font-weight: 800; color: #0284c7; font-size: 1.15rem; margin-top: 0.6rem;">
                         <?= htmlspecialchars($codeNumber) ?>
                     </div>
-                    <div style="font-size: 0.95rem; font-weight: 800; color: #d97706; margin-top: 0.2rem;">
+                    <div style="font-size: 1rem; font-weight: 800; color: #d97706; margin-top: 0.2rem;">
                         <?= htmlspecialchars(strtoupper($_POST['car_number'])) ?>
                     </div>
                 </div>
-            </div>
-
-            <!-- ACTION OPTIONS AFTER REGISTRATION -->
-            <div style="display: flex; flex-direction: column; gap: 0.65rem; margin-top: 1.5rem;">
-                <a href="scan.php?code=<?= urlencode($codeNumber) ?>&view=whatsapp_options" class="btn" style="width: 100%; padding: 1.05rem; font-size: 1.05rem; background: #25d366; color: #ffffff; border-radius: 14px; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 0.6rem; text-decoration: none; box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);">
-                    <i class="fa-brands fa-whatsapp" style="font-size: 1.3rem;"></i> WhatsApp Message Options
-                </a>
-                
-                <form action="scan.php?code=<?= urlencode($codeNumber) ?>" method="POST" style="margin: 0;">
-                    <button type="submit" name="action_call_owner" class="btn btn-primary" style="width: 100%; padding: 1rem; font-size: 1rem; background: linear-gradient(135deg, #10b981, #059669); border-radius: 14px; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 0.6rem; border: none; cursor: pointer; box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);">
-                        <i class="fa-solid fa-phone-volume" style="font-size: 1.1rem;"></i> Emergency Call (Masked IVR Hotline)
-                    </button>
-                </form>
             </div>
         </div>
 
