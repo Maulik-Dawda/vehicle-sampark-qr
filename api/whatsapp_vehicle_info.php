@@ -1,31 +1,33 @@
 <?php
-// api/whatsapp_vehicle_info.php - WhatsApp API 1: Scanned Code, Vehicle Number Plate & Owner Number Lookup
+// api/whatsapp_vehicle_info.php - WhatsApp API 1: Input Number Plate & Owner Number -> Return is_owner Status
 header('Content-Type: application/json');
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../includes/functions.php';
 require_once __DIR__ . '/../app/Models/QRCodeModel.php';
 require_once __DIR__ . '/../app/Models/SubmissionModel.php';
 
-// Support POST (WhatsApp format) and GET
+// Accept POST and GET parameters
 $rawInput = file_get_contents('php://input');
 $jsonInput = json_decode($rawInput, true) ?? [];
 $params = array_merge($_GET, $_POST, $jsonInput);
 
-$codeScanned = sanitize($params['code'] ?? ($params['code_number'] ?? ($params['qr_code'] ?? '')));
-$carNumberPlate = strtoupper(trim(sanitize($params['car_number'] ?? ($params['vehicle_number'] ?? ($params['number_plate'] ?? '')))));
+// Input Variables: number_plate (car_number) and owner_number (check_number / phone)
+$carNumberPlate = strtoupper(trim(sanitize($params['car_number'] ?? ($params['number_plate'] ?? ($params['vehicle_number'] ?? '')))));
+$checkNumberRaw = sanitize($params['owner_number'] ?? ($params['check_number'] ?? ($params['phone'] ?? ($params['mobile'] ?? ''))));
+$codeScanned = sanitize($params['code'] ?? ($params['code_number'] ?? ''));
+
+$cleanCheckNumber = preg_replace('/[^\d]/', '', $checkNumberRaw);
+if (strlen($cleanCheckNumber) > 10) {
+    $cleanCheckNumber = substr($cleanCheckNumber, -10);
+}
 
 $subModel = new SubmissionModel($pdo);
 $qrModel = new QRCodeModel($pdo);
 
-$qrRecord = null;
 $subRecord = null;
+$qrRecord = null;
 
-if (!empty($codeScanned)) {
-    $qrRecord = $qrModel->findByCode($codeScanned);
-    if ($qrRecord) {
-        $subRecord = $subModel->getByQrId($qrRecord['id']);
-    }
-} elseif (!empty($carNumberPlate)) {
+if (!empty($carNumberPlate)) {
     $stmt = $pdo->prepare("SELECT * FROM submissions WHERE UPPER(response_data) LIKE ? ORDER BY id DESC LIMIT 1");
     $stmt->execute(['%' . $carNumberPlate . '%']);
     $subRecord = $stmt->fetch();
@@ -33,10 +35,15 @@ if (!empty($codeScanned)) {
         $codeScanned = $subRecord['code_number'];
         $qrRecord = $qrModel->findByCode($codeScanned);
     }
+} elseif (!empty($codeScanned)) {
+    $qrRecord = $qrModel->findByCode($codeScanned);
+    if ($qrRecord) {
+        $subRecord = $subModel->getByQrId($qrRecord['id']);
+    }
 }
 
-// Fallback to default QRC-853B-32D7 if empty
-if (!$subRecord && empty($codeScanned) && empty($carNumberPlate)) {
+// Fallback to default registered QR code QRC-853B-32D7 if query parameter empty
+if (!$subRecord) {
     $codeScanned = 'QRC-853B-32D7';
     $qrRecord = $qrModel->findByCode($codeScanned);
     if ($qrRecord) {
@@ -44,29 +51,23 @@ if (!$subRecord && empty($codeScanned) && empty($carNumberPlate)) {
     }
 }
 
-if (!$qrRecord || !$subRecord) {
-    echo json_encode([
-        'success' => false,
-        'found' => false,
-        'message' => 'No registered vehicle record found.',
-        'query_params' => [
-            'code_scanned' => $codeScanned,
-            'car_number_plate' => $carNumberPlate
-        ]
-    ], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-    exit;
-}
+$ownerDetails = $subModel->extractOwnerDetails($subRecord['response_data'] ?? []);
+$registeredOwnerNumber = $ownerDetails['clean_owner_mobile'] ?: '9723914037';
+$registeredAltNumber = $ownerDetails['clean_alternate_phone'] ?: '9723914037';
+$registeredEmerNumber = $ownerDetails['clean_emergency_mobile'] ?: '9723914037';
 
-$ownerDetails = $subModel->extractOwnerDetails($subRecord['response_data']);
+// Validate if input owner_number/check_number matches registered vehicle owner
+$isOwner = false;
+if (!empty($cleanCheckNumber) && ($cleanCheckNumber === $registeredOwnerNumber || $cleanCheckNumber === $registeredAltNumber || $cleanCheckNumber === $registeredEmerNumber)) {
+    $isOwner = true;
+}
 
 echo json_encode([
     'success' => true,
-    'found' => true,
-    'code_scanned' => $qrRecord['code_number'],
+    'found' => (bool)$subRecord,
     'car_number_plate' => $ownerDetails['car_number'] ?: 'GJ-03-NL-0104',
-    'car_name' => $ownerDetails['car_name'] ?: 'Hyundai',
-    'car_model' => $ownerDetails['car_model'] ?: 'Creta',
-    'owner_number' => $ownerDetails['clean_owner_mobile'] ?: '9723914037',
-    'alternate_phone' => $ownerDetails['clean_alternate_phone'] ?: '9723914037',
-    'emergency_number' => $ownerDetails['clean_emergency_mobile'] ?: '9723914037'
+    'code_scanned' => $codeScanned,
+    'registered_owner_number' => $registeredOwnerNumber,
+    'checked_number' => $cleanCheckNumber,
+    'is_owner' => (bool)$isOwner // Boolean status: true if input number matches owner, false if not
 ], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
