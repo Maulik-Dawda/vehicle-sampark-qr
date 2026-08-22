@@ -168,15 +168,19 @@ html, body {
             Allow Location Access
         </h2>
         <p style="font-size: 0.88rem; color: #64748b; margin-bottom: 1.35rem; line-height: 1.5;">
-            Vehicle Sampark requires your mobile device GPS location to show nearest car repair garages & authorized service centers.
+            Vehicle Sampark requires your location to find nearby emergency car repair garages & service centers.
         </p>
 
         <button id="modalAllowGpsBtn" class="btn btn-primary" style="width: 100%; padding: 1.05rem; font-size: 1rem; font-weight: 800; background: linear-gradient(135deg, #0284c7, #0369a1); border: none; border-radius: 14px; cursor: pointer; box-shadow: 0 8px 22px rgba(2, 132, 199, 0.35); margin-bottom: 0.65rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
             <i class="fa-solid fa-location-crosshairs" style="font-size: 1.1rem;"></i> ALLOW LOCATION ACCESS
         </button>
 
-        <button id="modalSkipGpsBtn" class="btn btn-outline" style="width: 100%; padding: 0.75rem; font-size: 0.85rem; font-weight: 700; color: #64748b; border-color: #cbd5e1; text-decoration: none; justify-content: center;">
-            Skip & View Default Garages
+        <a href="https://www.google.com/maps/search/car+garage+and+service+center+near+me" target="_blank" class="btn btn-outline" style="width: 100%; padding: 0.8rem; font-size: 0.88rem; font-weight: 700; color: #0284c7; border-color: #bae6fd; text-decoration: none; justify-content: center; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+            <i class="fa-solid fa-map-location-dot"></i> Open Location in Google Maps App
+        </a>
+
+        <button id="modalSkipGpsBtn" class="btn" style="width: 100%; padding: 0.5rem; font-size: 0.8rem; font-weight: 600; color: #94a3b8; border: none; background: none; text-decoration: underline; cursor: pointer;">
+            Skip & View List Below
         </button>
     </div>
 </div>
@@ -202,7 +206,7 @@ html, body {
                 Nearest Garages & Service Centers
             </h1>
             <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 0; max-width: 600px; margin: 0 auto; line-height: 1.45;">
-                Find nearby emergency repair shops, multi-brand garages & authorized service stations with real-time GPS location access and direct Google Maps navigation.
+                Find nearby emergency repair shops, multi-brand garages & authorized service stations with real-time location access and direct Google Maps navigation.
             </p>
             <?php if (!empty($ownerDetails['car_number']) || !empty($ownerDetails['car_name'])): ?>
                 <div style="font-size: 0.95rem; font-weight: 800; color: var(--accent-orange); margin-top: 0.65rem; word-break: break-word;">
@@ -214,7 +218,7 @@ html, body {
         <!-- INTERACTIVE LOCATION & GPS STATUS BANNER -->
         <div id="locationStatusBox" style="background: #f0f9ff; border: 1.5px solid #bae6fd; padding: 1rem 0.85rem; border-radius: 16px; margin-bottom: 1.25rem; text-align: center;">
             <div id="locationStatusText" style="font-weight: 800; color: #0369a1; font-size: 0.95rem; display: flex; align-items: center; justify-content: center; gap: 0.4rem; flex-wrap: wrap;">
-                <i class="fa-solid fa-compass fa-spin" style="font-size: 1.2rem; color: #0284c7;"></i> Fetching Mobile GPS Satellites...
+                <i class="fa-solid fa-compass fa-spin" style="font-size: 1.2rem; color: #0284c7;"></i> Requesting Browser Location...
             </div>
             <div id="locationSubText" style="font-size: 0.82rem; color: #0284c7; margin-top: 0.3rem; line-height: 1.4;">
                 Please tap <strong>ALLOW LOCATION ACCESS</strong> on the popup to enable GPS location & fetch nearest garages.
@@ -223,7 +227,7 @@ html, body {
             <!-- ACTION BUTTONS FOR LOCATION PERMISSION & MOBILE SETTINGS -->
             <div id="gpsActionArea" style="margin-top: 0.75rem; display: flex; flex-direction: column; gap: 0.5rem; justify-content: center;">
                 <button id="enableGpsBtn" class="btn btn-primary" style="width: 100%; padding: 0.75rem 1rem; font-size: 0.9rem; font-weight: 800; background: linear-gradient(135deg, #0284c7, #0369a1); border: none; border-radius: 12px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem; box-shadow: 0 6px 18px rgba(2, 132, 199, 0.3);">
-                    <i class="fa-solid fa-location-dot" style="font-size: 1rem;"></i> 📍 Trigger Mobile GPS Location Popup
+                    <i class="fa-solid fa-location-dot" style="font-size: 1rem;"></i> 📍 Allow Location Access & Trigger Popup
                 </button>
                 <button id="openSettingsBtn" class="btn" style="width: 100%; padding: 0.7rem 1rem; font-size: 0.85rem; font-weight: 800; background: #fff7ed; color: #c2410c; border: 1.5px solid #ffedd5; border-radius: 12px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;">
                     <i class="fa-solid fa-gear" style="font-size: 1rem;"></i> How to Unblock Permission in Mobile Settings
@@ -312,7 +316,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const settingsModal = document.getElementById("settingsModal");
     const closeModalBtn = document.getElementById("closeModalBtn");
 
-    // Base Garages Dataset with GPS coordinates
+    // Base Garages Dataset
     const baseGarages = [
         {
             name: "Bosch Authorized Car Service Center",
@@ -388,9 +392,8 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     ];
 
-    // Calculate real distance using Haversine formula
     function calculateDistance(lat1, lon1, lat2, lon2) {
-        const R = 6371; // Earth radius in km
+        const R = 6371;
         const dLat = (lat2 - lat1) * Math.PI / 180;
         const dLon = (lon2 - lon1) * Math.PI / 180;
         const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
@@ -403,7 +406,6 @@ document.addEventListener("DOMContentLoaded", function() {
     function renderGarages(userLat, userLng) {
         garagesList.innerHTML = "";
 
-        // Process list with real GPS coordinates
         let processed = baseGarages.map(g => {
             let distVal = g.baseDist;
             let googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(g.name + ' ' + g.address)}`;
@@ -418,7 +420,6 @@ document.addEventListener("DOMContentLoaded", function() {
             return { ...g, computedDist: distVal, navUrl: googleMapsUrl };
         });
 
-        // Sort by distance from user's GPS
         processed.sort((a, b) => a.computedDist - b.computedDist);
         
         processed.forEach(garage => {
@@ -465,17 +466,46 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+    // IP Geolocation Fallback Service
+    function fetchIpLocationFallback() {
+        fetch("https://ipapi.co/json/")
+            .then(res => res.json())
+            .then(data => {
+                if (data.latitude && data.longitude) {
+                    const lat = data.latitude.toFixed(4);
+                    const lng = data.longitude.toFixed(4);
+                    const city = data.city || 'Your Area';
+
+                    locationStatusBox.style.background = "#ecfdf5";
+                    locationStatusBox.style.borderColor = "#a7f3d0";
+                    locationStatusText.style.color = "#065f46";
+                    locationStatusText.innerHTML = `<i class="fa-solid fa-circle-check" style="color: #10b981; font-size: 1.2rem;"></i> Location Acquired (${city}): ${lat}° N, ${lng}° E`;
+                    locationSubText.style.color = "#047857";
+                    locationSubText.innerHTML = "Found nearby garages sorted by location. Tap <strong>Directions</strong> for Google Maps navigation.";
+                    gpsActionArea.style.display = "none";
+
+                    masterGoogleMapsBtn.href = `https://www.google.com/maps/search/car+garage+and+service+center+near+me/@${lat},${lng},14z`;
+
+                    renderGarages(lat, lng);
+                } else {
+                    renderGarages(null, null);
+                }
+            })
+            .catch(() => {
+                renderGarages(null, null);
+            });
+    }
+
     function triggerHardwareGps() {
         locationPromptModal.style.display = "none";
         locationStatusBox.style.background = "#f0f9ff";
         locationStatusBox.style.borderColor = "#bae6fd";
         locationStatusText.style.color = "#0369a1";
-        locationStatusText.innerHTML = `<i class="fa-solid fa-satellite-dish fa-spin" style="font-size: 1.2rem; color: #0284c7;"></i> Activating Mobile GPS & Fetching Coordinates...`;
+        locationStatusText.innerHTML = `<i class="fa-solid fa-satellite-dish fa-spin" style="font-size: 1.2rem; color: #0284c7;"></i> Activating Mobile GPS & Fetching Location...`;
         locationSubText.innerHTML = "Please tap <strong>Allow</strong> on your mobile browser popup to activate GPS.";
         gpsActionArea.style.display = "none";
 
         if ("geolocation" in navigator) {
-            // Hardware GPS Activation options
             navigator.geolocation.getCurrentPosition(
                 function(position) {
                     const lat = position.coords.latitude.toFixed(4);
@@ -486,7 +516,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     locationStatusText.style.color = "#065f46";
                     locationStatusText.innerHTML = `<i class="fa-solid fa-circle-check" style="color: #10b981; font-size: 1.2rem;"></i> Mobile GPS Active: ${lat}° N, ${lng}° E`;
                     locationSubText.style.color = "#047857";
-                    locationSubText.innerHTML = "Found nearby garages sorted by live satellite distance. Tap <strong>Directions</strong> for Google Maps turn-by-turn navigation.";
+                    locationSubText.innerHTML = "Sorted by exact coordinates. Tap any garage for direct Google Maps turn-by-turn navigation.";
                     gpsActionArea.style.display = "none";
 
                     masterGoogleMapsBtn.href = `https://www.google.com/maps/search/car+garage+and+service+center+near+me/@${lat},${lng},14z`;
@@ -494,45 +524,37 @@ document.addEventListener("DOMContentLoaded", function() {
                     renderGarages(lat, lng);
                 },
                 function(error) {
-                    locationStatusBox.style.background = "#fff7ed";
-                    locationStatusBox.style.borderColor = "#ffedd5";
-                    locationStatusText.style.color = "#c2410c";
-                    locationStatusText.innerHTML = `<i class="fa-solid fa-location-slash" style="color: #f97316; font-size: 1.2rem;"></i> Mobile GPS Permission Required`;
-                    locationSubText.style.color = "#9a3412";
-                    locationSubText.innerHTML = "GPS access is off or blocked in mobile settings. Tap below to trigger permission popup or unblock in settings.";
+                    // Try IP Geolocation Fallback if Browser Geolocation is blocked/denied
+                    fetchIpLocationFallback();
                     gpsActionArea.style.display = "flex";
-
-                    masterGoogleMapsBtn.href = "https://www.google.com/maps/search/car+garage+and+service+center+near+me";
-
-                    renderGarages(null, null);
                 },
                 {
-                    enableHighAccuracy: true, // Forces Hardware GPS activation on Mobile
-                    timeout: 15000,           // 15 seconds max for satellite fix
-                    maximumAge: 0             // Fresh coordinates
+                    enableHighAccuracy: true,
+                    timeout: 10000,
+                    maximumAge: 0
                 }
             );
         } else {
-            renderGarages(null, null);
+            fetchIpLocationFallback();
         }
     }
 
-    // Check navigator.permissions API if available
+    // Attempt direct permission query
     if (navigator.permissions && navigator.permissions.query) {
         navigator.permissions.query({ name: 'geolocation' }).then(function(result) {
             if (result.state === 'granted') {
                 triggerHardwareGps();
             } else {
                 locationPromptModal.style.display = "flex";
-                renderGarages(null, null);
+                triggerHardwareGps();
             }
         }).catch(function() {
             locationPromptModal.style.display = "flex";
-            renderGarages(null, null);
+            triggerHardwareGps();
         });
     } else {
         locationPromptModal.style.display = "flex";
-        renderGarages(null, null);
+        triggerHardwareGps();
     }
 
     // Modal Button Listeners
@@ -542,6 +564,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     modalSkipGpsBtn.addEventListener("click", function() {
         locationPromptModal.style.display = "none";
+        fetchIpLocationFallback();
     });
 
     // Page Action Buttons
