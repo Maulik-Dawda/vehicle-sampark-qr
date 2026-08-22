@@ -872,15 +872,15 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                 </h1>
 
                 <p class="hero-subtitle">
-                    A simple scan lets anyone contact you instantly. Connect via secure IVR Call Relay (07971123254) if your vehicle needs attention — without revealing your personal phone number.
+                    A simple scan lets anyone contact you instantly. Connect via secure IVR Call Relay (7971123254) if your vehicle needs attention — without revealing your personal phone number.
                 </p>
 
                 <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
                     <a href="#contact" class="btn btn-primary btn-glow btn-hero-pulse" style="padding: 1.1rem 2rem; font-size: 1.05rem; border-radius: var(--radius-lg); font-weight: 700;">
                         <i class="fa-solid fa-phone-volume"></i> Get Smart QR Tag Now
                     </a>
-                    <a href="tel:07971123254" class="btn btn-secondary" style="padding: 1.1rem 2rem; font-size: 1.05rem; color: #047857; border-color: #a7f3d0; border-radius: var(--radius-lg); font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
-                        <i class="fa-solid fa-headset" style="font-size: 1.2rem; color: #10b981;"></i> IVR Line 07971123254
+                    <a href="tel:7971123254" class="btn btn-secondary" style="padding: 1.1rem 2rem; font-size: 1.05rem; color: #047857; border-color: #a7f3d0; border-radius: var(--radius-lg); font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
+                        <i class="fa-solid fa-headset" style="font-size: 1.2rem; color: #10b981;"></i> IVR Line 7971123254
                     </a>
                 </div>
 
@@ -942,7 +942,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                                 <i class="fa-solid fa-phone-volume"></i> Call Owner
                             </span>
                             <span class="badge" style="background: #059669; color: #ffffff; padding: 4px 10px;">
-                                <i class="fa-solid fa-headset"></i> IVR 07971123254
+                                <i class="fa-solid fa-headset"></i> IVR 7971123254
                             </span>
                         </div>
                     </div>
@@ -955,14 +955,14 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
     <div class="ticker-wrap">
         <div class="ticker-move">
             <div class="ticker-item"><i class="fa-solid fa-shield-halved"></i> 100% Privacy Guarded - No Mobile Numbers Revealed</div>
-            <div class="ticker-item"><i class="fa-solid fa-bolt"></i> Instant Call & Secure IVR Relay (07971123254)</div>
+            <div class="ticker-item"><i class="fa-solid fa-bolt"></i> Instant Call & Secure IVR Relay (7971123254)</div>
             <div class="ticker-item"><i class="fa-solid fa-car-burst"></i> Avoid Scratching, Vandalism & Unexpected Towing Fines</div>
             <div class="ticker-item"><i class="fa-solid fa-soap"></i> Integrated Doorstep Car Cleaning & Nearby Garage Support</div>
             <div class="ticker-item"><i class="fa-solid fa-qrcode"></i> Zero App Download - Scans with Any Phone Camera or Google Lens</div>
 
             <!-- Duplicate for Seamless Infinite Loop -->
             <div class="ticker-item"><i class="fa-solid fa-shield-halved"></i> 100% Privacy Guarded - No Mobile Numbers Revealed</div>
-            <div class="ticker-item"><i class="fa-solid fa-bolt"></i> Instant Call & Secure IVR Relay (07971123254)</div>
+            <div class="ticker-item"><i class="fa-solid fa-bolt"></i> Instant Call & Secure IVR Relay (7971123254)</div>
             <div class="ticker-item"><i class="fa-solid fa-car-burst"></i> Avoid Scratching, Vandalism & Unexpected Towing Fines</div>
             <div class="ticker-item"><i class="fa-solid fa-soap"></i> Integrated Doorstep Car Cleaning & Nearby Garage Support</div>
             <div class="ticker-item"><i class="fa-solid fa-qrcode"></i> Zero App Download - Scans with Any Phone Camera or Google Lens</div>
@@ -994,7 +994,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                     </div>
                     <h3 style="font-size: 1.25rem; font-weight: 800; color: #0f172a; margin-bottom: 0.5rem;">2. Connect Instantly</h3>
                     <p style="color: var(--text-muted); font-size: 0.92rem; line-height: 1.65;">
-                        Connect with the car owner via secure IVR Call Relay (07971123254) without exposing personal phone numbers.
+                        Connect with the car owner via secure IVR Call Relay (7971123254) without exposing personal phone numbers.
                     </p>
                 </div>
 
@@ -1018,7 +1018,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                 <span class="section-tag" style="color: #f97316;">100% IVR Number Privacy Masking</span>
                 <h2 class="section-title" style="color: #ffffff;">How Vehicle Sampark Connects You Safely</h2>
                 <p style="color: #94a3b8; font-size: 1.02rem; margin-top: 0.5rem;">
-                    Bystanders connect with vehicle owners through our official IVR gateway (07971123254) — keeping your private phone number 100% hidden!
+                    Bystanders connect with vehicle owners through our official IVR gateway (7971123254) — keeping your private phone number 100% hidden!
                 </p>
             </div>
 
@@ -1064,7 +1064,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                     </div>
                     <h3 style="font-size: 1.2rem; font-weight: 800; color: #ffffff; margin-bottom: 0.5rem;">Company IVR Masking</h3>
                     <p style="color: #94a3b8; font-size: 0.88rem; line-height: 1.6;">
-                        Connected via Vehicle Sampark's official IVR 07971123254 line. <strong style="color: #10b981;">No personal phone number is ever exposed to the bystander.</strong>
+                        Connected via Vehicle Sampark's official IVR 7971123254 line. <strong style="color: #10b981;">No personal phone number is ever exposed to the bystander.</strong>
                     </p>
                 </div>
 
@@ -1217,7 +1217,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                         </li>
                         <li style="display: flex; align-items: flex-start; gap: 0.65rem; color: #064e3b; font-size: 0.92rem; font-weight: 700;">
                             <i class="fa-solid fa-check" style="color: #10b981; font-size: 1.1rem; margin-top: 2px;"></i>
-                            <span>Secure IVR Call Masking & Direct Relay via 07971123254.</span>
+                            <span>Secure IVR Call Masking & Direct Relay via 7971123254.</span>
                         </li>
                         <li style="display: flex; align-items: flex-start; gap: 0.65rem; color: #064e3b; font-size: 0.92rem; font-weight: 700;">
                             <i class="fa-solid fa-check" style="color: #10b981; font-size: 1.1rem; margin-top: 2px;"></i>
@@ -1247,7 +1247,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                     <i class="fa-solid fa-chevron-down faq-icon"></i>
                 </div>
                 <div class="faq-answer">
-                    When someone scans your Vehicle Sampark tag, they see direct "Call Owner via IVR" options. Calls are routed through our BulkSMSPlans IVR gateway (07971123254), so your real phone number and identity are never exposed on the physical sticker.
+                    When someone scans your Vehicle Sampark tag, they see direct "Call Owner via IVR" options. Calls are routed through our BulkSMSPlans IVR gateway (7971123254), so your real phone number and identity are never exposed on the physical sticker.
                 </div>
             </div>
 
@@ -1283,11 +1283,11 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
 
             <div class="faq-item faq-card-modern">
                 <div class="faq-question" onclick="toggleFaq(this)">
-                    <span>How does the IVR Call Relay (07971123254) work?</span>
+                    <span>How does the IVR Call Relay (7971123254) work?</span>
                     <i class="fa-solid fa-chevron-down faq-icon"></i>
                 </div>
                 <div class="faq-answer">
-                    When a bystander initiates a call, our BulkSMSPlans IVR gateway (07971123254) dynamically connects the caller to your registered mobile number while masking both phone numbers. Your privacy is 100% protected!
+                    When a bystander initiates a call, our BulkSMSPlans IVR gateway (7971123254) dynamically connects the caller to your registered mobile number while masking both phone numbers. Your privacy is 100% protected!
                 </div>
             </div>
         </div>
@@ -1328,7 +1328,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
 
                             <!-- VISUAL CHANNEL 1: DIRECT VOICE CALL -->
                             <div style="margin-bottom: 1.35rem;">
-                                <a href="tel:07971123254" class="contact-channel-box" style="display: block; text-decoration: none; background: linear-gradient(135deg, #059669 0%, #10b981 100%); color: #ffffff; padding: 1.25rem 1.4rem; border-radius: 16px; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3); transition: all 0.3s ease; border: 1px solid rgba(255, 255, 255, 0.2); position: relative; overflow: hidden;">
+                                <a href="tel:7971123254" class="contact-channel-box" style="display: block; text-decoration: none; background: linear-gradient(135deg, #059669 0%, #10b981 100%); color: #ffffff; padding: 1.25rem 1.4rem; border-radius: 16px; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3); transition: all 0.3s ease; border: 1px solid rgba(255, 255, 255, 0.2); position: relative; overflow: hidden;">
                                     <div style="display: flex; align-items: center; justify-content: space-between; gap: 1rem;">
                                         <div style="display: flex; align-items: center; gap: 1rem;">
                                             <div style="width: 52px; height: 52px; border-radius: 14px; background: rgba(255, 255, 255, 0.2); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; backdrop-filter: blur(4px); flex-shrink: 0; border: 1px solid rgba(255,255,255,0.3);">
@@ -1339,7 +1339,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                                                     <i class="fa-solid fa-bolt" style="color: #fef08a;"></i> Instant IVR Call Line
                                                 </div>
                                                 <div style="font-family: var(--font-heading); font-size: 1.25rem; font-weight: 800; letter-spacing: 0.2px;">
-                                                    07971123254
+                                                    7971123254
                                                 </div>
                                             </div>
                                         </div>
@@ -1352,7 +1352,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
 
                             <!-- VISUAL CHANNEL 2: OFFICIAL IVR MASKING LINE -->
                             <div style="margin-bottom: 1.75rem;">
-                                <a href="tel:07971123254" class="contact-channel-box" style="display: block; text-decoration: none; background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color: #ffffff; padding: 1.25rem 1.4rem; border-radius: 16px; box-shadow: 0 10px 25px rgba(2, 132, 199, 0.3); transition: all 0.3s ease; border: 1px solid rgba(255, 255, 255, 0.2); position: relative; overflow: hidden;">
+                                <a href="tel:7971123254" class="contact-channel-box" style="display: block; text-decoration: none; background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color: #ffffff; padding: 1.25rem 1.4rem; border-radius: 16px; box-shadow: 0 10px 25px rgba(2, 132, 199, 0.3); transition: all 0.3s ease; border: 1px solid rgba(255, 255, 255, 0.2); position: relative; overflow: hidden;">
                                     <div style="display: flex; align-items: center; justify-content: space-between; gap: 1rem;">
                                         <div style="display: flex; align-items: center; gap: 1rem;">
                                             <div style="width: 52px; height: 52px; border-radius: 14px; background: rgba(255, 255, 255, 0.2); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; backdrop-filter: blur(4px); flex-shrink: 0; border: 1px solid rgba(255,255,255,0.3);">
@@ -1363,7 +1363,7 @@ $pageTitle = 'Vehicle Sampark | Smart Vehicle QR & Emergency Safety System';
                                                     <i class="fa-solid fa-shield-halved" style="color: #7dd3fc;"></i> BulkSMSPlans IVR Hotline
                                                 </div>
                                                 <div style="font-family: var(--font-heading); font-size: 1.18rem; font-weight: 800;">
-                                                    07971123254
+                                                    7971123254
                                                 </div>
                                             </div>
                                         </div>

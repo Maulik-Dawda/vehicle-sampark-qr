@@ -210,7 +210,7 @@ class ApiController {
         $params = [
             'api_id'          => 'APIvRpMDIEc151987',
             'api_password'    => 'fetRZg6V',
-            'ivr_number'      => '07971123254',
+            'ivr_number'      => '7971123254',
             'dial'            => $cleanOwnerMobile,
             'receiver_number' => $cleanUserDialNumber,
             'agent_number'    => $cleanOwnerMobile,
@@ -231,7 +231,7 @@ class ApiController {
         $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
 
-        $this->callLogModel->logCall($codeNumber, $cleanUserDialNumber, $cleanOwnerMobile, '07971123254', $response);
+        $this->callLogModel->logCall($codeNumber, $cleanUserDialNumber, $cleanOwnerMobile, '7971123254', $response);
 
         echo json_encode([
             'success' => true,

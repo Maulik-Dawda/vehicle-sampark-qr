@@ -18,7 +18,7 @@ $jsonInput = json_decode($rawInput, true) ?? [];
 $params = array_merge($_GET, $_POST, $jsonInput);
 
 $callerNumber = sanitize($params['caller_number'] ?? $params['dial'] ?? $params['from'] ?? $params['caller'] ?? $params['caller_phone'] ?? $params['mobile'] ?? $params['Phone'] ?? $params['CustomerNumber'] ?? $params['CallerNumber'] ?? '');
-$ivrNumber    = sanitize($params['ivr_number'] ?? $params['to'] ?? $params['VirtualNumber'] ?? $params['DIDNumber'] ?? '07971123254');
+$ivrNumber    = sanitize($params['ivr_number'] ?? $params['to'] ?? $params['VirtualNumber'] ?? $params['DIDNumber'] ?? '7971123254');
 $visitorIp    = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
 
 $callLogModel = new CallLogModel($pdo);

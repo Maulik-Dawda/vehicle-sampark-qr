@@ -62,19 +62,19 @@ include __DIR__ . '/../layouts/header.php';
                         <i class="fa-solid fa-circle-check" style="color: #10b981; font-size: 1.4rem;"></i> Inbound Masked Call Initiated!
                     </div>
                     <p style="font-size: 0.88rem; color: #047857; margin-bottom: 1rem; line-height: 1.5;">
-                        Your call request has been processed. The IVR Hotline (<strong>07971123254</strong>) is now routing the call to the vehicle owner securely.
+                        Your call request has been processed. The IVR Hotline (<strong>7971123254</strong>) is now routing the call to the vehicle owner securely.
                     </p>
 
                     <div style="background: #ffffff; padding: 0.85rem 1rem; border-radius: 10px; border: 1px solid #bbf7d0; margin-bottom: 1rem;">
                         <div style="font-size: 0.82rem; color: #64748b; margin-bottom: 0.2rem;">Connected Agent (Vehicle Owner):</div>
                         <div style="font-size: 1.05rem; font-weight: 800; color: #0284c7; font-family: monospace;">
-                            <i class="fa-solid fa-user-shield" style="color: #0284c7;"></i> Connected via Inbound IVR (07971123254)
+                            <i class="fa-solid fa-user-shield" style="color: #0284c7;"></i> Connected via Inbound IVR (7971123254)
                         </div>
                     </div>
 
                     <div style="display: flex; flex-direction: column; gap: 0.65rem; margin-top: 1rem;">
-                        <a href="tel:07971123254" class="btn btn-primary" style="font-size: 0.95rem; font-weight: 700; background: linear-gradient(135deg, #10b981, #059669); text-decoration: none; justify-content: center; padding: 0.9rem;">
-                            <i class="fa-solid fa-phone"></i> Dial Inbound IVR Line (07971123254) Directly
+                        <a href="tel:7971123254" class="btn btn-primary" style="font-size: 0.95rem; font-weight: 700; background: linear-gradient(135deg, #10b981, #059669); text-decoration: none; justify-content: center; padding: 0.9rem;">
+                            <i class="fa-solid fa-phone"></i> Dial Inbound IVR Line (7971123254) Directly
                         </a>
                         <a href="scan.php?code=<?= urlencode($codeNumber) ?>" class="btn btn-outline" style="font-size: 0.88rem; font-weight: 700; color: #047857; border-color: #a7f3d0; text-decoration: none; justify-content: center;">
                             <i class="fa-solid fa-rotate-left"></i> Make Another Call Request
@@ -93,8 +93,8 @@ include __DIR__ . '/../layouts/header.php';
 
                     <!-- Option 2: Direct Dial Inbound IVR Line -->
                     <div style="text-align: center; margin-top: 0.5rem;">
-                        <a href="tel:07971123254" style="font-size: 0.9rem; font-weight: 700; color: #0284c7; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem;">
-                            <i class="fa-solid fa-square-phone" style="font-size: 1.1rem;"></i> Direct Dial Inbound IVR Line (07971123254)
+                        <a href="tel:7971123254" style="font-size: 0.9rem; font-weight: 700; color: #0284c7; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem;">
+                            <i class="fa-solid fa-square-phone" style="font-size: 1.1rem;"></i> Direct Dial Inbound IVR Line (7971123254)
                         </a>
                     </div>
                 </div>
@@ -102,7 +102,7 @@ include __DIR__ . '/../layouts/header.php';
 
             <div style="background: #ecfdf5; padding: 0.85rem; border-radius: var(--radius-md); border: 1px solid #a7f3d0; text-align: center;">
                 <p style="font-size: 0.82rem; color: #047857; margin: 0; line-height: 1.45; font-weight: 600;">
-                    <i class="fa-solid fa-shield-halved" style="color: var(--primary);"></i> <strong>100% Inbound Masked Calling Active:</strong> Direct Dial-in via <strong>07971123254</strong>. Mobile numbers are protected and never revealed.
+                    <i class="fa-solid fa-shield-halved" style="color: var(--primary);"></i> <strong>100% Inbound Masked Calling Active:</strong> Direct Dial-in via <strong>7971123254</strong>. Mobile numbers are protected and never revealed.
                 </p>
             </div>
         </div>

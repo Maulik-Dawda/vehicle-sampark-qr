@@ -56,14 +56,14 @@ class ScanController {
             }
 
             // Log Call to Database
-            $this->callLogModel->logCall($codeNumber, $cleanUserNumber, $cleanOwnerMobile, '07971123254', 'BulkSMSPlans Inbound IVR Call Request Triggered');
+            $this->callLogModel->logCall($codeNumber, $cleanUserNumber, $cleanOwnerMobile, '7971123254', 'BulkSMSPlans Inbound IVR Call Request Triggered');
 
-            // Trigger BulkSMSPlans IVR API with 07971123254
+            // Trigger BulkSMSPlans IVR API with 7971123254
             $apiUrl = 'https://bulksmsplans.com/api/ivr/makeACall';
             $params = [
                 'api_id'          => 'APIvRpMDIEc151987',
                 'api_password'    => 'fetRZg6V',
-                'ivr_number'      => '07971123254',
+                'ivr_number'      => '7971123254',
                 'dial'            => $cleanOwnerMobile,
                 'receiver_number' => $cleanUserNumber,
                 'agent_number'    => $cleanOwnerMobile,
