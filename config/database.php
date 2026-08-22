@@ -113,6 +113,16 @@ try {
                 `status` VARCHAR(20) DEFAULT 'active',
                 `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+            CREATE TABLE IF NOT EXISTS `services` (
+                `id` INT AUTO_INCREMENT PRIMARY KEY,
+                `service_id` INT NOT NULL UNIQUE,
+                `service_name` VARCHAR(255) NOT NULL,
+                `category` VARCHAR(100) NOT NULL,
+                `target_role` VARCHAR(20) NOT NULL DEFAULT 'user',
+                `description` TEXT DEFAULT NULL,
+                `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
         ");
     } else {
         $pdo->exec("
@@ -126,7 +136,7 @@ try {
                 two_factor_enabled INTEGER DEFAULT 0,
                 reset_token TEXT,
                 reset_token_expires DATETIME,
-                last_login DATETIME,
+                last_login TEXT,
                 created_at DATETIME DEFAULT CURRENT_TIMESTAMP
             );
 
@@ -180,10 +190,20 @@ try {
                 status TEXT DEFAULT 'active',
                 created_at DATETIME DEFAULT CURRENT_TIMESTAMP
             );
+
+            CREATE TABLE IF NOT EXISTS services (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                service_id INTEGER UNIQUE NOT NULL,
+                service_name TEXT NOT NULL,
+                category TEXT NOT NULL,
+                target_role TEXT DEFAULT 'user',
+                description TEXT,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            );
         ");
     }
 
-    // Seed default Admin Account if missing (Username: admin | Password: admin123)
+    // Seed default Admin Account if missing
     $chkAdmin = $pdo->prepare("SELECT * FROM admins WHERE username = ?");
     $chkAdmin->execute(['admin']);
     $existingAdmin = $chkAdmin->fetch();
@@ -208,7 +228,7 @@ try {
         $batchId = 1;
     }
 
-    // Restore / Ensure QRC-853B-32D7 exists as registered submitted QR code (if missing)
+    // Restore / Ensure QRC-853B-32D7 exists as registered submitted QR code
     $chkQr = $pdo->prepare("SELECT id, status FROM qr_codes WHERE code_number = ?");
     $chkQr->execute(['QRC-853B-32D7']);
     $qrRec = $chkQr->fetch();
@@ -242,6 +262,37 @@ try {
         $pdo->prepare("INSERT INTO submissions (qr_code_id, code_number, response_data, submitter_ip) VALUES (?, 'QRC-853B-32D7', ?, '127.0.0.1')")
             ->execute([$qrId, $sampleResp]);
     }
+
+    // Seed default Services dataset if empty
+    $chkServices = $pdo->query("SELECT COUNT(*) FROM services")->fetchColumn();
+    if ($chkServices == 0) {
+        $defaultServices = [
+            // User (Visitor) Services (target_role: 'user')
+            [1, 'Vehicle Blocking Driveway / Passage', 'safety_alert', 'user', 'Notify owner that vehicle is blocking driveway, gate, or passage.'],
+            [2, 'Vehicle Lights ON / Battery Draining', 'safety_alert', 'user', 'Alert owner that headlights or hazard warning lights are left ON.'],
+            [3, 'Key or Valuables Left Inside', 'safety_alert', 'user', 'Inform owner that keys, wallet, or valuables are visible inside vehicle.'],
+            [4, 'Window or Door Unlocked / Open', 'safety_alert', 'user', 'Warn owner that window glass or vehicle door is left open/unlocked.'],
+            [5, 'Flat Tyre / Low Air Pressure', 'safety_alert', 'user', 'Notify owner about flat tyre or low air pressure on one of the wheels.'],
+            [6, 'Oil or Liquid Leakage Noticed', 'safety_alert', 'user', 'Alert owner about fluid, oil, or coolant leaking underneath vehicle.'],
+            [7, 'Towing Warning / Invalid Parking', 'safety_alert', 'user', 'Warn owner about traffic police towing or no-parking zone alert.'],
+            [8, 'Emergency Breakdown / Assistance', 'safety_alert', 'user', 'Urgent message requesting vehicle owner for immediate breakdown assistance.'],
+            [9, 'Inbound Masked Call to Owner', 'calling_service', 'user', 'Connect directly to vehicle owner via Inbound Masked IVR Hotline line 7971123254.'],
+            [10, 'Search Nearest Garages & Service Centers', 'garage_location', 'user', 'Locate nearby emergency repair shops, multi-brand workshops, and authorized service centers.'],
+
+            // Owner Control Services (target_role: 'owner')
+            [101, 'View Call & Alert History', 'owner_control', 'owner', 'Check history of all inbound IVR calls and safety alerts sent to your vehicle QR tag.'],
+            [102, 'Update Primary, Alternate & Emergency Contacts', 'owner_control', 'owner', 'Update your primary, alternate, or emergency contacts for receiving calls.'],
+            [103, 'Temporary Mute / Pause Public Alerts', 'owner_control', 'owner', 'Temporarily pause public call and WhatsApp notifications for your vehicle.'],
+            [104, 'Download / Request Replacement QR Tag', 'owner_control', 'owner', 'Get a print-ready PDF or high-resolution PNG image of your vehicle QR tag.'],
+            [105, 'View Vehicle QR Scan Analytics', 'owner_control', 'owner', 'Check total scans and visitor activity on your registered vehicle QR code.']
+        ];
+
+        $insService = $pdo->prepare("INSERT INTO services (service_id, service_name, category, target_role, description) VALUES (?, ?, ?, ?, ?)");
+        foreach ($defaultServices as $srv) {
+            $insService->execute($srv);
+        }
+    }
+
 } catch (Throwable $e) {
     // Migration exception handler
 }
