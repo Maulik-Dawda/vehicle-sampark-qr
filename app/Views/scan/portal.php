@@ -4,7 +4,7 @@ include __DIR__ . '/../layouts/header.php';
 ?>
 
 <style>
-/* PREVENT MOBILE VIRTUAL KEYBOARD OVERLAP */
+/* PREVENT MOBILE VIRTUAL KEYBOARD OVERLAP & FORCE TOP SCROLL */
 .public-form-container {
     max-width: 580px;
     margin: 1rem auto 4rem auto;
@@ -15,7 +15,7 @@ include __DIR__ . '/../layouts/header.php';
 
 @media (max-width: 640px) {
     .public-form-container {
-        padding-bottom: 70vh !important; /* Huge bottom space so any input can scroll to top of screen */
+        padding-bottom: 85vh !important; /* Huge bottom space so any input can scroll right to the top of screen */
     }
 }
 
@@ -31,15 +31,15 @@ include __DIR__ . '/../layouts/header.php';
 
 /* ACTIVE FOCUS HIGHLIGHT FOR MOBILE INPUTS */
 .form-group {
-    padding: 0.4rem;
-    border-radius: 12px;
+    padding: 0.5rem;
+    border-radius: 14px;
     transition: all 0.25s ease;
 }
 
 .form-group.field-focused {
     background: #f0f9ff !important;
     border: 2px solid #0284c7 !important;
-    box-shadow: 0 8px 25px rgba(2, 132, 199, 0.2) !important;
+    box-shadow: 0 8px 25px rgba(2, 132, 199, 0.25) !important;
 }
 
 .form-group.field-focused label {
@@ -251,53 +251,59 @@ include __DIR__ . '/../layouts/header.php';
 </div>
 
 <script>
-// ADVANCED MULTI-STAGE SCROLL POSITIONING FOR MOBILE KEYBOARDS
+// UNCONDITIONAL DIRECT-TO-TOP MOBILE FIELD SCROLL ENGINE
 document.addEventListener("DOMContentLoaded", function() {
     const formContainer = document.getElementById("publicFormContainer");
     const formGroups = document.querySelectorAll("#ownerRegisterForm .form-group");
     const inputs = document.querySelectorAll("#ownerRegisterForm input");
 
-    function executePositionScroll(inputEl) {
+    function forceScrollToTop(inputEl) {
         if (!inputEl) return;
+        
+        const parentGroup = inputEl.closest(".form-group") || inputEl;
         
         // Remove previous field highlights
         formGroups.forEach(fg => fg.classList.remove("field-focused"));
-        
-        const parentGroup = inputEl.closest(".form-group");
-        if (parentGroup) {
+        if (parentGroup.classList) {
             parentGroup.classList.add("field-focused");
         }
 
-        // Expand bottom container padding to 75vh so any input can scroll near the top of the mobile screen
+        // Expand bottom container padding to 85vh so any input can scroll right to top of screen
         if (formContainer) {
-            formContainer.style.paddingBottom = "75vh";
+            formContainer.style.paddingBottom = "85vh";
         }
 
-        // Calculate absolute top offset relative to current page scroll
-        const rect = inputEl.getBoundingClientRect();
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const targetY = rect.top + scrollTop - 90; // 90px top clearance from top header
+        // Calculate absolute top position of active form group relative to page
+        const rect = parentGroup.getBoundingClientRect();
+        const currentScroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+        const exactTopY = Math.max(0, rect.top + currentScroll - 10); // 10px from extreme top edge of screen
 
-        // Staggered scroll triggers to adjust as keyboard slides up
-        const scrollDelays = [50, 200, 450, 700];
-        scrollDelays.forEach(function(delay) {
+        // Staggered scroll triggers to lock input at very top as keyboard slides up
+        const intervals = [0, 50, 150, 300, 500, 750, 1000];
+        intervals.forEach(function(ms) {
             setTimeout(function() {
                 window.scrollTo({
-                    top: targetY,
-                    behavior: "smooth"
+                    top: exactTopY,
+                    behavior: ms > 0 ? "smooth" : "auto"
                 });
-            }, delay);
+                document.documentElement.scrollTop = exactTopY;
+                document.body.scrollTop = exactTopY;
+            }, ms);
         });
     }
 
     inputs.forEach(function(input) {
         input.addEventListener("focus", function() {
-            executePositionScroll(input);
+            forceScrollToTop(input);
         });
 
         input.addEventListener("click", function() {
-            executePositionScroll(input);
+            forceScrollToTop(input);
         });
+
+        input.addEventListener("touchstart", function() {
+            forceScrollToTop(input);
+        }, { passive: true });
 
         input.addEventListener("blur", function() {
             const parentGroup = input.closest(".form-group");
@@ -321,7 +327,7 @@ document.addEventListener("DOMContentLoaded", function() {
         window.visualViewport.addEventListener("resize", function() {
             const activeEl = document.activeElement;
             if (activeEl && activeEl.tagName === "INPUT") {
-                executePositionScroll(activeEl);
+                forceScrollToTop(activeEl);
             }
         });
     }
