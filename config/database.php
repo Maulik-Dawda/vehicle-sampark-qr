@@ -267,7 +267,7 @@ try {
     $chkServices = $pdo->query("SELECT COUNT(*) FROM services")->fetchColumn();
     if ($chkServices == 0) {
         $defaultServices = [
-            // User (Visitor) Services (target_role: 'user')
+            // User (Visitor) Services (target_role: 'user', service_id 1 - 9)
             [1, 'Vehicle Blocking Driveway / Passage', 'safety_alert', 'user', 'Notify owner that vehicle is blocking driveway, gate, or passage.'],
             [2, 'Vehicle Lights ON / Battery Draining', 'safety_alert', 'user', 'Alert owner that headlights or hazard warning lights are left ON.'],
             [3, 'Key or Valuables Left Inside', 'safety_alert', 'user', 'Inform owner that keys, wallet, or valuables are visible inside vehicle.'],
@@ -277,9 +277,9 @@ try {
             [7, 'Towing Warning / Invalid Parking', 'safety_alert', 'user', 'Warn owner about traffic police towing or no-parking zone alert.'],
             [8, 'Emergency Breakdown / Assistance', 'safety_alert', 'user', 'Urgent message requesting vehicle owner for immediate breakdown assistance.'],
             [9, 'Inbound Masked Call to Owner', 'calling_service', 'user', 'Connect directly to vehicle owner via Inbound Masked IVR Hotline line 7971123254.'],
-            [10, 'Search Nearest Garages & Service Centers', 'garage_location', 'user', 'Locate nearby emergency repair shops, multi-brand workshops, and authorized service centers.'],
 
-            // Owner Control Services (target_role: 'owner')
+            // Owner Services (target_role: 'owner', service_id 10 & 101 - 105)
+            [10, 'Search Nearest Garages & Service Centers', 'garage_location', 'owner', 'Locate nearby emergency repair shops, multi-brand workshops, and authorized service centers.'],
             [101, 'View Call & Alert History', 'owner_control', 'owner', 'Check history of all inbound IVR calls and safety alerts sent to your vehicle QR tag.'],
             [102, 'Update Primary, Alternate & Emergency Contacts', 'owner_control', 'owner', 'Update your primary, alternate, or emergency contacts for receiving calls.'],
             [103, 'Temporary Mute / Pause Public Alerts', 'owner_control', 'owner', 'Temporarily pause public call and WhatsApp notifications for your vehicle.'],
@@ -291,6 +291,9 @@ try {
         foreach ($defaultServices as $srv) {
             $insService->execute($srv);
         }
+    } else {
+        // Ensure service_id = 10 is set to target_role = 'owner'
+        $pdo->exec("UPDATE services SET target_role = 'owner' WHERE service_id = 10");
     }
 
 } catch (Throwable $e) {

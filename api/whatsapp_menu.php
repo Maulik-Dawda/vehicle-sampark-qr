@@ -62,11 +62,15 @@ if (!empty($cleanCheckNumber) && ($cleanCheckNumber === $ownerNumber || $cleanCh
     $isOwner = true;
 }
 
-// Query Services Table based on is_owner boolean expression
-$targetRoles = $isOwner ? ['owner', 'both'] : ['user', 'both'];
-$inClause = implode(',', array_map(function($r) use ($pdo) { return $pdo->quote($r); }, $targetRoles));
+// Query Services Table strictly based on requirement:
+// If is_owner is FALSE (User) -> Show service_id 1 to 9
+// If is_owner is TRUE (Owner) -> Show service_id 10 and 101 to 105
+if ($isOwner) {
+    $stmtServices = $pdo->query("SELECT service_id, service_name, category, target_role, description FROM services WHERE service_id = 10 OR (service_id BETWEEN 101 AND 105) ORDER BY service_id ASC");
+} else {
+    $stmtServices = $pdo->query("SELECT service_id, service_name, category, target_role, description FROM services WHERE service_id BETWEEN 1 AND 9 ORDER BY service_id ASC");
+}
 
-$stmtServices = $pdo->query("SELECT service_id, service_name, category, target_role, description FROM services WHERE target_role IN ($inClause) ORDER BY service_id ASC");
 $servicesList = $stmtServices->fetchAll(PDO::FETCH_ASSOC);
 
 echo json_encode([
